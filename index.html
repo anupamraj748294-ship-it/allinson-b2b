@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALLINSON - B2B Medicine Depot</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: #061e14; display: flex; justify-content: center; }
+    .app-shell { width: 100%; max-width: 430px; background: #f8faf9; min-height: 100vh; position: relative; padding-bottom: 75px; }
+    .header { background: #062c1e; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #c89d3c; }
+    .logo-box { display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, #c89d3c, #916b1e); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; color: #062c1e; }
+    .brand-title { color: #f7e39f; font-weight: bold; font-size: 15px; letter-spacing: 1px; }
+    .brand-sub { font-size: 8px; color: #a7f3d0; }
+    .cart-btn { background: #c89d3c; color: #062c1e; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 900; border: none; cursor: pointer; }
+    .depot-strip { background: #083925; color: #f7e39f; font-size: 10px; padding: 6px 16px; display: flex; justify-content: space-between; }
+    #toastBar { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); background: #062c1e; color: #f7e39f; border: 1px solid #c89d3c; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: bold; z-index: 100; display: none; }
+    .main-body { padding: 12px; }
+    .search-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; margin-bottom: 10px; }
+    .cat-row { display: flex; gap: 6px; margin-bottom: 12px; }
+    .cat-tag { flex: 1; padding: 7px; border-radius: 6px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; background: #fff; color: #062c1e; }
+    .cat-tag.active { background: #062c1e; color: #f7e39f; }
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { background: #fff; border-radius: 10px; padding: 10px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+    .img-box { width: 100%; height: 95px; background: #f8fafc; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; overflow: hidden; }
+    .img-box img { max-height: 85px; max-width: 90%; object-fit: contain; }
+    .badge { font-size: 8px; background: #e0f2fe; color: #0369a1; padding: 2px 4px; border-radius: 4px; font-weight: bold; width: fit-content; }
+    .p-title { font-size: 11px; font-weight: bold; margin-top: 4px; line-height: 1.2; color: #0f172a; height: 28px; overflow: hidden; }
+    .p-pack { font-size: 9px; color: #64748b; }
+    .price-box { margin-top: 6px; background: #f8fafc; padding: 5px; border-radius: 5px; }
+    .rate { font-size: 12px; font-weight: 900; color: #062c1e; }
+    .mrp-strike { font-size: 9px; text-decoration: line-through; color: #94a3b8; }
+    .margin-text { font-size: 8px; color: #15803d; font-weight: bold; }
+    .moq-tag { font-size: 8px; color: #916b1e; text-align: center; margin-top: 6px; font-weight: bold; }
+    .add-cart-btn { width: 100%; background: #062c1e; color: #f7e39f; border: none; padding: 7px 0; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; margin-top: 4px; }
+    .demand-box { background: #fff; border-radius: 10px; padding: 12px; border: 1px dashed #062c1e; margin-top: 14px; }
+    .demand-input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin: 6px 0; }
+    .demand-btn { width: 100%; background: #c89d3c; color: #062c1e; border: none; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
+    .cart-item { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; font-size: 11px; }
+    .checkout-btn { width: 100%; background: #062c1e; color: #f7e39f; padding: 12px; border-radius: 8px; border: none; font-weight: bold; font-size: 12px; cursor: pointer; margin-top: 8px; }
+    .checkout-form { background: #fff; border-radius: 10px; padding: 12px; border: 1px solid #e2e8f0; }
+    .checkout-form label { font-size: 10px; font-weight: bold; color: #062c1e; display: block; margin-top: 8px; }
+    .checkout-form input, .checkout-form select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin-top: 4px; }
+    .footer-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 430px; margin: 0 auto; background: #fff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; padding: 10px 0; z-index: 10; }
+    .nav-item { border: none; background: none; font-size: 11px; font-weight: bold; color: #94a3b8; cursor: pointer; }
+    .nav-item.active { color: #062c1e; }
+  </style>
+</head>
+<body>
+  <div id="toastBar">✓ Notification</div>
+  <div class="app-shell">
+    <div class="header">
+      <div class="logo-box">
+        <div class="logo-icon">A</div>
+        <div>
+          <div class="brand-title">ALLINSON</div>
+          <div class="brand-sub">BIHAR B2B WHOLESALE DEPOT</div>
+        </div>
+      </div>
+      <button class="cart-btn" onclick="showScreen('cart')">Cart (<span id="cartCount">0</span>)</button>
+    </div>
+    <div class="depot-strip">
+      <span>📍 Patna Central Wholesale Hub</span>
+      <span style="color: #a7f3d0;">Verified B2B Store</span>
+    </div>
+    <div class="main-body">
+      <div id="homeScreen">
+        <input type="text" id="searchInput" class="search-input" placeholder="Dava ya brand khojein..." onkeyup="filterItems()">
+        <div class="cat-row">
+          <button class="cat-tag active" id="btnAll" onclick="setCat('All')">All</button>
+          <button class="cat-tag" id="btnAyur" onclick="setCat('Ayurvedic')">Ayurvedic</button>
+          <button class="cat-tag" id="btnHomeo" onclick="setCat('Homeopathy')">Homeopathy</button>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <div style="grid-column: span 2; text-align: center; padding: 20px; font-size: 11px; color: #64748b;">Loading products...</div>
+        </div>
+        <div class="demand-box">
+          <div style="font-size: 11px; font-weight: bold; color: #062c1e;">📦 Jo dava nahi mil rahi, yahan likhein:</div>
+          <input type="text" id="demandText" class="demand-input" placeholder="Dava ka naam, company aur quantity...">
+          <input type="tel" id="demandPhone" class="demand-input" placeholder="Aapka Mobile No...">
+          <button class="demand-btn" onclick="submitDemand()">Demand Patna Depot Bhejein</button>
+          <div id="demandMsg" style="font-size: 9px; color: #15803d; font-weight: bold; margin-top: 4px;"></div>
+        </div>
+      </div>
+      <div id="cartScreen" style="display: none;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h3 style="font-size: 13px;">Wholesale Cart</h3>
+          <button onclick="showScreen('home')" style="border: none; background: none; color: #062c1e; font-weight: bold; cursor: pointer;">← Back</button>
+        </div>
+        <div id="cartItemsList"></div>
+        <div id="cartSummary" style="display: none;">
+          <div style="background: #e6f4ea; padding: 8px; border-radius: 6px; margin: 10px 0; font-size: 11px; color: #137333; font-weight: bold;">
+            Kul Bachat (Margin): ₹<span id="savingsAmount">0</span>
+          </div>
+          <div style="font-size: 13px; font-weight: 900; margin-bottom: 4px; color: #062c1e;">Payable Bill: ₹<span id="payableAmount">0</span></div>
+          <button class="checkout-btn" onclick="showScreen('checkout')">Proceed to B2B Billing & Delivery →</button>
+        </div>
+      </div>
+      <div id="checkoutScreen" style="display: none;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <h3 style="font-size: 13px; color: #062c1e;">B2B Billing & Delivery Address</h3>
+          <button onclick="showScreen('cart')" style="border: none; background: none; color: #062c1e; font-weight: bold; cursor: pointer;">← Back</button>
+        </div>
+        <div class="checkout-form">
+          <label>Dukan / Clinic Ka Naam *</label>
+          <input type="text" id="custShop" placeholder="e.g. Maa Tara Medical Hall">
+          <label>Proprietor Ka Naam *</label>
+          <input type="text" id="custName" placeholder="Aapka pura naam">
+          <label>Mobile Number (Order Update Ke Liye) *</label>
+          <input type="tel" id="custPhone" placeholder="10 Digit Mobile No">
+          <label>Bihar Ka Zila (District) *</label>
+          <select id="custCity">
+            <option value="Patna">Patna Central Depot</option>
+            <option value="Muzaffarpur">Muzaffarpur</option>
+            <option value="Gaya">Gaya</option>
+            <option value="Bhagalpur">Bhagalpur</option>
+            <option value="Darbhanga">Darbhanga</option>
+            <option value="Purnia">Purnia</option>
+            <option value="Begusarai">Begusarai</option>
+            <option value="Samastipur">Samastipur</option>
+          </select>
+          <label>Pura Address (Delivery Parchi Ke Liye) *</label>
+          <input type="text" id="custAddress" placeholder="Dukan No, Road, Landmark...">
+          <button class="checkout-btn" onclick="finalOrderPlace()">Confirm Wholesale Order (₹<span id="finalBillAmount">0</span>)</button>
+        </div>
+      </div>
+      <div id="ordersScreen" style="display: none;">
+        <h3 style="font-size: 13px; margin-bottom: 8px;">Order History</h3>
+        <div id="ordersList"></div>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <button class="nav-item active" id="navHome" onclick="showScreen('home')">Catalog</button>
+      <button class="nav-item" id="navCart" onclick="showScreen('cart')">Cart</button>
+      <button class="nav-item" id="navOrders" onclick="showScreen('orders')">Orders</button>
+    </div>
+  </div>
+  <script>
+    const SUPABASE_URL = "https://wkyvwbrylfxgtshgivtg.supabase.co";
+    const SUPABASE_KEY = "Sb_publishable_hNH5PZL_0lUhh_bJhp8m-w_Xwr0mRaP";
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    var PRODUCTS = [];
+    var cart = [];
+    var orders = [];
+    var currentCat = 'All';
+
+    function showToast(msg) {
+      var t = document.getElementById('toastBar');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(function() { t.style.display = 'none'; }, 2400);
+    }
+
+    async function loadProductsFromCloud() {
+      const { data, error } = await db.from('products').select('*');
+      if (data && data.length > 0) {
+        PRODUCTS = data;
+        renderProducts();
+      }
+    }
+
+    function renderProducts() {
+      var grid = document.getElementById('productGrid');
+      var searchInput = document.getElementById('searchInput');
+      var search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      grid.innerHTML = '';
+      var filtered = PRODUCTS.filter(function(p) {
+        var matchC = (currentCat === 'All') || (p.category === currentCat);
+        var matchS = (search === '') || (p.name.toLowerCase().indexOf(search) !== -1) || (p.brand.toLowerCase().indexOf(search) !== -1);
+        return matchC && matchS;
+      });
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column: span 2; background: #fff; padding: 20px; text-align: center; border-radius: 8px; font-size: 11px; color: #64748b;">Koi dava nahi mili. Niche demand form bharein!</div>';
+        return;
+      }
+      filtered.forEach(function(p) {
+        var margin = Math.round(((p.mrp - p.wholesale)/p.mrp)*100);
+        grid.innerHTML += '<div class="card">' +
+          '<div>' +
+            '<div class="img-box"><img src="' + (p.img || 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80') + '" alt="' + p.name + '"></div>' +
+            '<div class="badge">' + p.brand + '</div>' +
+            '<div class="p-title">' + p.name + '</div>' +
+            '<div class="p-pack">Pack: ' + p.pack + '</div>' +
+            '<div class="price-box">' +
+              '<div class="rate">₹' + p.wholesale + ' <span style="font-size:9px;color:#64748b;font-weight:normal;">/pc</span></div>' +
+              '<div class="mrp-strike">MRP ₹' + p.mrp + '</div>' +
+              '<div class="margin-text">' + margin + '% Retailer Margin</div>' +
+            '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="moq-tag">MOQ: ' + p.moq + ' Pcs</div>' +
+            '<button class="add-cart-btn" onclick="addToCart(' + p.id + ')">+ Add MOQ</button>' +
+          '</div>' +
+        '</div>';
+      });
+    }
+
+    function setCat(cat) {
+      currentCat = cat;
+      document.getElementById('btnAll').className = 'cat-tag ' + (cat === 'All' ? 'active' : '');
+      document.getElementById('btnAyur').className = 'cat-tag ' + (cat === 'Ayurvedic' ? 'active' : '');
+      document.getElementById('btnHomeo').className = 'cat-tag ' + (cat === 'Homeopathy' ? 'active' : '');
+      renderProducts();
+    }
+
+    function filterItems() { renderProducts(); }
+
+    function addToCart(id) {
+      var p = PRODUCTS.find(function(x) { return x.id === id; });
+      var existing = cart.find(function(x) { return x.id === id; });
+      if (existing) { existing.qty += p.moq; } else { cart.push({ id: p.id, name: p.name, wholesale: p.wholesale, mrp: p.mrp, moq: p.moq, qty: p.moq }); }
+      document.getElementById('cartCount').innerText = cart.length;
+      showToast("✓ " + p.name + " (" + p.moq + " Pcs) Cart Me Jud Gaya");
+    }
+
+    function showScreen(screen) {
+      document.getElementById('homeScreen').style.display = screen === 'home' ? 'block' : 'none';
+      document.getElementById('cartScreen').style.display = screen === 'cart' ? 'block' : 'none';
+      document.getElementById('checkoutScreen').style.display = screen === 'checkout' ? 'block' : 'none';
+      document.getElementById('ordersScreen').style.display = screen === 'orders' ? 'block' : 'none';
+      document.getElementById('navHome').className = 'nav-item ' + (screen === 'home' ? 'active' : '');
+      document.getElementById('navCart').className = 'nav-item ' + (screen === 'cart' || screen === 'checkout' ? 'active' : '');
+      document.getElementById('navOrders').className = 'nav-item ' + (screen === 'orders' ? 'active' : '');
+      if (screen === 'cart') renderCart();
+      if (screen === 'checkout') renderCheckout();
+      if (screen === 'orders') renderOrders();
+    }
+
+    function renderCart() {
+      var container = document.getElementById('cartItemsList');
+      var summary = document.getElementById('cartSummary');
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="font-size:11px;color:#64748b;padding:20px;text-align:center;">Cart khali hai.</p>';
+        summary.style.display = 'none';
+        return;
+      }
+      summary.style.display = 'block';
+      var subtotal = 0, mrpTotal = 0;
+      container.innerHTML = '';
+      cart.forEach(function(i) {
+        subtotal += (i.wholesale * i.qty);
+        mrpTotal += (i.mrp * i.qty);
+        container.innerHTML += '<div class="cart-item">' +
+          '<div><b>' + i.name + '</b><div>₹' + i.wholesale + ' × ' + i.qty + ' Pcs</div></div>' +
+          '<div style="font-weight:900;color:#062c1e;">₹' + (i.wholesale * i.qty) + '</div>' +
+        '</div>';
+      });
+      document.getElementById('payableAmount').innerText = subtotal;
+      document.getElementById('savingsAmount').innerText = (mrpTotal - subtotal);
+    }
+
+    function renderCheckout() {
+      var subtotal = 0;
+      cart.forEach(function(i) { subtotal += (i.wholesale * i.qty); });
+      document.getElementById('finalBillAmount').innerText = subtotal;
+    }
+
+    async function finalOrderPlace() {
+      if (cart.length === 0) return;
+      var shop = document.getElementById('custShop').value.trim();
+      var proprietor = document.getElementById('custName').value.trim();
+      var phone = document.getElementById('custPhone').value.trim();
+      var city = document.getElementById('custCity').value;
+      var address = document.getElementById('custAddress').value.trim();
+      var bill = document.getElementById('finalBillAmount').innerText;
+      if (!shop || !phone) { alert("Dukan ka naam aur mobile number bharna zaroori hai!"); return; }
+      var orderCode = "ALN-" + Math.floor(100000 + Math.random()*900000);
+      const { error } = await db.from('orders').insert([{
+        order_id: orderCode, shop_name: shop, proprietor: proprietor, phone: phone, district: city, address: address, total_bill: Number(bill), items: cart, status: 'Confirmed'
+      }]);
+      if (error) { alert("Order save nahi ho saka."); return; }
+      orders.unshift({ id: orderCode, shop: shop, city: city, total: bill, count: cart.length });
+      cart = [];
+      document.getElementById('cartCount').innerText = 0;
+      showToast("✓ Wholesale Order Patna Depot Bheja Gaya!");
+      showScreen('orders');
+    }
+
+    function renderOrders() {
+      var container = document.getElementById('ordersList');
+      if (orders.length === 0) {
+        container.innerHTML = '<p style="font-size:11px;color:#64748b;padding:20px;text-align:center;">Abhi koi naya order nahi hai.</p>';
+        return;
+      }
+      container.innerHTML = '';
+      orders.forEach(function(o) {
+        container.innerHTML += '<div style="background:#fff;padding:10px;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:6px;font-size:11px;">' +
+          '<div style="display:flex;justify-content:space-between;"><b>Order #' + o.id + '</b><span style="color:#15803d;font-weight:bold;">Dispatched from Patna</span></div>' +
+          '<div style="font-size:10px;color:#475569;margin-top:2px;">Store: ' + o.shop + ' (' + o.city + ', Bihar)</div>' +
+          '<div style="color:#062c1e;font-weight:bold;margin-top:4px;">Total Bill: ₹' + o.total + '</div>' +
+        '</div>';
+      });
+    }
+
+    async function submitDemand() {
+      var val = document.getElementById('demandText').value.trim();
+      var ph = document.getElementById('demandPhone').value.trim();
+      if (!val) { alert("Dava ka naam likhein!"); return; }
+      await db.from('demands').insert([{ medicine_details: val, shop_phone: ph }]);
+      document.getElementById('demandMsg').innerText = "✓ Demand Patna Depot bhej di gayi hai!";
+      document.getElementById('demandText').value = '';
+      document.getElementById('demandPhone').value = '';
+    }
+
+    loadProductsFromCloud();
+  </script>
+</body>
+              </html>
+              
