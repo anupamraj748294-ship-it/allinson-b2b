@@ -9,10 +9,9 @@
     body { background: #04130c; display: flex; justify-content: center; }
     .app-shell { width: 100%; max-width: 440px; background: #f4f7f5; min-height: 100vh; position: relative; padding-bottom: 75px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
     
-    /* Header & Branding */
     .header { background: #062c1e; color: #fff; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
     .brand-wrap { display: flex; align-items: center; gap: 10px; }
-    .brand-logo { width: 38px; height: 38px; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #aa7c11); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #062c1e; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+    .brand-logo { width: 38px; height: 38px; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #aa7c11); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #062c1e; }
     .brand-text h1 { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; color: #fdf3c7; }
     .brand-text p { font-size: 8px; font-weight: 700; color: #6ee7b7; letter-spacing: 0.5px; }
     
@@ -22,19 +21,16 @@
 
     .sub-bar { background: #0a3b29; color: #fef08a; padding: 6px 14px; font-size: 9.5px; font-weight: 600; display: flex; justify-content: space-between; }
 
-    /* Search & Tabs */
     .filter-sec { padding: 10px 12px 6px; }
     .search-input { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
-    .search-input:focus { border-color: #062c1e; }
     .cat-nav { display: flex; gap: 6px; margin-top: 8px; }
     .tab-btn { flex: 1; padding: 7px 0; border: none; background: #fff; border-radius: 6px; font-size: 11px; font-weight: 700; color: #334155; border: 1px solid #cbd5e1; cursor: pointer; }
     .tab-btn.active { background: #062c1e; color: #fdf3c7; border-color: #062c1e; }
 
-    /* Product Grid */
     .catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 6px 12px 14px; }
     .card { background: #fff; border-radius: 10px; padding: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-    .card-top { width: 100%; height: 95px; background: #f8fafc; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 6px; }
-    .card-top img { max-height: 85px; max-width: 90%; object-fit: contain; }
+    .card-top { width: 100%; height: 105px; background: #ffffff; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 6px; border: 1px solid #f1f5f9; }
+    .card-top img { max-height: 95px; max-width: 95%; object-fit: contain; }
     .brand-pill { font-size: 8px; background: #ecfdf5; color: #047857; font-weight: 800; padding: 2px 5px; border-radius: 4px; display: inline-block; }
     .prod-name { font-size: 11px; font-weight: 800; color: #0f172a; margin-top: 3px; height: 28px; line-height: 1.25; overflow: hidden; }
     .pack-text { font-size: 9px; color: #64748b; }
@@ -46,15 +42,12 @@
     
     .moq-info { font-size: 8.5px; font-weight: 700; color: #854d0e; text-align: center; margin-bottom: 4px; }
     .add-btn { width: 100%; background: #062c1e; color: #fdf3c7; border: none; padding: 8px 0; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; }
-    .add-btn:active { transform: scale(0.97); }
 
-    /* Demand Box */
     .demand-card { margin: 8px 12px 14px; background: #fff; border: 1.5px dashed #062c1e; border-radius: 10px; padding: 12px; }
     .demand-title { font-size: 11px; font-weight: 800; color: #062c1e; }
     .demand-card input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin-top: 6px; outline: none; }
     .demand-submit { width: 100%; background: #d4af37; color: #062c1e; border: none; padding: 9px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; margin-top: 8px; }
 
-    /* Cart & Checkout */
     .cart-wrap { padding: 12px; }
     .cart-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
     .del-btn { background: #fee2e2; color: #b91c1c; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 10px; cursor: pointer; }
@@ -63,14 +56,12 @@
     .form-group input, .form-group select { width: 100%; padding: 9px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin-top: 4px; outline: none; background: #fff; }
     .primary-btn { width: 100%; background: #062c1e; color: #fdf3c7; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; margin-top: 12px; }
 
-    /* Founder Secret Panel */
     .admin-wrap { padding: 12px; }
     .admin-card { background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; padding: 10px; margin-bottom: 10px; font-size: 11px; }
     .admin-table { width: 100%; border-collapse: collapse; font-size: 10px; margin-top: 8px; }
     .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 5px; text-align: left; }
     .admin-table th { background: #f8fafc; font-weight: 800; }
 
-    /* Navigation */
     .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; max-width: 440px; margin: 0 auto; background: #fff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; padding: 10px 0; z-index: 20; }
     .nav-btn { border: none; background: none; font-size: 11px; font-weight: 800; color: #94a3b8; cursor: pointer; }
     .nav-btn.active { color: #062c1e; }
@@ -83,7 +74,6 @@
   <div id="toast">Notif</div>
 
   <div class="app-shell">
-    <!-- Header -->
     <div class="header">
       <div class="brand-wrap">
         <div class="brand-logo">A</div>
@@ -103,7 +93,7 @@
       <span style="color:#6ee7b7;">✓ Genuine Depot Rates</span>
     </div>
 
-    <!-- 1. Catalog Screen -->
+    <!-- Catalog Screen -->
     <div id="catalogScreen">
       <div class="filter-sec">
         <input type="text" id="srch" class="search-input" placeholder="Dawa, bimari ya brand khojein..." onkeyup="runFilter()">
@@ -126,7 +116,7 @@
       </div>
     </div>
 
-    <!-- 2. Cart Screen -->
+    <!-- Cart Screen -->
     <div id="cartScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <h2 style="font-size:14px;color:#062c1e;">Wholesale Order Cart</h2>
@@ -142,7 +132,7 @@
       </div>
     </div>
 
-    <!-- 3. Checkout Screen -->
+    <!-- Checkout Screen -->
     <div id="checkoutScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
         <h2 style="font-size:14px;color:#062c1e;">Dukan & Delivery Address</h2>
@@ -165,8 +155,6 @@
           <option value="Purnia">Purnia</option>
           <option value="Begusarai">Begusarai</option>
           <option value="Samastipur">Samastipur</option>
-          <option value="Ara/Bhojpur">Ara / Bhojpur</option>
-          <option value="Vaishali">Vaishali</option>
         </select>
         <label>Pura Address (Delivery Ke Liye) *</label>
         <input type="text" id="fullAddr" placeholder="Shop No, Market, Landmark...">
@@ -174,13 +162,13 @@
       </div>
     </div>
 
-    <!-- 4. Orders History Screen -->
+    <!-- Orders Screen -->
     <div id="ordersScreen" style="display:none;" class="cart-wrap">
       <h2 style="font-size:14px;color:#062c1e;margin-bottom:8px;">Aapke Placed Orders</h2>
       <div id="placedList"></div>
     </div>
 
-    <!-- 5. Founder Admin Panel -->
+    <!-- Founder Screen -->
     <div id="founderScreen" style="display:none;" class="admin-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <h2 style="font-size:14px;color:#062c1e;">👑 Founder Control Panel</h2>
@@ -207,19 +195,18 @@
       </div>
 
       <div class="admin-card">
-        <b>📊 Store Stock & Rates (Live Update)</b>
+        <b>📊 Store Stock & Rates</b>
         <div style="overflow-x:auto;">
           <table class="admin-table" id="stockTbl"></table>
         </div>
       </div>
 
       <div class="admin-card">
-        <b>📝 Retailer Demands (Jo Dawa Dukanon Ko Chahiye)</b>
+        <b>📝 Retailer Demands</b>
         <div id="demandsFoundList" style="margin-top:6px;"></div>
       </div>
     </div>
 
-    <!-- Footer Nav -->
     <div class="bottom-bar">
       <button class="nav-btn active" id="nbCat" onclick="goScreen('catalog')">Catalogue</button>
       <button class="nav-btn" id="nbCart" onclick="goScreen('cart')">Cart</button>
@@ -228,30 +215,24 @@
   </div>
 
   <script>
-    // Inbuilt Medicine Database (Bihar Best Sellers)
     var ALL_PRODUCTS = [
-      { id: 1, name: "Patanjali Dant Kanti", brand: "Patanjali", cat: "Ayurvedic", wholesale: 85, mrp: 110, moq: 10, pack: "200g", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 2, name: "Dabur Chyawanprash", brand: "Dabur", cat: "Ayurvedic", wholesale: 340, mrp: 425, moq: 4, pack: "1 Kg", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 3, name: "Himalaya Liv 52 DS", brand: "Himalaya", cat: "Ayurvedic", wholesale: 145, mrp: 190, moq: 10, pack: "60 Tabs", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 4, name: "SBL Arnica Montana 30", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 12, pack: "30ml", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 5, name: "Dr. Reckeweg R1 Drops", brand: "Dr. Reckeweg", cat: "Homeopathy", wholesale: 240, mrp: 295, moq: 6, pack: "22ml", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 6, name: "Schwabe Cineraria Maritima", brand: "Schwabe", cat: "Homeopathy", wholesale: 140, mrp: 185, moq: 10, pack: "10ml Drops", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 7, name: "Baidyanath Ashwagandharishta", brand: "Baidyanath", cat: "Ayurvedic", wholesale: 165, mrp: 215, moq: 6, pack: "450ml", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" },
-      { id: 8, name: "Zandu Pancharishta", brand: "Zandu", cat: "Ayurvedic", wholesale: 115, mrp: 155, moq: 8, pack: "450ml", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" }
+      { id: 1, name: "Patanjali Dant Kanti", brand: "Patanjali", cat: "Ayurvedic", wholesale: 85, mrp: 110, moq: 10, pack: "200g Paste", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&q=80" },
+      { id: 2, name: "Dabur Chyawanprash", brand: "Dabur", cat: "Ayurvedic", wholesale: 340, mrp: 425, moq: 4, pack: "1 Kg Jar", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=200&q=80" },
+      { id: 3, name: "Himalaya Liv 52 DS", brand: "Himalaya", cat: "Ayurvedic", wholesale: 145, mrp: 190, moq: 10, pack: "60 Tablets Bottle", img: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=200&q=80" },
+      { id: 4, name: "SBL Arnica Montana 30", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 12, pack: "30ml Liquid Dilution", img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=200&q=80" },
+      { id: 5, name: "Dr. Reckeweg R1 Drops", brand: "Dr. Reckeweg", cat: "Homeopathy", wholesale: 240, mrp: 295, moq: 6, pack: "22ml German Drops", img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=200&q=80" },
+      { id: 6, name: "Schwabe Cineraria Maritima", brand: "Schwabe", cat: "Homeopathy", wholesale: 140, mrp: 185, moq: 10, pack: "10ml Eye Drops", img: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=200&q=80" },
+      { id: 7, name: "Baidyanath Ashwagandharishta", brand: "Baidyanath", cat: "Ayurvedic", wholesale: 165, mrp: 215, moq: 6, pack: "450ml Syrup", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=200&q=80" },
+      { id: 8, name: "Zandu Pancharishta", brand: "Zandu", cat: "Ayurvedic", wholesale: 115, mrp: 155, moq: 8, pack: "450ml Tonic", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=200&q=80" }
     ];
+
+    // Reset old localStorage if dummy exists
+    localStorage.removeItem('aln_prods');
 
     var myCart = [];
     var placedOrders = [];
     var retailerDemands = [];
     var curCategory = 'All';
-
-    // LocalStorage Sync
-    if (localStorage.getItem('aln_prods')) {
-      ALL_PRODUCTS = JSON.parse(localStorage.getItem('aln_prods'));
-    }
-    if (localStorage.getItem('aln_demands')) {
-      retailerDemands = JSON.parse(localStorage.getItem('aln_demands'));
-    }
 
     function notify(text) {
       var t = document.getElementById('toast');
@@ -270,11 +251,6 @@
         var matchQ = (q === '') || (i.name.toLowerCase().includes(q)) || (i.brand.toLowerCase().includes(q));
         return matchCat && matchQ;
       });
-
-      if (list.length === 0) {
-        grid.innerHTML = '<div style="grid-column:span 2;background:#fff;padding:25px;text-align:center;border-radius:8px;font-size:11px;color:#64748b;">Dawa nahi mili. Niche diye form me demand bhejein!</div>';
-        return;
-      }
 
       list.forEach(function(item){
         var margin = Math.round(((item.mrp - item.wholesale) / item.mrp) * 100);
@@ -383,7 +359,7 @@
       if (!shop || !ph) { alert("Dukan ka naam aur mobile number likhna zaroori hai!"); return; }
 
       var idNum = "ALN-" + Math.floor(100000 + Math.random() * 900000);
-      var newOrder = { id: idNum, shop: shop, prop: prop, phone: ph, city: city, bill: bill, count: myCart.length, date: new Date().toLocaleDateString() };
+      var newOrder = { id: idNum, shop: shop, prop: prop, phone: ph, city: city, bill: bill, count: myCart.length };
       placedOrders.unshift(newOrder);
 
       myCart = [];
@@ -413,14 +389,12 @@
       var p = document.getElementById('demPhone').value.trim();
       if (!m || !p) { alert("Dawa aur mobile number bhariye!"); return; }
       retailerDemands.unshift({ medicine: m, phone: p, time: new Date().toLocaleTimeString() });
-      localStorage.setItem('aln_demands', JSON.stringify(retailerDemands));
       document.getElementById('demSuccess').innerText = "✓ Demand Patna Depot bhej di gayi hai!";
       document.getElementById('demMed').value = '';
       document.getElementById('demPhone').value = '';
       notify("Demand Recieved!");
     }
 
-    /* Founder Secret Features */
     function openFounderLogin() {
       var pass = prompt("Allinson Founder Password Daaliye:");
       if (pass === "allinson2026") {
@@ -461,9 +435,8 @@
 
       if (!n || !w || !m) { alert("Dawa, Wholesale Rate aur MRP bharna zaroori hai!"); return; }
 
-      var newP = { id: Date.now(), name: n, brand: b || "General", cat: c, wholesale: w, mrp: m, moq: mo || 5, pack: p || "Standard", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&q=80" };
+      var newP = { id: Date.now(), name: n, brand: b || "General", cat: c, wholesale: w, mrp: m, moq: mo || 5, pack: p || "Standard", img: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=200&q=80" };
       ALL_PRODUCTS.unshift(newP);
-      localStorage.setItem('aln_prods', JSON.stringify(ALL_PRODUCTS));
 
       notify("✓ Dawa Store Me Add Ho Gayi!");
       renderStore();
@@ -473,7 +446,6 @@
       document.getElementById('admMrp').value = '';
     }
 
-    // Launch
     renderStore();
   </script>
 </body>
