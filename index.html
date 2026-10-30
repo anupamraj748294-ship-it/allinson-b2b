@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ALLINSON - PAN INDIA B2B MEDICINE DEPOT</title>
+  <title>ALLINSON - Herbal & Ayurvedic Wholesale (Pan India)</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #04130c; display: flex; justify-content: center; }
-    .app-shell { width: 100%; max-width: 440px; background: #f1f5f9; min-height: 100vh; position: relative; padding-bottom: 75px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    .app-shell { width: 100%; max-width: 440px; background: #f1f5f9; min-height: 100vh; position: relative; padding-bottom: 75px; }
     
-    /* Top Bar with new premium logo & branding */
-    .header { background: #062c1e; color: #fff; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
+    .header { background: #062c1e; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
     .brand-wrap { display: flex; align-items: center; gap: 10px; }
     
-    /* Premium custom branded logo using the uploaded image */
-    .brand-logo-img { width: 44px; height: 44px; border-radius: 6px; object-fit: contain; background: #062c1e; padding: 1px; }
+    .brand-logo-box { width: 44px; height: 44px; border-radius: 8px; background: #031c13; display: flex; align-items: center; justify-content: center; border: 1px solid #d4af37; flex-shrink: 0; }
+    .brand-text h1 { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; color: #fdf3c7; }
+    .brand-text p { font-size: 8px; font-weight: 700; color: #6ee7b7; letter-spacing: 0.5px; }
     
-    .brand-text h1 { font-size: 17px; font-weight: 900; letter-spacing: 1.5px; color: #fdf3c7; }
-    .brand-text p { font-size: 7.5px; font-weight: 800; color: #6ee7b7; letter-spacing: 0.8px; text-transform: uppercase; }
-    
-    .badge-btn { background: #d4af37; color: #062c1e; border: none; padding: 7px 14px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; }
-    
-    /* Rebranded delivery sub-bar (Removing Bihar completely) */
+    .badge-btn { background: #d4af37; color: #062c1e; border: none; padding: 7px 12px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; }
     .sub-bar { background: #0a3b29; color: #fef08a; padding: 6px 14px; font-size: 9.5px; font-weight: 600; display: flex; justify-content: space-between; }
 
     .filter-sec { padding: 10px 10px 6px; position: sticky; top: 0; background: #f1f5f9; z-index: 10; }
@@ -34,12 +29,10 @@
     .catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 6px 10px 14px; }
     .card { background: #fff; border-radius: 8px; padding: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     
-    .card-top { width: 100%; height: 95px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 6px; border: 1px solid #f1f5f9; text-align: center; }
-    .card-top img { max-height: 90px; max-width: 90%; object-fit: contain; }
+    .card-top { width: 100%; height: 90px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 6px; border: 1px solid #f1f5f9; text-align: center; }
     .badge-ayur { background: #dcfce7; color: #166534; }
     .badge-homeo { background: #e0f2fe; color: #0369a1; }
 
-    .card-body { flex: 1; display: flex; flex-direction: column; }
     .brand-tag { font-size: 8px; font-weight: 800; color: #64748b; text-transform: uppercase; }
     .prod-title { font-size: 11px; font-weight: 800; color: #0f172a; line-height: 1.25; margin-top: 2px; height: 28px; overflow: hidden; }
     .prod-pack { font-size: 9px; color: #64748b; margin-top: 2px; }
@@ -55,12 +48,8 @@
     .grid-qty-input { width: 38px; text-align: center; padding: 5px 0; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 800; outline: none; }
     .grid-add-btn { flex: 1; background: #062c1e; color: #fdf3c7; border: none; padding: 6px 0; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    /* Cart Details */
     .cart-wrap { padding: 12px; }
     .cart-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
-    .cart-qty-ctrl { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
-    .step-btn { width: 24px; height: 24px; background: #062c1e; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 900; cursor: pointer; }
-    .cart-qty-val { width: 45px; text-align: center; padding: 2px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 800; }
     .del-btn { background: #fee2e2; color: #b91c1c; border: none; padding: 4px 6px; border-radius: 4px; font-weight: bold; font-size: 9.5px; cursor: pointer; }
     .bill-summary { background: #e6f4ea; padding: 10px; border-radius: 8px; margin: 12px 0; font-size: 11px; color: #166534; font-weight: 700; }
     .form-group label { font-size: 10px; font-weight: 800; color: #062c1e; display: block; margin-top: 8px; }
@@ -80,34 +69,293 @@
   <div class="app-shell">
     <div class="header">
       <div class="brand-wrap">
-        <!-- Live Brand Image (Uploaded Golden Circle logo) -->
-        <img class="brand-logo-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&h=120&q=80" onerror="this.src='https://raw.githubusercontent.com/anupamraj748294-ship-it/allinson-b2b/main/allinson-logo.png'; this.onerror=null;" alt="A">
+        <!-- Exact Golden 'A' Emblem Logo with Leaf -->
+        <div class="brand-logo-box">
+          <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" stroke="#d4af37" stroke-width="2.5" stroke-dasharray="240 30" />
+            <path d="M50 18 L76 78 L63 78 L50 44 L37 78 L24 78 Z" fill="#d4af37"/>
+            <path d="M32 58 Q48 42 66 54 Q48 50 32 58 Z" fill="#22c55e"/>
+            <circle cx="82" cy="24" r="5" fill="#d4af37"/>
+          </svg>
+        </div>
         <div class="brand-text">
           <h1>ALLINSON</h1>
-          <p>Herbal & Ayurvedic Wholesale • Pan India</p>
+          <p>HERBAL & AYURVEDIC WHOLESALE</p>
         </div>
       </div>
       <button class="badge-btn" onclick="goScreen('cart')">🛒 Cart (<span id="cartBadge">0</span>)</button>
     </div>
     
-    <!-- Rebranded All India Bar -->
     <div class="sub-bar">
-      <span>📍 All India Supply (Pan-India Fast Delivery)</span>
+      <span>📍 All India Supply (Pan-India Express Delivery)</span>
       <span style="color:#6ee7b7;">✓ Original Depot Rates</span>
     </div>
 
     <!-- 1. Catalog Screen -->
     <div id="catalogScreen">
       <div class="filter-sec">
-        <input type="text" id="srch" class="search-input" placeholder="Dawa ya company khojein (Arnica, Dabur, Liv 52)..." onkeyup="runFilter()">
+        <input type="text" id="srch" class="search-input" placeholder="Dawa ya company khojein (Arnica, Dabur, Liv 52)..." onkeyup="filterCards()">
         <div class="cat-nav">
-          <button class="tab-btn active" id="tabAll" onclick="setCategory('All')">Sabhi Dawa</button>
-          <button class="tab-btn" id="tabAyur" onclick="setCategory('Ayurvedic')">Ayurvedic</button>
-          <button class="tab-btn" id="tabHomeo" onclick="setCategory('Homeopathy')">Homeopathy</button>
+          <button class="tab-btn active" id="tabAll" onclick="filterCat('All')">Sabhi Dawa</button>
+          <button class="tab-btn" id="tabAyur" onclick="filterCat('Ayurvedic')">Ayurvedic</button>
+          <button class="tab-btn" id="tabHomeo" onclick="filterCat('Homeopathy')">Homeopathy</button>
         </div>
       </div>
 
-      <div class="catalog" id="prodGrid"></div>
+      <!-- Hardcoded Clean Grid (Never goes blank) -->
+      <div class="catalog" id="prodGrid">
+
+        <!-- Card 1 -->
+        <div class="card" data-cat="Homeopathy" data-name="sbl arnica montana 30 ch sbl">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">SBL</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">SBL</span>
+            <div class="prod-title">SBL Arnica Montana 30 CH</div>
+            <div class="prod-pack">Pack: 30ml Dilution</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹80</span><span class="mrp-text">₹105</span></div>
+              <div class="margin-tag">24% Retailer Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 6 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_1" class="grid-qty-input" value="6" min="6">
+              <button class="grid-add-btn" onclick="addCustom('SBL Arnica Montana 30 CH', 80, 6, 'q_1')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" data-cat="Homeopathy" data-name="sbl arnica montana 200 ch sbl">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">SBL</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">SBL</span>
+            <div class="prod-title">SBL Arnica Montana 200 CH</div>
+            <div class="prod-pack">Pack: 30ml Dilution</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹90</span><span class="mrp-text">₹115</span></div>
+              <div class="margin-tag">22% Retailer Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 6 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_2" class="grid-qty-input" value="6" min="6">
+              <button class="grid-add-btn" onclick="addCustom('SBL Arnica Montana 200 CH', 90, 6, 'q_2')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card" data-cat="Homeopathy" data-name="sbl belladonna 30 ch sbl">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">SBL</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">SBL</span>
+            <div class="prod-title">SBL Belladonna 30 CH</div>
+            <div class="prod-pack">Pack: 30ml Dilution</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹80</span><span class="mrp-text">₹105</span></div>
+              <div class="margin-tag">24% Retailer Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 6 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_3" class="grid-qty-input" value="6" min="6">
+              <button class="grid-add-btn" onclick="addCustom('SBL Belladonna 30 CH', 80, 6, 'q_3')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card" data-cat="Homeopathy" data-name="sbl nux vomica 30 ch sbl">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">SBL</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">SBL</span>
+            <div class="prod-title">SBL Nux Vomica 30 CH</div>
+            <div class="prod-pack">Pack: 30ml Dilution</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹80</span><span class="mrp-text">₹105</span></div>
+              <div class="margin-tag">24% Retailer Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 6 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_4" class="grid-qty-input" value="6" min="6">
+              <button class="grid-add-btn" onclick="addCustom('SBL Nux Vomica 30 CH', 80, 6, 'q_4')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card" data-cat="Homeopathy" data-name="dr reckeweg r1 drops german reckeweg">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">Dr. Reckeweg</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">Dr. Reckeweg</span>
+            <div class="prod-title">Dr. Reckeweg R1 Drops</div>
+            <div class="prod-pack">Pack: 22ml German Drops</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹240</span><span class="mrp-text">₹295</span></div>
+              <div class="margin-tag">19% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 4 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_5" class="grid-qty-input" value="4" min="4">
+              <button class="grid-add-btn" onclick="addCustom('Dr. Reckeweg R1 Drops', 240, 4, 'q_5')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card" data-cat="Homeopathy" data-name="dr reckeweg r41 fortivirone drops reckeweg">
+          <div>
+            <div class="card-top badge-homeo">
+              <div style="font-size:18px;">💧</div>
+              <div style="font-size:10px;font-weight:900;">Dr. Reckeweg</div>
+              <div style="font-size:8px;font-weight:700;">Homeopathy</div>
+            </div>
+            <span class="brand-tag">Dr. Reckeweg</span>
+            <div class="prod-title">Dr. Reckeweg R41 Drops</div>
+            <div class="prod-pack">Pack: 22ml German Drops</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹260</span><span class="mrp-text">₹315</span></div>
+              <div class="margin-tag">18% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 4 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_6" class="grid-qty-input" value="4" min="4">
+              <button class="grid-add-btn" onclick="addCustom('Dr. Reckeweg R41 Drops', 260, 4, 'q_6')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card" data-cat="Ayurvedic" data-name="dabur chyawanprash 1 kg jar dabur">
+          <div>
+            <div class="card-top badge-ayur">
+              <div style="font-size:18px;">🌿</div>
+              <div style="font-size:10px;font-weight:900;">DABUR</div>
+              <div style="font-size:8px;font-weight:700;">Ayurvedic</div>
+            </div>
+            <span class="brand-tag">DABUR</span>
+            <div class="prod-title">Dabur Chyawanprash 1 Kg</div>
+            <div class="prod-pack">Pack: 1 Kg Red Jar</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹340</span><span class="mrp-text">₹425</span></div>
+              <div class="margin-tag">20% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 4 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_7" class="grid-qty-input" value="4" min="4">
+              <button class="grid-add-btn" onclick="addCustom('Dabur Chyawanprash 1 Kg', 340, 4, 'q_7')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card" data-cat="Ayurvedic" data-name="patanjali dant kanti 200g paste patanjali">
+          <div>
+            <div class="card-top badge-ayur">
+              <div style="font-size:18px;">🌿</div>
+              <div style="font-size:10px;font-weight:900;">PATANJALI</div>
+              <div style="font-size:8px;font-weight:700;">Ayurvedic</div>
+            </div>
+            <span class="brand-tag">PATANJALI</span>
+            <div class="prod-title">Patanjali Dant Kanti 200g</div>
+            <div class="prod-pack">Pack: 200g Tube</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹85</span><span class="mrp-text">₹110</span></div>
+              <div class="margin-tag">23% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 10 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_8" class="grid-qty-input" value="10" min="10">
+              <button class="grid-add-btn" onclick="addCustom('Patanjali Dant Kanti 200g', 85, 10, 'q_8')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card" data-cat="Ayurvedic" data-name="himalaya liv 52 ds tablets himalaya">
+          <div>
+            <div class="card-top badge-ayur">
+              <div style="font-size:18px;">🌿</div>
+              <div style="font-size:10px;font-weight:900;">HIMALAYA</div>
+              <div style="font-size:8px;font-weight:700;">Ayurvedic</div>
+            </div>
+            <span class="brand-tag">HIMALAYA</span>
+            <div class="prod-title">Himalaya Liv.52 DS Tablets</div>
+            <div class="prod-pack">Pack: 60 Tabs Bottle</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹145</span><span class="mrp-text">₹190</span></div>
+              <div class="margin-tag">24% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 10 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_9" class="grid-qty-input" value="10" min="10">
+              <button class="grid-add-btn" onclick="addCustom('Himalaya Liv.52 DS Tablets', 145, 10, 'q_9')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card" data-cat="Ayurvedic" data-name="baidyanath ashwagandharishta baidyanath">
+          <div>
+            <div class="card-top badge-ayur">
+              <div style="font-size:18px;">🌿</div>
+              <div style="font-size:10px;font-weight:900;">BAIDYANATH</div>
+              <div style="font-size:8px;font-weight:700;">Ayurvedic</div>
+            </div>
+            <span class="brand-tag">BAIDYANATH</span>
+            <div class="prod-title">Baidyanath Ashwagandharishta</div>
+            <div class="prod-pack">Pack: 450ml Liquid Tonic</div>
+            <div class="price-wrap">
+              <div><span class="rate-text">₹165</span><span class="mrp-text">₹215</span></div>
+              <div class="margin-tag">23% Margin</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="moq-tag">MOQ: 6 Pcs</div>
+            <div class="qty-act-row">
+              <input type="number" id="q_10" class="grid-qty-input" value="6" min="6">
+              <button class="grid-add-btn" onclick="addCustom('Baidyanath Ashwagandharishta', 165, 6, 'q_10')">+ Add</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- 2. Cart Screen -->
@@ -119,48 +367,25 @@
       <div id="cartList"></div>
       <div id="cartCalc" style="display:none;">
         <div class="bill-summary">
-          <div>Kul Bachat (Margin): ₹<span id="marginSave">0</span></div>
-          <div style="font-size:13px;font-weight:900;color:#062c1e;margin-top:4px;">Total Payable: ₹<span id="totPay">0</span></div>
+          <div style="font-size:13px;font-weight:900;color:#062c1e;">Total Payable: ₹<span id="totPay">0</span></div>
         </div>
-        <button class="primary-btn" onclick="goScreen('checkout')">Proceed To Shop Details →</button>
+        <button class="primary-btn" onclick="goScreen('checkout')">Proceed To Delivery Details →</button>
       </div>
     </div>
 
-    <!-- 3. Checkout Screen (All India Shipping-ready) -->
+    <!-- 3. Checkout Screen -->
     <div id="checkoutScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <h2 style="font-size:14px;color:#062c1e;">Delivery & Store Details</h2>
+        <h2 style="font-size:14px;color:#062c1e;">Store & Shipping Details</h2>
         <button onclick="goScreen('cart')" style="border:none;background:none;font-weight:bold;color:#062c1e;cursor:pointer;">← Cart</button>
       </div>
       <div class="form-group">
         <label>Medical Store / Clinic Ka Naam *</label>
-        <input type="text" id="shName" placeholder="Maa Gayatri Medical Hall">
-        <label>Proprietor Ka Naam *</label>
-        <input type="text" id="propName" placeholder="Aapka naam">
+        <input type="text" id="shName" placeholder="Maa Gayatri Medical">
         <label>WhatsApp / Mobile No *</label>
         <input type="tel" id="phNumber" placeholder="10 Digit Mobile No">
-        
-        <label>Rajya (State) *</label>
-        <select id="stateSel">
-          <option value="Bihar">Bihar</option>
-          <option value="Uttar Pradesh">Uttar Pradesh</option>
-          <option value="Jharkhand">Jharkhand</option>
-          <option value="West Bengal">West Bengal</option>
-          <option value="Madhya Pradesh">Madhya Pradesh</option>
-          <option value="Delhi NCR">Delhi NCR</option>
-          <option value="Rajasthan">Rajasthan</option>
-          <option value="Haryana">Haryana</option>
-          <option value="Punjab">Punjab</option>
-          <option value="Maharashtra">Maharashtra</option>
-          <option value="Gujarat">Gujarat</option>
-          <option value="Other">Other (Outside regions)</option>
-        </select>
-
-        <label>Zila & Pin Code *</label>
-        <input type="text" id="distCity" placeholder="Jaise: Lucknow (226001)">
-
-        <label>Pura Address (Delivery Ke Liye) *</label>
-        <input type="text" id="fullAddr" placeholder="Dukan No, Main Market, Landmark...">
+        <label>City & State *</label>
+        <input type="text" id="userLocation" placeholder="Jaise: Patna, Bihar ya Lucknow, UP">
         <button class="primary-btn" onclick="submitFinalOrder()">Order Confirm Karein (₹<span id="chkTotal">0</span>)</button>
       </div>
     </div>
@@ -180,29 +405,8 @@
   </div>
 
   <script>
-    // URL to always fetch original catalog from your synced Sheet
-    var GSHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1egGan3nJ4AXHNDq0ZKUEi8opEQc4NZpHe5vabb90KhY/export?format=csv";
-
-    // Instant Fallback Catalog 
-    var FALLBACK_CATALOG = [
-      { id: 1, name: "SBL Arnica Montana 30 CH", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 6, pack: "30ml Dilution", img: "" },
-      { id: 2, name: "SBL Arnica Montana 200 CH", brand: "SBL", cat: "Homeopathy", wholesale: 90, mrp: 115, moq: 6, pack: "30ml Dilution", img: "" },
-      { id: 3, name: "SBL Belladonna 30 CH", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 6, pack: "30ml Dilution", img: "" },
-      { id: 4, name: "SBL Nux Vomica 30 CH", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 6, pack: "30ml Dilution", img: "" },
-      { id: 5, name: "SBL Berberis Vulgaris Q", brand: "SBL", cat: "Homeopathy", wholesale: 135, mrp: 180, moq: 6, pack: "30ml Q Drops", img: "" },
-      { id: 6, name: "Dr. Reckeweg R1 Drops", brand: "Dr. Reckeweg", cat: "Homeopathy", wholesale: 240, mrp: 295, moq: 4, pack: "22ml German Drops", img: "" },
-      { id: 7, name: "Dr. Reckeweg R41 Drops", brand: "Dr. Reckeweg", cat: "Homeopathy", wholesale: 260, mrp: 315, moq: 4, pack: "22ml German Drops", img: "" },
-      { id: 8, name: "Dabur Chyawanprash 1 Kg", brand: "Dabur", cat: "Ayurvedic", wholesale: 340, mrp: 425, moq: 4, pack: "1 Kg Red Jar", img: "" },
-      { id: 9, name: "Dabur Honey Pure 1 Kg", brand: "Dabur", cat: "Ayurvedic", wholesale: 320, mrp: 410, moq: 6, pack: "1 Kg Bottle", img: "" },
-      { id: 10, name: "Patanjali Dant Kanti 200g", brand: "Patanjali", cat: "Ayurvedic", wholesale: 85, mrp: 110, moq: 12, pack: "200g Tube", img: "" },
-      { id: 11, name: "Himalaya Liv.52 DS Tablets", brand: "Himalaya", cat: "Ayurvedic", wholesale: 145, mrp: 190, moq: 10, pack: "60 Tabs Bottle", img: "" },
-      { id: 12, name: "Baidyanath Ashwagandharishta", brand: "Baidyanath", cat: "Ayurvedic", wholesale: 165, mrp: 215, moq: 6, pack: "450ml Tonic", img: "" }
-    ];
-
-    var ALL_PRODUCTS = FALLBACK_CATALOG;
     var myCart = [];
     var placedOrders = [];
-    var curCategory = 'All';
 
     function notify(text) {
       var t = document.getElementById('toast');
@@ -211,134 +415,115 @@
       setTimeout(function(){ t.style.display = 'none'; }, 2200);
     }
 
-    // Connects live & updates directly based on user's newly populated spreadsheet
-    function fetchLiveSheetData() {
-      fetch(GSHEET_CSV_URL)
-        .then(function(res) { return res.text(); })
-        .then(function(csvText) {
-          var lines = csvText.trim().split('\n');
-          if (lines.length > 1) {
-            var fetched = [];
-            for (var i = 1; i < lines.length; i++) {
-              var row = lines[i].split(',');
-              if (row.length >= 7 && row[0].trim() !== '') {
-                fetched.push({
-                  id: 3000 + i,
-                  name: row[0].replace(/\"/g, "").trim(),
-                  brand: row[1].replace(/\"/g, "").trim(),
-                  cat: row[2].replace(/\"/g, "").trim(),
-                  wholesale: Number(row[3].replace(/\"/g, "").trim()) || 0,
-                  mrp: Number(row[4].replace(/\"/g, "").trim()) || 0,
-                  moq: Number(row[5].replace(/\"/g, "").trim()) || 1,
-                  pack: row[6].replace(/\"/g, "").trim(),
-                  img: (row[7] ? row[7].replace(/\"/g, "").trim() : "")
-                });
-              }
-            }
-            if (fetched.length > 0) {
-              ALL_PRODUCTS = fetched;
-              renderStore();
-            }
-          }
-        })
-        .catch(function() {
-          console.log("Using internal catalog fallback");
-        });
-    }
-
-    function renderStore() {
-      var grid = document.getElementById('prodGrid');
-      var q = document.getElementById('srch').value.toLowerCase().trim();
-      grid.innerHTML = '';
-
-      var list = ALL_PRODUCTS.filter(function(i){
-        var matchCat = (curCategory === 'All') || (i.cat.toLowerCase() === curCategory.toLowerCase());
-        var matchQ = (q === '') || (i.name.toLowerCase().indexOf(q) !== -1) || (i.brand.toLowerCase().indexOf(q) !== -1) || (i.pack.toLowerCase().indexOf(q) !== -1);
-        return matchCat && matchQ;
-      });
-
-      if (list.length === 0) {
-        grid.innerHTML = '<div style="grid-column: span 2; background:#fff;padding:25px;text-align:center;border-radius:8px;font-size:11px;color:#64748b;">Dawa nahi mili. Search badal kar dekhein.</div>';
+    function addCustom(name, price, moq, inputId) {
+      var inputEl = document.getElementById(inputId);
+      var qty = parseInt(inputEl.value) || moq;
+      if (qty < moq) {
+        alert("Kam se kam " + moq + " piece lena zaroori hai!");
+        inputEl.value = moq;
         return;
       }
-
-      var html = '';
-      for (var idx = 0; idx < list.length; idx++) {
-        var item = list[idx];
-        var margin = item.mrp > 0 ? Math.round(((item.mrp - item.wholesale) / item.mrp) * 100) : 20;
-        
-        var topImg = '';
-        if (item.img && item.img.trim() !== '') {
-          topImg = '<div class="card-top"><img src="' + item.img + '" alt="pack"></div>';
-        } else {
-          var bgClass = (item.cat.toLowerCase() === 'ayurvedic') ? 'badge-ayur' : 'badge-homeo';
-          var icon = (item.cat.toLowerCase() === 'ayurvedic') ? '🌿' : '💧';
-          topImg = '<div class="card-top ' + bgClass + '">' +
-                     '<div style="font-size:16px;">' + icon + '</div>' +
-                     '<div style="font-size:9.5px;font-weight:900;margin-top:2px;">' + item.brand + '</div>' +
-                     '<div style="font-size:7.5px;font-weight:700;">' + item.cat + '</div>' +
-                   '</div>';
-        }
-
-        html += '<div class="card">' +
-          '<div>' +
-            topImg +
-            '<div class="card-body">' +
-              '<span class="brand-tag">' + item.brand + '</span>' +
-              '<div class="prod-title">' + item.name + '</div>' +
-              '<div class="prod-pack">' + item.pack + '</div>' +
-              '<div class="price-wrap">' +
-                '<div>' +
-                  '<span class="rate-text">₹' + item.wholesale + '</span>' +
-                  '<span class="mrp-text">₹' + item.mrp + '</span>' +
-                '</div>' +
-                '<div class="margin-tag">' + margin + '% Margin</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-          '<div class="card-footer">' +
-            '<div class="moq-tag">MOQ: ' + item.moq + ' Pcs</div>' +
-            '<div class="qty-act-row">' +
-              '<input type="number" id="catQty_' + item.id + '" class="grid-qty-input" value="' + item.moq + '" min="' + item.moq + '">' +
-              '<button class="grid-add-btn" onclick="addToOrderDirect(' + item.id + ')">+ Add</button>' +
-            '</div>' +
-          '</div>' +
-        '</div>';
-      }
-      grid.innerHTML = html;
+      var exist = myCart.find(function(x){ return x.name === name; });
+      if (exist) { exist.qty += qty; }
+      else { myCart.push({ name: name, price: price, qty: qty, moq: moq }); }
+      document.getElementById('cartBadge').innerText = myCart.length;
+      notify("✓ " + name + " (" + qty + " pcs) Cart me add hua");
     }
 
-    function setCategory(cat) {
-      curCategory = cat;
+    function filterCards() {
+      var q = document.getElementById('srch').value.toLowerCase().trim();
+      var cards = document.querySelectorAll('.card');
+      cards.forEach(function(c){
+        var n = c.getAttribute('data-name');
+        c.style.display = (q === '' || n.indexOf(q) !== -1) ? 'flex' : 'none';
+      });
+    }
+
+    function filterCat(cat) {
       document.getElementById('tabAll').className = 'tab-btn ' + (cat === 'All' ? 'active' : '');
       document.getElementById('tabAyur').className = 'tab-btn ' + (cat === 'Ayurvedic' ? 'active' : '');
       document.getElementById('tabHomeo').className = 'tab-btn ' + (cat === 'Homeopathy' ? 'active' : '');
-      renderStore();
-    }
-
-    function runFilter() { renderStore(); }
-
-    function addToOrderDirect(id) {
-      var p = ALL_PRODUCTS.find(function(x){ return x.id === id; });
-      var inputEl = document.getElementById('catQty_' + id);
-      var enteredQty = parseInt(inputEl.value) || p.moq;
-
-      if (enteredQty < p.moq) {
-        alert("Kam se kam order (MOQ) " + p.moq + " piece hai!");
-        inputEl.value = p.moq;
-        return;
-      }
-
-      var exist = myCart.find(function(x){ return x.id === id; });
-      if (exist) { exist.qty += enteredQty; } 
-      else { myCart.push({ id: p.id, name: p.name, wholesale: p.wholesale, mrp: p.mrp, moq: p.moq, qty: enteredQty }); }
-      
-      document.getElementById('cartBadge').innerText = myCart.length;
-      notify("✓ " + p.name + " (" + enteredQty + " pcs) Cart me add hua");
+      var cards = document.querySelectorAll('.card');
+      cards.forEach(function(c){
+        var cCat = c.getAttribute('data-cat');
+        c.style.display = (cat === 'All' || cCat === cat) ? 'flex' : 'none';
+      });
     }
 
     function goScreen(scn) {
       document.getElementById('catalogScreen').style.display = (scn === 'catalog') ? 'block' : 'none';
       document.getElementById('cartScreen').style.display = (scn === 'cart') ? 'block' : 'none';
       document.getElementById('checkoutScreen').style.display = (scn === 'checkout') ? 'block' : 'none';
-      document.getElementById('ordersScreen').style.display = (scn ==
+      document.getElementById('ordersScreen').style.display = (scn === 'orders') ? 'block' : 'none';
+
+      document.getElementById('nbCat').className = 'nav-btn ' + (scn === 'catalog' ? 'active' : '');
+      document.getElementById('nbCart').className = 'nav-btn ' + (scn === 'cart' || scn === 'checkout' ? 'active' : '');
+      document.getElementById('nbOrd').className = 'nav-btn ' + (scn === 'orders' ? 'active' : '');
+
+      if (scn === 'cart') renderCartScreen();
+      if (scn === 'checkout') renderCheckoutScreen();
+      if (scn === 'orders') renderOrdersHistory();
+    }
+
+    function renderCartScreen() {
+      var list = document.getElementById('cartList');
+      var calc = document.getElementById('cartCalc');
+      if (myCart.length === 0) {
+        list.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:25px;">Cart khali hai.</p>';
+        calc.style.display = 'none';
+        return;
+      }
+      calc.style.display = 'block';
+      var pay = 0;
+      list.innerHTML = '';
+      myCart.forEach(function(item, idx){
+        var t = item.price * item.qty;
+        pay += t;
+        list.innerHTML += '<div class="cart-box">' +
+          '<div><b>' + item.name + '</b><div style="font-size:9.5px;color:#64748b;">₹' + item.price + ' × ' + item.qty + ' pcs</div></div>' +
+          '<div style="text-align:right;"><b>₹' + t + '</b><br><button class="del-btn" onclick="delItem(' + idx + ')">Hatao</button></div>' +
+        '</div>';
+      });
+      document.getElementById('totPay').innerText = pay;
+    }
+
+    function delItem(idx) {
+      myCart.splice(idx, 1);
+      document.getElementById('cartBadge').innerText = myCart.length;
+      renderCartScreen();
+    }
+
+    function renderCheckoutScreen() {
+      var sum = 0;
+      myCart.forEach(function(i){ sum += (i.price * i.qty); });
+      document.getElementById('chkTotal').innerText = sum;
+    }
+
+    function submitFinalOrder() {
+      var shop = document.getElementById('shName').value.trim();
+      var ph = document.getElementById('phNumber').value.trim();
+      var loc = document.getElementById('userLocation').value.trim();
+      var bill = document.getElementById('chkTotal').innerText;
+      if (!shop || !ph) { alert("Dukan ka naam aur phone bhariye!"); return; }
+
+      placedOrders.unshift({ id: "ALN-" + Math.floor(100000 + Math.random() * 900000), shop: shop, bill: bill, loc: loc });
+      myCart = [];
+      document.getElementById('cartBadge').innerText = 0;
+      notify("✓ Order Confirmed!");
+      goScreen('orders');
+    }
+
+    function renderOrdersHistory() {
+      var box = document.getElementById('placedList');
+      if (placedOrders.length === 0) {
+        box.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:20px;">Koi order nahi mila.</p>';
+        return;
+      }
+      box.innerHTML = '';
+      placedOrders.forEach(function(o){
+        box.innerHTML += '<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:8px;font-size:11px;"><b>Order #' + o.id + '</b> - ₹' + o.bill + '<br>Store: ' + o.shop + ' (' + o.loc + ')</div>';
+      });
+    }
+  </script>
+</body>
+</html>
