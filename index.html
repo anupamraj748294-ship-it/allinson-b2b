@@ -3,343 +3,272 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ALLINSON B2B - Wholesale Medicine Portal</title>
+  <title>ALLINSON B2B Wholesale</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE082'/%3E%3Cstop offset='100%25' stop-color='%23AA7C11'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='%23052619'/%3E%3Ccircle cx='256' cy='256' r='145' stroke='url(%23g)' stroke-width='16' fill='none'/%3E%3Cpath d='M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z' fill='url(%23g)'/%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #071e14;
-      --card-bg: #0d2c1f;
-      --card-border: #1a4a35;
+      --card: #0e3022;
+      --border: #1a4d36;
       --gold: #f4c430;
       --gold-gradient: linear-gradient(135deg, #ffe082 0%, #d4af37 50%, #aa7c11 100%);
-      --emerald-light: #22c55e;
-      --text-main: #ffffff;
-      --text-muted: #94a3b8;
+      --text: #ffffff;
+      --text-sub: #cbd5e1;
+      --green-btn: #16a34a;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body {
-      background: var(--bg);
-      color: var(--text-main);
-      padding-bottom: 90px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 120px; }
+
     header {
-      background: rgba(7, 30, 20, 0.96);
-      backdrop-filter: blur(12px);
-      padding: 16px 20px;
+      background: rgba(7, 30, 20, 0.98);
+      padding: 18px 20px;
       position: sticky;
       top: 0;
       z-index: 50;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 2px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .brand-title {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .b2b-badge {
-      background: #14532d;
-      color: #86efac;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-      border: 1px solid #22c55e;
-    }
-    .banner {
-      background: linear-gradient(180deg, rgba(20, 83, 45, 0.5) 0%, rgba(7, 30, 20, 0.1) 100%);
-      padding: 20px;
-      text-align: center;
-      border-bottom: 1px solid var(--card-border);
-    }
-    .banner h1 {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-    .banner p {
-      font-size: 13px;
-      color: #cbd5e1;
-    }
-    .search-box {
-      padding: 16px 20px 8px;
-    }
-    .search-box input {
-      width: 100%;
-      background: #0d2c1f;
-      border: 1.5px solid var(--card-border);
-      color: #fff;
-      padding: 14px 18px;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-    }
-    .search-box input:focus {
-      border-color: var(--gold);
-    }
-    .category-tabs {
-      display: flex;
-      gap: 10px;
-      padding: 10px 20px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .category-tabs::-webkit-scrollbar {
-      display: none;
-    }
-    .tab-btn {
-      background: #0d2c1f;
-      color: var(--text-muted);
-      border: 1px solid var(--card-border);
-      padding: 10px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background: var(--gold);
-      color: #052619;
-      border-color: var(--gold);
-    }
-    .medicine-list {
-      padding: 12px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .med-card {
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-border);
-      border-radius: 16px;
+    .brand { font-size: 28px; font-weight: 900; letter-spacing: 1px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cart-top-btn { background: var(--gold); color: #071e14; padding: 10px 18px; border-radius: 25px; font-weight: 900; font-size: 16px; cursor: pointer; border: none; }
+
+    .search-section { padding: 16px 20px 10px; }
+    .search-input { width: 100%; background: var(--card); border: 2px solid var(--border); padding: 16px; border-radius: 14px; color: #fff; font-size: 18px; font-weight: 600; outline: none; }
+
+    .tabs { display: flex; gap: 10px; padding: 10px 20px 16px; overflow-x: auto; scrollbar-width: none; }
+    .tab-btn { background: var(--card); border: 1.5px solid var(--border); color: var(--text-sub); padding: 10px 20px; border-radius: 25px; font-size: 16px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+    .tab-btn.active { background: var(--gold); color: #071e14; border-color: var(--gold); }
+
+    /* दवा डिमांड बॉक्स */
+    .demand-box {
+      margin: 10px 20px 20px;
+      background: linear-gradient(135deg, #113827, #0a2519);
+      border: 2px dashed var(--gold);
       padding: 18px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border-radius: 16px;
     }
-    .med-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-    .med-name {
-      font-size: 19px;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.3;
-    }
-    .med-type {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 8px;
-      text-transform: uppercase;
-    }
-    .type-homeo { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
-    .type-ayur { background: #713f12; color: #fde047; border: 1px solid #ca8a04; }
-    .type-german { background: #1e3a5f; color: #93c5fd; border: 1px solid #3b82f6; }
-    
-    .pricing-row {
-      background: rgba(0, 0, 0, 0.25);
-      padding: 12px 14px;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .mrp-label {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .mrp-val {
-      font-size: 22px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-    .discount-badge {
-      background: linear-gradient(135deg, #15803d, #166534);
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 800;
-      display: inline-block;
-      margin-bottom: 14px;
-      border-left: 4px solid var(--gold);
-    }
-    .card-actions {
-      display: flex;
-      gap: 10px;
-    }
-    .action-btn {
-      flex: 1;
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .btn-call {
-      background: var(--gold-gradient);
-      color: #052619;
-    }
-    .btn-wa {
-      background: #25d366;
-      color: #ffffff;
-    }
-    .bottom-bar {
+    .demand-box h3 { font-size: 20px; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
+    .demand-box p { font-size: 15px; color: #e2e8f0; margin-bottom: 12px; font-weight: 600; }
+    .demand-form { display: flex; gap: 10px; }
+    .demand-form input { flex: 1; padding: 14px; border-radius: 10px; border: 1.5px solid var(--border); background: #071e14; color: #fff; font-size: 16px; outline: none; }
+    .demand-form button { background: var(--gold); color: #071e14; border: none; padding: 0 20px; border-radius: 10px; font-weight: 900; font-size: 16px; cursor: pointer; }
+
+    /* प्रोडक्ट्स लिस्ट */
+    .product-grid { padding: 0 20px; display: flex; flex-direction: column; gap: 18px; }
+    .product-card { background: var(--card); border: 2px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .prod-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; }
+    .prod-name { font-size: 22px; font-weight: 900; color: #ffffff; line-height: 1.3; }
+    .prod-tag { font-size: 13px; padding: 5px 10px; border-radius: 8px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+    .tag-homeo { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+    .tag-ayur { background: #713f12; color: #fde047; border: 1px solid #ca8a04; }
+    .tag-german { background: #1e3a5f; color: #93c5fd; border: 1px solid #3b82f6; }
+
+    .price-discount-box { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 12px; margin: 12px 0 16px; }
+    .mrp-text { font-size: 22px; font-weight: 900; color: #ffffff; }
+    .discount-pill { background: #166534; color: #bbf7d0; padding: 8px 14px; border-radius: 10px; font-size: 16px; font-weight: 900; border: 1.5px solid #22c55e; }
+
+    .add-cart-btn { width: 100%; background: var(--green-btn); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 18px; font-weight: 900; cursor: pointer; }
+
+    /* नीचे का सिंगल कॉल बार */
+    .bottom-help-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(7, 30, 20, 0.98);
-      border-top: 1.5px solid var(--card-border);
-      padding: 12px 20px;
+      background: #051a11;
+      border-top: 2px solid var(--border);
+      padding: 14px 20px;
       display: flex;
-      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
       z-index: 100;
     }
+    .help-text { font-size: 14px; color: #cbd5e1; }
+    .help-text b { color: var(--gold); display: block; font-size: 16px; margin-bottom: 2px; }
+    .call-btn-group { display: flex; gap: 8px; }
+    .call-btn-single { background: var(--gold-gradient); color: #071e14; text-decoration: none; padding: 10px 14px; border-radius: 10px; font-size: 15px; font-weight: 900; }
+
+    /* कार्ट मोडल */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; justify-content: center; align-items: flex-end; }
+    .modal-content { background: var(--card); width: 100%; max-width: 500px; padding: 22px; border-radius: 24px 24px 0 0; border: 2px solid var(--border); max-height: 80vh; overflow-y: auto; }
+    .modal-close { float: right; font-size: 26px; cursor: pointer; color: var(--gold); font-weight: 900; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand-title">ALLINSON</div>
-    <div class="b2b-badge">B2B WHOLESALE</div>
+    <div class="brand">ALLINSON</div>
+    <button class="cart-top-btn" onclick="openCart()">🛒 कार्ट (<span id="cartCount">0</span>)</button>
   </header>
 
-  <div class="banner">
-    <h1>होलसेल रेट एवं ऑर्डर सहायता</h1>
-    <p>एमआरपी पर विशेष छूट प्राप्त करने हेतु नीचे सीधे संपर्क करें</p>
+  <!-- सर्च -->
+  <div class="search-section">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 दवा का नाम खोजें..." onkeyup="filterItems()">
   </div>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="दवा का नाम सर्च करें..." onkeyup="filterMeds()">
+  <!-- कैटेगरी -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setTab('all', this)">सभी दवाइयाँ</button>
+    <button class="tab-btn" onclick="setTab('Homeopathic', this)">होम्योपैथिक</button>
+    <button class="tab-btn" onclick="setTab('Ayurvedic', this)">आयुर्वेदिक</button>
+    <button class="tab-btn" onclick="setTab('German', this)">जर्मन</button>
   </div>
 
-  <div class="category-tabs">
-    <button class="tab-btn active" onclick="setFilter('all', this)">सभी दवाइयाँ</button>
-    <button class="tab-btn" onclick="setFilter('Homeopathic', this)">होम्योपैथिक</button>
-    <button class="tab-btn" onclick="setFilter('Ayurvedic', this)">आयुर्वेदिक</button>
-    <button class="tab-btn" onclick="setFilter('German', this)">जर्मन</button>
+  <!-- दवा डिमांड बॉक्स -->
+  <div class="demand-box">
+    <h3>📦 दवा नहीं मिल रही? यहाँ डिमांड करें</h3>
+    <p>दवा का नाम लिखें, हम तुरंत उपलब्ध करवा देंगे:</p>
+    <div class="demand-form">
+      <input type="text" id="demandInput" placeholder="दवा और कंपनी का नाम लिखें...">
+      <button onclick="sendDemand()">डिमांड भेजें</button>
+    </div>
   </div>
 
-  <div class="medicine-list" id="medicineList">
-    <!-- दवाइयाँ JavaScript द्वारा लोड होंगी -->
+  <!-- प्रोडक्ट्स लिस्ट -->
+  <div class="product-grid" id="productGrid"></div>
+
+  <!-- सिर्फ एक बार नीचे कॉल बार -->
+  <div class="bottom-help-bar">
+    <div class="help-text">
+      <b>कॉल पर बात करके भी मंगा सकते हैं</b>
+      रेट व ऑर्डर सहायता
+    </div>
+    <div class="call-btn-group">
+      <a href="tel:7482948349" class="call-btn-single">📞 7482948349</a>
+      <a href="tel:6207222800" class="call-btn-single">📞 6207222800</a>
+    </div>
   </div>
 
-  <div class="bottom-bar">
-    <a href="tel:7482948349" class="action-btn btn-call">📞 Call 1: 7482948349</a>
-    <a href="tel:6207222800" class="action-btn btn-call">📞 Call 2: 6207222800</a>
+  <!-- कार्ट मोडल -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeCart()">✕</span>
+      <h3 style="margin-bottom: 16px; color: var(--gold); font-size: 22px;">आपकी कार्ट</h3>
+      <div id="cartItemsList" style="margin-bottom: 20px; font-size: 16px;"></div>
+      <button class="add-cart-btn" style="background: #25d366;" onclick="checkoutWhatsApp()">WhatsApp पर ऑर्डर भेजें</button>
+    </div>
   </div>
 
   <script>
-    // आपकी दवाइयों का डेटा (Sheet या Local List)
     const medicines = [
-      { name: "Arnica Montana 30 / 200", category: "Homeopathic", mrp: 120 },
-      { name: "Berberis Aquifolium Q", category: "Homeopathic", mrp: 180 },
-      { name: "Dr. Reckeweg R1 to R89", category: "German", mrp: 290 },
-      { name: "Schwabe Cineraria Maritima", category: "German", mrp: 175 },
-      { name: "Ashwagandha Churna 100g", category: "Ayurvedic", mrp: 150 },
-      { name: "Chyawanprash Special 1kg", category: "Ayurvedic", mrp: 450 },
-      { name: "Adel 48 (Itires Drop)", category: "German", mrp: 310 },
-      { name: "Liv-52 Syrup / Tablets", category: "Ayurvedic", mrp: 160 }
+      { id: 1, name: "Arnica Montana 30 / 200", category: "Homeopathic", mrp: 120 },
+      { id: 2, name: "Berberis Aquifolium Q", category: "Homeopathic", mrp: 180 },
+      { id: 3, name: "Dr. Reckeweg R1 to R89", category: "German", mrp: 290 },
+      { id: 4, name: "Schwabe Cineraria Maritima", category: "German", mrp: 175 },
+      { id: 5, name: "Ashwagandha Churna 100g", category: "Ayurvedic", mrp: 150 },
+      { id: 6, name: "Chyawanprash Special 1kg", category: "Ayurvedic", mrp: 450 },
+      { id: 7, name: "Adel 48 (Itires Drop)", category: "German", mrp: 310 },
+      { id: 8, name: "Liv-52 Syrup / Tablets", category: "Ayurvedic", mrp: 160 }
     ];
 
-    let currentCategory = 'all';
+    let cart = [];
+    let activeCat = 'all';
 
-    function getDiscountText(cat) {
-      if (cat === "Homeopathic") return "50% से 75% होलसेल छूट";
-      if (cat === "Ayurvedic") return "25% से 75% होलसेल छूट";
-      if (cat === "German") return "30% से 40% होलसेल छूट";
-      return "विशेष होलसेल छूट उपलब्ध";
+    function getDiscount(cat) {
+      if(cat === "Homeopathic") return "50% से 75% छूट";
+      if(cat === "Ayurvedic") return "25% से 75% छूट";
+      if(cat === "German") return "30% से 40% छूट";
+      return "होलसेल छूट";
     }
 
-    function getTypeClass(cat) {
-      if (cat === "Homeopathic") return "type-homeo";
-      if (cat === "Ayurvedic") return "type-ayur";
-      if (cat === "German") return "type-german";
-      return "type-homeo";
+    function getTagClass(cat) {
+      if(cat === "Homeopathic") return "tag-homeo";
+      if(cat === "Ayurvedic") return "tag-ayur";
+      if(cat === "German") return "tag-german";
+      return "tag-homeo";
     }
 
-    function renderMeds() {
-      const container = document.getElementById('medicineList');
-      const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    function renderList() {
+      const container = document.getElementById('productGrid');
+      const q = document.getElementById('searchInput').value.toLowerCase();
       container.innerHTML = '';
 
       const filtered = medicines.filter(m => {
-        const matchesCat = currentCategory === 'all' || m.category === currentCategory;
-        const matchesSearch = m.name.toLowerCase().includes(searchQuery);
-        return matchesCat && matchesSearch;
+        const catMatch = activeCat === 'all' || m.category === activeCat;
+        const searchMatch = m.name.toLowerCase().includes(q);
+        return catMatch && searchMatch;
       });
 
-      if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding: 40px; color: #94a3b8; font-size: 16px;">कोई दवा नहीं मिली। सीधे कॉल पर रेट जानें।</div>`;
-        return;
-      }
-
       filtered.forEach(med => {
-        const disc = getDiscountText(med.category);
-        const typeClass = getTypeClass(med.category);
-        const waMsg = encodeURIComponent(`नमस्ते ALLINSON, मुझे "${med.name}" (MRP: ₹${med.mrp}) का होलसेल रेट जानना है और ऑर्डर देना है।`);
-
         const card = document.createElement('div');
-        card.className = 'med-card';
+        card.className = 'product-card';
         card.innerHTML = `
-          <div class="med-header">
-            <div class="med-name">${med.name}</div>
-            <span class="med-type ${typeClass}">${med.category}</span>
+          <div class="prod-header">
+            <div class="prod-name">${med.name}</div>
+            <span class="prod-tag ${getTagClass(med.category)}">${med.category}</span>
           </div>
-
-          <div class="pricing-row">
-            <span class="mrp-label">मूल्य (MRP):</span>
-            <span class="mrp-val">₹${med.mrp}</span>
+          <div class="price-discount-box">
+            <span class="mrp-text">MRP: ₹${med.mrp}</span>
+            <span class="discount-pill">${getDiscount(med.category)}</span>
           </div>
-
-          <div class="discount-badge">🏷️ ${disc}</div>
-
-          <div class="card-actions">
-            <a href="tel:7482948349" class="action-btn btn-call">📞 कॉल रेट</a>
-            <a href="https://wa.me/917482948349?text=${waMsg}" class="action-btn btn-wa">💬 WhatsApp</a>
-          </div>
+          <button class="add-cart-btn" onclick="addToCart(${med.id})">🛒 कार्ट में जोड़ें</button>
         `;
         container.appendChild(card);
       });
     }
 
-    function filterMeds() {
-      renderMeds();
+    function addToCart(id) {
+      const item = medicines.find(m => m.id === id);
+      cart.push(item);
+      document.getElementById('cartCount').innerText = cart.length;
+      alert(item.name + " कार्ट में जुड़ गया!");
     }
 
-    function setFilter(cat, btn) {
-      currentCategory = cat;
+    function openCart() {
+      const modal = document.getElementById('cartModal');
+      const list = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        list.innerHTML = "<p style='color:#94a3b8; font-size:16px;'>कार्ट खाली है।</p>";
+      } else {
+        list.innerHTML = cart.map((it, idx) => `
+          <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #1a4d36;">
+            <span><b>${it.name}</b> (MRP: ₹${it.mrp})</span>
+            <span style="color:#ef4444; font-weight:800; cursor:pointer;" onclick="removeItem(${idx})">हटाएं</span>
+          </div>
+        `).join('');
+      }
+      modal.style.display = 'flex';
+    }
+
+    function removeItem(idx) {
+      cart.splice(idx, 1);
+      document.getElementById('cartCount').innerText = cart.length;
+      openCart();
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function checkoutWhatsApp() {
+      if(cart.length === 0) return alert("कार्ट खाली है!");
+      let msg = "नमस्ते ALLINSON, मुझे इन दवाओं का ऑर्डर देना है:\n";
+      cart.forEach((it, i) => {
+        msg += `${i+1}. ${it.name} (MRP: ₹${it.mrp})\n`;
+      });
+      msg += "\nकृपया इस पर फाइनल डिस्काउंट रेट कन्फर्म करें।";
+      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(msg)}`);
+    }
+
+    function sendDemand() {
+      const val = document.getElementById('demandInput').value;
+      if(!val) return alert("कृपया दवा का नाम लिखें");
+      const msg = `नमस्ते ALLINSON, मुझे यह दवा चाहिए जो लिस्ट में नहीं है: ${val}`;
+      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(msg)}`);
+    }
+
+    function filterItems() { renderList(); }
+
+    function setTab(cat, btn) {
+      activeCat = cat;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      renderMeds();
+      renderList();
     }
 
-    renderMeds();
+    renderList();
   </script>
 </body>
 </html>
