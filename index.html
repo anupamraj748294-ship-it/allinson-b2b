@@ -3,19 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ALLINSON - Bihar B2B Medicine Depot</title>
+  <title>ALLINSON - PAN INDIA B2B MEDICINE DEPOT</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #04130c; display: flex; justify-content: center; }
     .app-shell { width: 100%; max-width: 440px; background: #f1f5f9; min-height: 100vh; position: relative; padding-bottom: 75px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
     
+    /* Top Bar with new premium logo & branding */
     .header { background: #062c1e; color: #fff; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
     .brand-wrap { display: flex; align-items: center; gap: 10px; }
-    .brand-logo { width: 38px; height: 38px; border-radius: 8px; background: linear-gradient(135deg, #d4af37, #aa7c11); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #062c1e; }
-    .brand-text h1 { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; color: #fdf3c7; }
-    .brand-text p { font-size: 8px; font-weight: 700; color: #6ee7b7; letter-spacing: 0.5px; }
+    
+    /* Premium custom branded logo using the uploaded image */
+    .brand-logo-img { width: 44px; height: 44px; border-radius: 6px; object-fit: contain; background: #062c1e; padding: 1px; }
+    
+    .brand-text h1 { font-size: 17px; font-weight: 900; letter-spacing: 1.5px; color: #fdf3c7; }
+    .brand-text p { font-size: 7.5px; font-weight: 800; color: #6ee7b7; letter-spacing: 0.8px; text-transform: uppercase; }
     
     .badge-btn { background: #d4af37; color: #062c1e; border: none; padding: 7px 14px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; }
+    
+    /* Rebranded delivery sub-bar (Removing Bihar completely) */
     .sub-bar { background: #0a3b29; color: #fef08a; padding: 6px 14px; font-size: 9.5px; font-weight: 600; display: flex; justify-content: space-between; }
 
     .filter-sec { padding: 10px 10px 6px; position: sticky; top: 0; background: #f1f5f9; z-index: 10; }
@@ -24,7 +30,7 @@
     .tab-btn { flex: 1; padding: 7px 0; border: none; background: #fff; border-radius: 6px; font-size: 11px; font-weight: 700; color: #334155; border: 1px solid #cbd5e1; cursor: pointer; }
     .tab-btn.active { background: #062c1e; color: #fdf3c7; border-color: #062c1e; }
 
-    /* Amazon/Flipkart 2-Column Grid Layout */
+    /* Amazon/Flipkart 2-Column Grid */
     .catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 6px 10px 14px; }
     .card { background: #fff; border-radius: 8px; padding: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     
@@ -49,7 +55,7 @@
     .grid-qty-input { width: 38px; text-align: center; padding: 5px 0; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 800; outline: none; }
     .grid-add-btn { flex: 1; background: #062c1e; color: #fdf3c7; border: none; padding: 6px 0; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    /* Cart */
+    /* Cart Details */
     .cart-wrap { padding: 12px; }
     .cart-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
     .cart-qty-ctrl { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
@@ -74,18 +80,20 @@
   <div class="app-shell">
     <div class="header">
       <div class="brand-wrap">
-        <div class="brand-logo">A</div>
+        <!-- Live Brand Image (Uploaded Golden Circle logo) -->
+        <img class="brand-logo-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&h=120&q=80" onerror="this.src='https://raw.githubusercontent.com/anupamraj748294-ship-it/allinson-b2b/main/allinson-logo.png'; this.onerror=null;" alt="A">
         <div class="brand-text">
           <h1>ALLINSON</h1>
-          <p>BIHAR MEDICINE DEPOT • WHOLESALE</p>
+          <p>Herbal & Ayurvedic Wholesale • Pan India</p>
         </div>
       </div>
       <button class="badge-btn" onclick="goScreen('cart')">🛒 Cart (<span id="cartBadge">0</span>)</button>
     </div>
     
+    <!-- Rebranded All India Bar -->
     <div class="sub-bar">
-      <span>📍 Patna Central Hub (Bihar Delivery)</span>
-      <span style="color:#6ee7b7;">✓ Genuine Depot Rates</span>
+      <span>📍 All India Supply (Pan-India Fast Delivery)</span>
+      <span style="color:#6ee7b7;">✓ Original Depot Rates</span>
     </div>
 
     <!-- 1. Catalog Screen -->
@@ -118,10 +126,10 @@
       </div>
     </div>
 
-    <!-- 3. Checkout Screen -->
+    <!-- 3. Checkout Screen (All India Shipping-ready) -->
     <div id="checkoutScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <h2 style="font-size:14px;color:#062c1e;">Dukan Details</h2>
+        <h2 style="font-size:14px;color:#062c1e;">Delivery & Store Details</h2>
         <button onclick="goScreen('cart')" style="border:none;background:none;font-weight:bold;color:#062c1e;cursor:pointer;">← Cart</button>
       </div>
       <div class="form-group">
@@ -131,22 +139,27 @@
         <input type="text" id="propName" placeholder="Aapka naam">
         <label>WhatsApp / Mobile No *</label>
         <input type="tel" id="phNumber" placeholder="10 Digit Mobile No">
-        <label>Bihar Ka Zila (District) *</label>
-        <select id="dstCity">
-          <option value="Patna">Patna Central Depot</option>
-          <option value="Muzaffarpur">Muzaffarpur</option>
-          <option value="Gaya">Gaya</option>
-          <option value="Bhagalpur">Bhagalpur</option>
-          <option value="Darbhanga">Darbhanga</option>
-          <option value="Purnia">Purnia</option>
-          <option value="Begusarai">Begusarai</option>
-          <option value="Samastipur">Samastipur</option>
-          <option value="Ara">Ara / Bhojpur</option>
-          <option value="Vaishali">Vaishali</option>
-          <option value="Siwan">Siwan</option>
-          <option value="Chhapra">Chhapra</option>
+        
+        <label>Rajya (State) *</label>
+        <select id="stateSel">
+          <option value="Bihar">Bihar</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Jharkhand">Jharkhand</option>
+          <option value="West Bengal">West Bengal</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Delhi NCR">Delhi NCR</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Other">Other (Outside regions)</option>
         </select>
-        <label>Pura Address *</label>
+
+        <label>Zila & Pin Code *</label>
+        <input type="text" id="distCity" placeholder="Jaise: Lucknow (226001)">
+
+        <label>Pura Address (Delivery Ke Liye) *</label>
         <input type="text" id="fullAddr" placeholder="Dukan No, Main Market, Landmark...">
         <button class="primary-btn" onclick="submitFinalOrder()">Order Confirm Karein (₹<span id="chkTotal">0</span>)</button>
       </div>
@@ -167,10 +180,10 @@
   </div>
 
   <script>
-    // Live Google Sheet Export URL
+    // URL to always fetch original catalog from your synced Sheet
     var GSHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1egGan3nJ4AXHNDq0ZKUEi8opEQc4NZpHe5vabb90KhY/export?format=csv";
 
-    // Instant Fallback Catalog (Store never goes blank)
+    // Instant Fallback Catalog 
     var FALLBACK_CATALOG = [
       { id: 1, name: "SBL Arnica Montana 30 CH", brand: "SBL", cat: "Homeopathy", wholesale: 80, mrp: 105, moq: 6, pack: "30ml Dilution", img: "" },
       { id: 2, name: "SBL Arnica Montana 200 CH", brand: "SBL", cat: "Homeopathy", wholesale: 90, mrp: 115, moq: 6, pack: "30ml Dilution", img: "" },
@@ -198,7 +211,7 @@
       setTimeout(function(){ t.style.display = 'none'; }, 2200);
     }
 
-    // Parse CSV from Google Sheet
+    // Connects live & updates directly based on user's newly populated spreadsheet
     function fetchLiveSheetData() {
       fetch(GSHEET_CSV_URL)
         .then(function(res) { return res.text(); })
@@ -210,7 +223,7 @@
               var row = lines[i].split(',');
               if (row.length >= 7 && row[0].trim() !== '') {
                 fetched.push({
-                  id: 2000 + i,
+                  id: 3000 + i,
                   name: row[0].replace(/\"/g, "").trim(),
                   brand: row[1].replace(/\"/g, "").trim(),
                   cat: row[2].replace(/\"/g, "").trim(),
@@ -228,7 +241,7 @@
             }
           }
         })
-        .catch(function(err) {
+        .catch(function() {
           console.log("Using internal catalog fallback");
         });
     }
@@ -328,126 +341,4 @@
       document.getElementById('catalogScreen').style.display = (scn === 'catalog') ? 'block' : 'none';
       document.getElementById('cartScreen').style.display = (scn === 'cart') ? 'block' : 'none';
       document.getElementById('checkoutScreen').style.display = (scn === 'checkout') ? 'block' : 'none';
-      document.getElementById('ordersScreen').style.display = (scn === 'orders') ? 'block' : 'none';
-
-      document.getElementById('nbCat').className = 'nav-btn ' + (scn === 'catalog' ? 'active' : '');
-      document.getElementById('nbCart').className = 'nav-btn ' + (scn === 'cart' || scn === 'checkout' ? 'active' : '');
-      document.getElementById('nbOrd').className = 'nav-btn ' + (scn === 'orders' ? 'active' : '');
-
-      if (scn === 'cart') renderCartScreen();
-      if (scn === 'checkout') renderCheckoutScreen();
-      if (scn === 'orders') renderOrdersHistory();
-    }
-
-    function changeCartQty(idx, delta) {
-      var item = myCart[idx];
-      var newQty = item.qty + delta;
-      if (newQty < item.moq) {
-        if (confirm("MOQ " + item.moq + " pcs hai. Cart se hatana chahte hain?")) { delCartItem(idx); }
-        return;
-      }
-      item.qty = newQty;
-      renderCartScreen();
-    }
-
-    function setDirectCartQty(idx, val) {
-      var item = myCart[idx];
-      var parsed = parseInt(val) || item.moq;
-      if (parsed < item.moq) {
-        alert("Kam se kam " + item.moq + " piece zaroori hai");
-        parsed = item.moq;
-      }
-      item.qty = parsed;
-      renderCartScreen();
-    }
-
-    function renderCartScreen() {
-      var list = document.getElementById('cartList');
-      var calc = document.getElementById('cartCalc');
-      if (myCart.length === 0) {
-        list.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:25px;">Aapka cart abhi khali hai.</p>';
-        calc.style.display = 'none';
-        return;
-      }
-      calc.style.display = 'block';
-      var pay = 0, mrpT = 0;
-      list.innerHTML = '';
-      myCart.forEach(function(item, idx){
-        var itemTotal = (item.wholesale * item.qty);
-        pay += itemTotal;
-        mrpT += (item.mrp * item.qty);
-        list.innerHTML += '<div class="cart-box">' +
-          '<div style="flex:1;">' +
-            '<b>' + item.name + '</b>' +
-            '<div style="font-size:9.5px;color:#64748b;margin-top:2px;">Rate: ₹' + item.wholesale + ' /pc (MOQ: ' + item.moq + ')</div>' +
-            '<div class="cart-qty-ctrl">' +
-              '<button class="step-btn" onclick="changeCartQty(' + idx + ', -1)">-</button>' +
-              '<input type="number" class="cart-qty-val" value="' + item.qty + '" min="' + item.moq + '" onchange="setDirectCartQty(' + idx + ', this.value)">' +
-              '<button class="step-btn" onclick="changeCartQty(' + idx + ', 1)">+</button>' +
-              '<span style="font-size:10px;color:#64748b;font-weight:700;">pcs</span>' +
-            '</div>' +
-          '</div>' +
-          '<div style="text-align:right;">' +
-            '<div style="font-weight:900;font-size:13px;color:#062c1e;">₹' + itemTotal + '</div>' +
-            '<button class="del-btn" onclick="delCartItem(' + idx + ')" style="margin-top:4px;">Hatao</button>' +
-          '</div>' +
-        '</div>';
-      });
-      document.getElementById('totPay').innerText = pay;
-      document.getElementById('marginSave').innerText = (mrpT - pay);
-    }
-
-    function delCartItem(idx) {
-      myCart.splice(idx, 1);
-      document.getElementById('cartBadge').innerText = myCart.length;
-      renderCartScreen();
-    }
-
-    function renderCheckoutScreen() {
-      var sum = 0;
-      myCart.forEach(function(i){ sum += (i.wholesale * i.qty); });
-      document.getElementById('chkTotal').innerText = sum;
-    }
-
-    function submitFinalOrder() {
-      var shop = document.getElementById('shName').value.trim();
-      var prop = document.getElementById('propName').value.trim();
-      var ph = document.getElementById('phNumber').value.trim();
-      var city = document.getElementById('dstCity').value;
-      var addr = document.getElementById('fullAddr').value.trim();
-      var bill = document.getElementById('chkTotal').innerText;
-
-      if (!shop || !ph) { alert("Dukan ka naam aur mobile number likhna zaroori hai!"); return; }
-
-      var idNum = "ALN-" + Math.floor(100000 + Math.random() * 900000);
-      var newOrder = { id: idNum, shop: shop, prop: prop, phone: ph, city: city, bill: bill, count: myCart.length, time: new Date().toLocaleTimeString() };
-      placedOrders.unshift(newOrder);
-
-      myCart = [];
-      document.getElementById('cartBadge').innerText = 0;
-      notify("✓ Order Patna Depot Bhej Diya Gaya!");
-      goScreen('orders');
-    }
-
-    function renderOrdersHistory() {
-      var box = document.getElementById('placedList');
-      if (placedOrders.length === 0) {
-        box.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:20px;">Abhi tak koi order place nahi hua hai.</p>';
-        return;
-      }
-      box.innerHTML = '';
-      placedOrders.forEach(function(o){
-        box.innerHTML += '<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:8px;font-size:11px;">' +
-          '<div style="display:flex;justify-content:space-between;"><b>Order #' + o.id + '</b><span style="color:#15803d;font-weight:bold;">Confirmed</span></div>' +
-          '<div style="color:#475569;margin-top:2px;">Store: ' + o.shop + ' (' + o.city + ', Bihar)</div>' +
-          '<div style="color:#062c1e;font-weight:900;margin-top:4px;">Total Bill: ₹' + o.bill + '</div>' +
-        '</div>';
-      });
-    }
-
-    // Direct Boot & Live Sheet Sync
-    renderStore();
-    fetchLiveSheetData();
-  </script>
-</body>
-</html>
+      document.getElementById('ordersScreen').style.display = (scn ==
