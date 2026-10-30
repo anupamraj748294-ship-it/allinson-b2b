@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ALLINSON - B2B Wholesale Portal</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE082'/%3E%3Cstop offset='100%25' stop-color='%23AA7C11'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='%23052619'/%3E%3Ccircle cx='256' cy='256' r='145' stroke='url(%23g)' stroke-width='16' fill='none'/%3E%3Cpath d='M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z' fill='url(%23g)'/%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #071e14;
@@ -16,416 +16,433 @@
       --text: #ffffff;
       --text-muted: #94a3b8;
       --green: #15803d;
-      --green-hover: #166534;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
 
-    /* Top App Bar */
+    /* Top Bar with Brand Logo */
     header {
       background: rgba(7, 30, 20, 0.98);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 12px 16px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .brand-group { display: flex; align-items: center; gap: 8px; }
-    .brand-title { font-size: 20px; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .b2b-tag { background: #14532d; color: #86efac; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid #22c55e; }
-    .cart-trigger { background: var(--gold); color: #071e14; border: none; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .brand-box { display: flex; align-items: center; gap: 10px; }
+    .brand-svg-logo { width: 38px; height: 38px; }
+    .brand-name { font-size: 20px; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .b2b-pill { background: #14532d; color: #86efac; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid #22c55e; }
+    .cart-btn { background: var(--gold); color: #071e14; border: none; padding: 7px 12px; border-radius: 20px; font-weight: 700; font-size: 13px; cursor: pointer; }
 
-    /* Search & Category Filter */
-    .search-box { padding: 12px 16px 6px; }
-    .search-box input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 14px; outline: none; }
-    .category-pills { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
-    .category-pills::-webkit-scrollbar { display: none; }
-    .pill { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 14px; border-radius: 16px; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; }
-    .pill.active { background: var(--gold); color: #071e14; border-color: var(--gold); font-weight: 700; }
+    /* Search & Category Pills */
+    .search-wrap { padding: 10px 16px 4px; }
+    .search-wrap input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 14px; outline: none; }
+    .category-scroll { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
+    .category-scroll::-webkit-scrollbar { display: none; }
+    .cat-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 12px; border-radius: 18px; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .cat-btn.active { background: var(--gold); color: #071e14; border-color: var(--gold); font-weight: 700; }
 
-    /* Medicine Demand Box */
-    .demand-banner {
-      margin: 8px 16px 12px;
+    /* Demand Banner */
+    .demand-box {
+      margin: 6px 16px 10px;
       background: linear-gradient(135deg, #103826, #092418);
       border: 1px dashed var(--gold);
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-radius: 12px;
     }
-    .demand-banner h4 { font-size: 14px; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
-    .demand-banner p { font-size: 12px; color: #cbd5e1; margin-bottom: 8px; }
-    .demand-inputs { display: flex; gap: 6px; }
-    .demand-inputs input { flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: #071e14; color: #fff; font-size: 13px; outline: none; }
-    .demand-inputs button { background: var(--gold); color: #071e14; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
+    .demand-box h4 { font-size: 13px; color: var(--gold); font-weight: 700; margin-bottom: 3px; }
+    .demand-box p { font-size: 11px; color: #cbd5e1; margin-bottom: 6px; }
+    .demand-row { display: flex; gap: 6px; }
+    .demand-row input { flex: 1; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: #071e14; color: #fff; font-size: 12px; outline: none; }
+    .demand-row button { background: var(--gold); color: #071e14; border: none; padding: 0 12px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; }
 
-    /* 2-Column Product Grid (Two Patti Layout) */
-    .product-grid {
+    /* 2-Column Product Grid (Two Patti) */
+    .catalog-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 10px;
       padding: 6px 16px;
     }
-    .product-card {
+    .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
     }
-    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-    .type-badge { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
-    .type-homeo { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
-    .type-ayur { background: #713f12; color: #fde047; border: 1px solid #ca8a04; }
-    .type-german { background: #1e3a5f; color: #93c5fd; border: 1px solid #3b82f6; }
+    .card-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-bottom: 6px; width: fit-content; }
+    .badge-homeo { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+    .badge-ayur { background: #713f12; color: #fde047; border: 1px solid #ca8a04; }
+    .badge-german { background: #1e3a5f; color: #93c5fd; border: 1px solid #3b82f6; }
+
+    .med-name { font-size: 13px; font-weight: 600; color: #ffffff; line-height: 1.3; min-height: 36px; margin-bottom: 4px; }
+    .mrp-line { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .mrp-line b { font-size: 13px; color: #ffffff; font-weight: 700; }
     
-    .prod-name { font-size: 14px; font-weight: 600; color: #ffffff; line-height: 1.3; min-height: 38px; margin-bottom: 6px; }
-    .mrp-row { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-    .mrp-val { font-size: 14px; font-weight: 700; color: #ffffff; }
-    
-    .discount-tag {
+    .discount-pill {
       background: rgba(22, 101, 52, 0.4);
       color: #86efac;
       border: 1px solid #22c55e;
-      padding: 4px 6px;
-      border-radius: 6px;
-      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 5px;
+      font-size: 10px;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-    .btn-add-cart {
+
+    /* Quantity Box (+ / -) */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #071e14;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px;
+      margin-bottom: 8px;
+    }
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      background: #14452f;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qty-number { font-size: 12px; font-weight: 700; color: var(--gold); }
+    .qty-unit { font-size: 9px; color: var(--text-muted); margin-left: 2px; }
+
+    .add-btn {
+      width: 100%;
       background: var(--green);
       color: #fff;
       border: none;
-      padding: 9px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      width: 100%;
     }
 
-    /* Fixed Bottom Assistance Bar */
-    .bottom-bar {
+    /* Fixed Bottom Bar */
+    .footer-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       background: #051a11;
       border-top: 1px solid var(--border);
-      padding: 10px 16px;
+      padding: 8px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 99;
     }
-    .help-info { font-size: 12px; color: #cbd5e1; }
-    .help-info b { color: var(--gold); font-size: 13px; display: block; }
-    .call-btn-box { display: flex; gap: 6px; }
-    .call-pill { background: var(--gold-gradient); color: #071e14; text-decoration: none; padding: 7px 11px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+    .footer-info { font-size: 11px; color: #cbd5e1; }
+    .footer-info b { color: var(--gold); font-size: 12px; display: block; }
+    .call-btn-wrap { display: flex; gap: 6px; }
+    .call-btn { background: var(--gold-gradient); color: #071e14; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
 
-    /* Modal / Bottom Sheet (Cart & Checkout) */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: flex-end; }
-    .modal-box { background: var(--card-bg); width: 100%; max-width: 500px; padding: 18px; border-radius: 20px 20px 0 0; border: 1px solid var(--border); max-height: 85vh; overflow-y: auto; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-    .modal-head h3 { font-size: 17px; color: var(--gold); font-weight: 700; }
-    .close-icon { font-size: 20px; color: var(--text-muted); cursor: pointer; }
+    /* Modal / Bottom Sheet */
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: flex-end; }
+    .modal-box { background: var(--card-bg); width: 100%; max-width: 500px; padding: 16px; border-radius: 18px 18px 0 0; border: 1px solid var(--border); max-height: 85vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .modal-header h3 { font-size: 16px; color: var(--gold); font-weight: 700; }
+    .close-btn { font-size: 18px; color: var(--text-muted); cursor: pointer; }
 
-    /* Form Fields in Checkout */
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; background: #071e14; border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; color: #fff; font-size: 13px; outline: none;
-    }
-    .payment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 16px; }
-    .pay-btn {
-      background: #071e14; border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer;
-    }
-    .pay-btn.selected { border-color: var(--gold); background: #103826; color: var(--gold); }
-    .btn-checkout { width: 100%; background: #25d366; color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .form-item { margin-bottom: 10px; }
+    .form-item label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
+    .form-item input, .form-item textarea { width: 100%; background: #071e14; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: #fff; font-size: 12px; outline: none; }
+    .pay-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 14px; }
+    .pay-card { background: #071e14; border: 1px solid var(--border); color: #fff; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; }
+    .pay-card.selected { border-color: var(--gold); background: #103826; color: var(--gold); }
+    .checkout-submit { width: 100%; background: #25d366; color: #fff; border: none; padding: 11px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <!-- Top Header -->
+  <!-- Top App Bar with Gold Logo -->
   <header>
-    <div class="brand-group">
-      <div class="brand-title">ALLINSON</div>
-      <div class="b2b-tag">WHOLESALE</div>
+    <div class="brand-box">
+      <svg class="brand-svg-logo" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFE082"/>
+            <stop offset="100%" stop-color="#AA7C11"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="110" fill="#052619"/>
+        <circle cx="256" cy="256" r="145" stroke="url(#gGold)" stroke-width="18" fill="none"/>
+        <path d="M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z" fill="url(#gGold)"/>
+        <path d="M220 280 Q256 240 310 270 Q265 315 220 280 Z" fill="#22c55e"/>
+      </svg>
+      <div>
+        <div class="brand-name">ALLINSON</div>
+      </div>
+      <div class="b2b-pill">B2B</div>
     </div>
-    <button class="cart-trigger" onclick="openCartView()">
-      🛒 कार्ट (<span id="cartCount">0</span>)
-    </button>
+    <button class="cart-btn" onclick="openCart()">🛒 कार्ट (<span id="cartCount">0</span>)</button>
   </header>
 
   <!-- Search -->
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="दवा सर्च करें..." onkeyup="filterCatalog()">
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="दवा सर्च करें..." onkeyup="filterItems()">
   </div>
 
-  <!-- Category Pills -->
-  <div class="category-pills">
-    <button class="pill active" onclick="setCategory('all', this)">सभी दवाइयाँ</button>
-    <button class="pill" onclick="setCategory('Homeopathic', this)">होम्योपैथिक</button>
-    <button class="pill" onclick="setCategory('Ayurvedic', this)">आयुर्वेदिक</button>
-    <button class="pill" onclick="setCategory('German', this)">जर्मन</button>
+  <!-- Categories with Custom Badges -->
+  <div class="category-scroll">
+    <button class="cat-btn active" onclick="setFilter('all', this)">⭐ सभी दवाइयाँ</button>
+    <button class="cat-btn" onclick="setFilter('Homeopathic', this)">💧 होम्योपैथिक</button>
+    <button class="cat-btn" onclick="setFilter('Ayurvedic', this)">🌿 आयुर्वेदिक</button>
+    <button class="cat-btn" onclick="setFilter('German', this)">🛡️ जर्मन</button>
   </div>
 
-  <!-- Medicine Demand Section -->
-  <div class="demand-banner">
+  <!-- Medicine Demand Banner -->
+  <div class="demand-box">
     <h4>📦 दवा नहीं मिल रही? यहाँ डिमांड करें</h4>
     <p>दवा का नाम लिखें, हम थोक रेट पर उपलब्ध कराएँगे:</p>
-    <div class="demand-inputs">
-      <input type="text" id="demandField" placeholder="दवा व कंपनी का नाम...">
+    <div class="demand-row">
+      <input type="text" id="demandInput" placeholder="दवा व कंपनी का नाम...">
       <button onclick="submitDemand()">डिमांड भेजें</button>
     </div>
   </div>
 
-  <!-- 2-Column Product Grid -->
-  <div class="product-grid" id="productGrid">
-    <!-- दवाइयाँ JavaScript से लोड होंगी -->
-  </div>
+  <!-- 2-Patti Grid View -->
+  <div class="catalog-grid" id="catalogGrid"></div>
 
-  <!-- Fixed Bottom Assistance Bar -->
-  <div class="bottom-bar">
-    <div class="help-info">
+  <!-- Bottom Call Assistance -->
+  <div class="footer-bar">
+    <div class="footer-info">
       <b>कॉल करके भी ऑर्डर मंगा सकते हैं</b>
-      रेट एवं ऑर्डर सहायता
+      रेट व ऑर्डर सहायता
     </div>
-    <div class="call-btn-box">
-      <a href="tel:7482948349" class="call-pill">📞 7482948349</a>
-      <a href="tel:6207222800" class="call-pill">📞 6207222800</a>
+    <div class="call-btn-wrap">
+      <a href="tel:7482948349" class="call-btn">📞 7482948349</a>
+      <a href="tel:6207222800" class="call-btn">📞 6207222800</a>
     </div>
   </div>
 
   <!-- Cart & Checkout Modal -->
-  <div class="modal-overlay" id="cartOverlay">
+  <div class="modal-backdrop" id="cartModal">
     <div class="modal-box">
-      <div class="modal-head">
+      <div class="modal-header">
         <h3>🛒 आपकी कार्ट एवं चेकआउट</h3>
-        <span class="close-icon" onclick="closeCartView()">✕</span>
+        <span class="close-btn" onclick="closeCart()">✕</span>
       </div>
 
-      <!-- Items List -->
-      <div id="cartItemsContainer" style="margin-bottom: 14px; max-height: 180px; overflow-y: auto;"></div>
+      <div id="cartList" style="margin-bottom: 12px; max-height: 160px; overflow-y: auto;"></div>
 
-      <!-- Checkout Form -->
-      <div id="checkoutFormBlock">
-        <div class="form-group">
+      <div id="checkoutForm">
+        <div class="form-item">
           <label>दुकान / ग्राहक का नाम *</label>
           <input type="text" id="custName" placeholder="अपना या दुकान का नाम लिखें">
         </div>
-        <div class="form-group">
+        <div class="form-item">
           <label>मोबाइल नंबर *</label>
           <input type="tel" id="custPhone" placeholder="संपर्क नंबर">
         </div>
-        <div class="form-group">
+        <div class="form-item">
           <label>पूरा पता व पिनकोड *</label>
           <textarea id="custAddress" rows="2" placeholder="दुकान/घर का पता, शहर, पिनकोड"></textarea>
         </div>
 
-        <label style="font-size: 12px; color: var(--text-muted); font-weight: 600;">पेमेंट का तरीका चुनें *</label>
-        <div class="payment-options">
-          <div class="pay-btn selected" id="optCOD" onclick="selectPay('Cash on Delivery (COD)')">💵 Cash on Delivery</div>
-          <div class="pay-btn" id="optOnline" onclick="selectPay('Online UPI / Bank Transfer')">💳 Online / UPI</div>
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">पेमेंट मोड चुनें *</label>
+        <div class="pay-selector">
+          <div class="pay-card selected" id="optCOD" onclick="setPayment('Cash on Delivery (COD)')">💵 Cash on Delivery</div>
+          <div class="pay-card" id="optOnline" onclick="setPayment('Online UPI / Bank Transfer')">💳 Online / UPI</div>
         </div>
 
-        <button class="btn-checkout" onclick="confirmOrderWhatsApp()">व्हाट्सएप पर ऑर्डर कन्फर्म करें</button>
+        <button class="checkout-submit" onclick="submitWhatsAppOrder()">WhatsApp पर ऑर्डर भेजें</button>
       </div>
     </div>
   </div>
 
   <script>
-    // GOOGLE SHEET SYNC (ज़रूरत पड़ने पर सिर्फ .csv लिंक डालें)
-    const SHEET_CSV_URL = "";
-
-    // दवाइयों का मास्टर डेटा
-    let catalog = [
-      { id: 1, name: "Arnica Montana 30 / 200", category: "Homeopathic", mrp: 120 },
-      { id: 2, name: "Berberis Aquifolium Q", category: "Homeopathic", mrp: 180 },
-      { id: 3, name: "Dr. Reckeweg R1 to R89", category: "German", mrp: 290 },
-      { id: 4, name: "Schwabe Cineraria Eye Drop", category: "German", mrp: 175 },
-      { id: 5, name: "Ashwagandha Churna 100g", category: "Ayurvedic", mrp: 150 },
-      { id: 6, name: "Chyawanprash Special 1kg", category: "Ayurvedic", mrp: 450 },
-      { id: 7, name: "Adel 48 (Itires Drop)", category: "German", mrp: 310 },
-      { id: 8, name: "Liv-52 Syrup / Tablets", category: "Ayurvedic", mrp: 160 },
-      { id: 9, name: "Thuja Occidentalis 200", category: "Homeopathic", mrp: 135 },
-      { id: 10, name: "Triphala Churna 500g", category: "Ayurvedic", mrp: 210 }
+    // दवाइयों की लिस्ट (न्यूनतम 6 पीस डिफॉल्ट)
+    let medicines = [
+      { id: 1, name: "Arnica Montana 30 / 200", category: "Homeopathic", mrp: 120, minQty: 6, qty: 6 },
+      { id: 2, name: "Berberis Aquifolium Q", category: "Homeopathic", mrp: 180, minQty: 6, qty: 6 },
+      { id: 3, name: "Dr. Reckeweg R1 to R89", category: "German", mrp: 290, minQty: 5, qty: 5 },
+      { id: 4, name: "Schwabe Cineraria Eye Drop", category: "German", mrp: 175, minQty: 5, qty: 5 },
+      { id: 5, name: "Ashwagandha Churna 100g", category: "Ayurvedic", mrp: 150, minQty: 6, qty: 6 },
+      { id: 6, name: "Chyawanprash Special 1kg", category: "Ayurvedic", mrp: 450, minQty: 5, qty: 5 },
+      { id: 7, name: "Adel 48 (Itires Drop)", category: "German", mrp: 310, minQty: 5, qty: 5 },
+      { id: 8, name: "Liv-52 Syrup / Tablets", category: "Ayurvedic", mrp: 160, minQty: 6, qty: 6 },
+      { id: 9, name: "Thuja Occidentalis 200", category: "Homeopathic", mrp: 135, minQty: 6, qty: 6 },
+      { id: 10, name: "Triphala Churna 500g", category: "Ayurvedic", mrp: 210, minQty: 6, qty: 6 }
     ];
 
     let cart = [];
-    let activeFilter = 'all';
-    let selectedPayment = 'Cash on Delivery (COD)';
+    let activeCategory = 'all';
+    let paymentMode = 'Cash on Delivery (COD)';
 
-    function getDiscountTag(cat) {
+    function getDiscount(cat) {
       if (cat === "Homeopathic") return "50% से 75% छूट";
       if (cat === "Ayurvedic") return "25% से 75% छूट";
       if (cat === "German") return "30% से 40% छूट";
       return "होलसेल छूट";
     }
 
-    function getCategoryBadge(cat) {
-      if (cat === "Homeopathic") return "type-homeo";
-      if (cat === "Ayurvedic") return "type-ayur";
-      if (cat === "German") return "type-german";
-      return "type-homeo";
+    function getCatBadge(cat) {
+      if (cat === "Homeopathic") return `<span class="card-badge badge-homeo">💧 Homeo</span>`;
+      if (cat === "Ayurvedic") return `<span class="card-badge badge-ayur">🌿 Ayur</span>`;
+      if (cat === "German") return `<span class="card-badge badge-german">🛡️ German</span>`;
+      return `<span class="card-badge badge-homeo">💧 Homeo</span>`;
     }
 
-    function renderProducts() {
-      const grid = document.getElementById('productGrid');
-      const query = document.getElementById('searchInput').value.toLowerCase();
+    function renderCatalog() {
+      const grid = document.getElementById('catalogGrid');
+      const q = document.getElementById('searchInput').value.toLowerCase();
       grid.innerHTML = '';
 
-      const filtered = catalog.filter(item => {
-        const matchesCategory = activeFilter === 'all' || item.category === activeFilter;
-        const matchesSearch = item.name.toLowerCase().includes(query);
-        return matchesCategory && matchesSearch;
+      const items = medicines.filter(m => {
+        const catMatch = activeCategory === 'all' || m.category === activeCategory;
+        const searchMatch = m.name.toLowerCase().includes(q);
+        return catMatch && searchMatch;
       });
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div style="grid-column: span 2; text-align:center; padding: 30px; color:#94a3b8; font-size:13px;">कोई दवा नहीं मिली। ऊपर डिमांड बॉक्स में लिखें।</div>';
+      if (items.length === 0) {
+        grid.innerHTML = '<div style="grid-column: span 2; text-align:center; padding: 25px; color:#94a3b8; font-size:12px;">कोई दवा नहीं मिली। ऊपर डिमांड भेजें।</div>';
         return;
       }
 
-      filtered.forEach(med => {
+      items.forEach(med => {
         const card = document.createElement('div');
-        card.className = 'product-card';
+        card.className = 'card';
         card.innerHTML = `
           <div>
-            <div class="card-top">
-              <span class="type-badge ${getCategoryBadge(med.category)}">${med.category}</span>
-            </div>
-            <div class="prod-name">${med.name}</div>
-            <div class="mrp-row">MRP: <span class="mrp-val">₹${med.mrp}</span></div>
-            <div class="discount-tag">🏷️ ${getDiscountTag(med.category)}</div>
+            ${getCatBadge(med.category)}
+            <div class="med-name">${med.name}</div>
+            <div class="mrp-line">MRP: <b>₹${med.mrp}</b></div>
+            <div class="discount-pill">🏷️ ${getDiscount(med.category)}</div>
           </div>
-          <button class="btn-add-cart" onclick="addToCart(${med.id})">🛒 कार्ट में जोड़ें</button>
+          <div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="updateQty(${med.id}, -1)">−</button>
+              <div><span class="qty-number" id="qty-${med.id}">${med.qty}</span><span class="qty-unit"> पीस</span></div>
+              <button class="qty-btn" onclick="updateQty(${med.id}, 1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart(${med.id})">🛒 कार्ट में जोड़ें</button>
+          </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    function addToCart(id) {
-      const item = catalog.find(p => p.id === id);
-      cart.push(item);
-      document.getElementById('cartCount').innerText = cart.length;
-      alert(item.name + " कार्ट में जोड़ दिया गया है!");
+    function updateQty(id, change) {
+      const med = medicines.find(m => m.id === id);
+      const newQty = med.qty + change;
+      if (newQty >= med.minQty) {
+        med.qty = newQty;
+        document.getElementById(`qty-${id}`).innerText = med.qty;
+      } else {
+        alert(`न्यूनतम थोक ऑर्डर ${med.minQty} पीस का है!`);
+      }
     }
 
-    function openCartView() {
-      const container = document.getElementById('cartItemsContainer');
-      if (cart.length === 0) {
-        container.innerHTML = "<p style='color:#94a3b8; font-size:13px; padding:10px 0;'>आपकी कार्ट खाली है।</p>";
+    function addToCart(id) {
+      const med = medicines.find(m => m.id === id);
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty += med.qty;
       } else {
-        container.innerHTML = cart.map((item, index) => `
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #1a4a35; font-size:13px;">
+        cart.push({ ...med });
+      }
+      document.getElementById('cartCount').innerText = cart.length;
+      alert(`${med.name} (${med.qty} पीस) कार्ट में जोड़ दिया गया!`);
+    }
+
+    function openCart() {
+      const list = document.getElementById('cartList');
+      if (cart.length === 0) {
+        list.innerHTML = "<p style='color:#94a3b8; font-size:12px; padding:10px 0;'>आपकी कार्ट खाली है।</p>";
+      } else {
+        list.innerHTML = cart.map((it, idx) => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1a4a35; font-size:12px;">
             <div>
-              <b>${item.name}</b><br>
-              <span style="color:#94a3b8; font-size:11px;">MRP: ₹${item.mrp} | ${getDiscountTag(item.category)}</span>
+              <b>${it.name}</b><br>
+              <span style="color:#94a3b8; font-size:11px;">मात्रा: ${it.qty} पीस | MRP: ₹${it.mrp}</span>
             </div>
-            <span style="color:#ef4444; font-weight:700; cursor:pointer; font-size:12px;" onclick="removeFromCart(${index})">हटाएं</span>
+            <span style="color:#ef4444; font-weight:700; cursor:pointer;" onclick="removeItem(${idx})">हटाएं</span>
           </div>
         `).join('');
       }
-      document.getElementById('cartOverlay').style.display = 'flex';
+      document.getElementById('cartModal').style.display = 'flex';
     }
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
+    function removeItem(idx) {
+      cart.splice(idx, 1);
       document.getElementById('cartCount').innerText = cart.length;
-      openCartView();
+      openCart();
     }
 
-    function closeCartView() {
-      document.getElementById('cartOverlay').style.display = 'none';
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
     }
 
-    function selectPay(mode) {
-      selectedPayment = mode;
+    function setPayment(mode) {
+      paymentMode = mode;
       document.getElementById('optCOD').classList.toggle('selected', mode === 'Cash on Delivery (COD)');
       document.getElementById('optOnline').classList.toggle('selected', mode === 'Online UPI / Bank Transfer');
     }
 
-    function confirmOrderWhatsApp() {
-      if (cart.length === 0) return alert("ऑर्डर करने से पहले कार्ट में दवा जोड़ें!");
+    function submitWhatsAppOrder() {
+      if (cart.length === 0) return alert("ऑर्डर करने के लिए कार्ट में दवा जोड़ें!");
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       const address = document.getElementById('custAddress').value.trim();
 
       if (!name || !phone || !address) {
-        return alert("कृपया नाम, मोबाइल नंबर और पूरा पता भरें!");
+        return alert("कृपया नाम, मोबाइल नंबर और पूरा डिलीवरी पता भरें!");
       }
 
-      let orderText = `*नया होलसेल दवा ऑर्डर - ALLINSON*\n`;
-      orderText += `--------------------------\n`;
-      orderText += `*ग्राहक/दुकान:* ${name}\n`;
-      orderText += `*मोबाइल:* ${phone}\n`;
-      orderText += `*डिलीवरी पता:* ${address}\n`;
-      orderText += `*पेमेंट मोड:* ${selectedPayment}\n\n`;
-      orderText += `*ऑर्डर की गई दवाइयाँ:*\n`;
+      let orderMsg = `*नया होलसेल दवा ऑर्डर - ALLINSON*\n`;
+      orderMsg += `--------------------------\n`;
+      orderMsg += `*ग्राहक/दुकान:* ${name}\n`;
+      orderMsg += `*मोबाइल:* ${phone}\n`;
+      orderMsg += `*डिलीवरी पता:* ${address}\n`;
+      orderMsg += `*पेमेंट मोड:* ${paymentMode}\n\n`;
+      orderMsg += `*दवाइयों की सूची:*\n`;
 
-      cart.forEach((med, i) => {
-        orderText += `${i + 1}. ${med.name} (MRP: ₹${med.mrp}) [${getDiscountTag(med.category)}]\n`;
+      cart.forEach((item, i) => {
+        orderMsg += `${i + 1}. ${item.name} - ${item.qty} पीस (MRP: ₹${item.mrp}) [${getDiscount(item.category)}]\n`;
       });
 
-      orderText += `\nकृपया फाइनल डिस्काउंट बिल और डिलीवरी समय साझा करें।`;
+      orderMsg += `\nकृपया फाइनल डिस्काउंट बिल और डिलीवरी समय साझा करें।`;
 
-      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(orderText)}`);
+      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(orderMsg)}`);
     }
 
     function submitDemand() {
-      const item = document.getElementById('demandField').value.trim();
-      if (!item) return alert("कृपया दवा का नाम लिखें!");
-      const msg = `नमस्ते ALLINSON, मुझे यह दवा होलसेल में चाहिए जो ऐप में नहीं दिख रही:\n\nदवा: ${item}\n\nकृपया उपलब्धता और रेट बताएं।`;
+      const val = document.getElementById('demandInput').value.trim();
+      if (!val) return alert("कृपया दवा का नाम लिखें!");
+      const msg = `नमस्ते ALLINSON, मुझे यह दवा थोक में चाहिए जो लिस्ट में नहीं है:\n\nदवा का नाम: ${val}\n\nकृपया इसका होलसेल रेट और उपलब्धता बताएं।`;
       window.open(`https://wa.me/917482948349?text=${encodeURIComponent(msg)}`);
     }
 
-    function filterCatalog() { renderProducts(); }
+    function filterItems() { renderCatalog(); }
 
-    function setCategory(cat, element) {
-      activeFilter = cat;
-      document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
-      renderProducts();
+    function setFilter(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCatalog();
     }
 
-    // Google Sheet Loader
-    async function initSheetSync() {
-      if (!SHEET_CSV_URL) return;
-      try {
-        const response = await fetch(SHEET_CSV_URL);
-        const csvData = await response.text();
-        const lines = csvData.split('\n').slice(1);
-        const parsedData = [];
-
-        lines.forEach((line, idx) => {
-          const parts = line.split(',');
-          if (parts[0] && parts[0].trim() !== '') {
-            parsedData.push({
-              id: idx + 1,
-              name: parts[0].trim(),
-              category: parts[1] ? parts[1].trim() : 'Homeopathic',
-              mrp: parts[2] ? parts[2].trim().replace(/[^0-9]/g, '') : '0'
-            });
-          }
-        });
-
-        if (parsedData.length > 0) {
-          catalog = parsedData;
-          renderProducts();
-        }
-      } catch (err) {
-        console.log("Sheet sync fallback to default catalog.");
-      }
-    }
-
-    renderProducts();
-    initSheetSync();
+    renderCatalog();
   </script>
 </body>
 </html>
