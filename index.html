@@ -169,11 +169,13 @@
   </div>
 
   <script>
-    function buildMasterMedicines() {
+    // Build Complete Master Medicines List
+    function getCleanCatalog() {
       var arr = [];
       var id = 1000;
 
-      var homeoRemedies = [
+      // Homeopathic Remedies
+      var remedies = [
         "Arnica Montana", "Belladonna", "Nux Vomica", "Rhus Tox", "Bryonia Alba",
         "Thuja Occidentalis", "Lycopodium", "Pulsatilla", "Cantharis",
         "Aconite Nap", "Arsenic Alb", "Gelsemium", "Carbo Veg", "Sulphur",
@@ -185,7 +187,7 @@
       ];
       var potencies = ["30 CH", "200 CH", "1M"];
 
-      homeoRemedies.forEach(function(rem) {
+      remedies.forEach(function(rem) {
         potencies.forEach(function(pot) {
           var w = (pot === "30 CH") ? 80 : (pot === "200 CH") ? 90 : 120;
           var m = (pot === "30 CH") ? 105 : (pot === "200 CH") ? 115 : 155;
@@ -203,11 +205,12 @@
         });
       });
 
-      var motherTinctures = [
+      // Mother Tinctures
+      var tinctures = [
         "Berberis Vulgaris Q", "Arnica Montana Q", "Crataegus Oxy Q", "Syzygium Jam Q",
         "Ashwagandha Q", "Damiana Q", "Echinacea Q", "Passiflora Q", "Calendula Off Q"
       ];
-      motherTinctures.forEach(function(mt) {
+      tinctures.forEach(function(mt) {
         arr.push({
           id: ++id,
           name: "SBL " + mt,
@@ -216,11 +219,12 @@
           wholesale: 135,
           mrp: 180,
           moq: 6,
-          pack: "30ml Q Drops",
+          pack: "30ml Drops",
           img: ""
         });
       });
 
+      // Reckeweg German R-Drops
       var rDrops = [
         { no: "R1", name: "Inflammation" }, { no: "R2", name: "Heart Drops" },
         { no: "R5", name: "Stomach Drops" }, { no: "R9", name: "Cough Drops" },
@@ -241,11 +245,12 @@
         });
       });
 
-      var asavArishta = [
+      // Ayurvedic Asav-Arishta
+      var asav = [
         "Ashwagandharishta", "Drakshasava", "Ashokarishta", "Dashmoolarishta", "Arjunarishta",
         "Amritarishta", "Khadirarishta", "Lohasava", "Kumaryasava", "Punarnavarishta"
       ];
-      asavArishta.forEach(function(aa) {
+      asav.forEach(function(aa) {
         arr.push({
           id: ++id,
           name: "Baidyanath " + aa,
@@ -270,7 +275,8 @@
         });
       });
 
-      var topFMCG = [
+      // Top Ayurvedic FMCG & OTC
+      var otc = [
         { name: "Dabur Chyawanprash 1 Kg", brand: "Dabur", rate: 340, mrp: 425, moq: 4, pack: "1 Kg Red Jar", img: "" },
         { name: "Dabur Chyawanprash 500g", brand: "Dabur", rate: 185, mrp: 230, moq: 6, pack: "500g Jar", img: "" },
         { name: "Dabur Honey 1 Kg", brand: "Dabur", rate: 320, mrp: 410, moq: 6, pack: "1 Kg Bottle", img: "" },
@@ -285,7 +291,7 @@
         { name: "Zandu Balm 25ml", brand: "Zandu", rate: 38, mrp: 50, moq: 24, pack: "25ml Jar", img: "" },
         { name: "Schwabe Cineraria Drops", brand: "Schwabe", rate: 140, mrp: 185, moq: 10, pack: "10ml Drops", img: "" }
       ];
-      topFMCG.forEach(function(f) {
+      otc.forEach(function(f) {
         arr.push({
           id: ++id,
           name: f.name,
@@ -302,9 +308,12 @@
       return arr;
     }
 
-    var MASTER_MEDICINES = buildMasterMedicines();
-    var adminCustom = JSON.parse(localStorage.getItem('aln_final_db') || '[]');
-    var ALL_PRODUCTS = adminCustom.concat(MASTER_MEDICINES);
+    // Always ensure fresh non-empty catalog
+    var ALL_PRODUCTS = getCleanCatalog();
+    var customSaved = JSON.parse(localStorage.getItem('aln_final_db') || '[]');
+    if (customSaved.length > 0) {
+      ALL_PRODUCTS = customSaved.concat(ALL_PRODUCTS);
+    }
 
     var myCart = [];
     var placedOrders = [];
@@ -324,7 +333,7 @@
 
       var list = ALL_PRODUCTS.filter(function(i){
         var matchCat = (curCategory === 'All') || (i.cat === curCategory);
-        var matchQ = (q === '') || (i.name.toLowerCase().includes(q)) || (i.brand.toLowerCase().includes(q)) || (i.pack.toLowerCase().includes(q));
+        var matchQ = (q === '') || (i.name.toLowerCase().indexOf(q) !== -1) || (i.brand.toLowerCase().indexOf(q) !== -1) || (i.pack.toLowerCase().indexOf(q) !== -1);
         return matchCat && matchQ;
       });
 
@@ -333,15 +342,17 @@
         return;
       }
 
-      list.forEach(function(item){
+      var html = '';
+      for (var idx = 0; idx < list.length; idx++) {
+        var item = list[idx];
         var margin = Math.round(((item.mrp - item.wholesale) / item.mrp) * 100);
         
         var topImg = '';
         if (item.img && item.img.trim() !== '') {
           topImg = '<div class="card-top"><img src="' + item.img + '" alt="pack"></div>';
         } else {
-          var bgClass = item.cat === 'Ayurvedic' ? 'badge-ayur' : 'badge-homeo';
-          var icon = item.cat === 'Ayurvedic' ? '🌿' : '💧';
+          var bgClass = (item.cat === 'Ayurvedic') ? 'badge-ayur' : 'badge-homeo';
+          var icon = (item.cat === 'Ayurvedic') ? '🌿' : '💧';
           topImg = '<div class="card-top ' + bgClass + '">' +
                      '<div style="font-size:16px;">' + icon + '</div>' +
                      '<div style="font-size:9.5px;font-weight:900;margin-top:2px;">' + item.brand + '</div>' +
@@ -349,7 +360,7 @@
                    '</div>';
         }
 
-        grid.innerHTML += '<div class="card">' +
+        html += '<div class="card">' +
           '<div>' +
             topImg +
             '<div class="card-body">' +
@@ -373,15 +384,10 @@
             '</div>' +
           '</div>' +
         '</div>';
-      });
+      }
+      grid.innerHTML = html;
     }
 
     function setCategory(cat) {
       curCategory = cat;
-      document.getElementById('tabAll').className = 'tab-btn ' + (cat === 'All' ? 'active' : '');
-      document.getElementById('tabAyur').className = 'tab-btn ' + (cat === 'Ayurvedic' ? 'active' : '');
-      document.getElementById('tabHomeo').className = 'tab-btn ' + (cat === 'Homeopathy' ? 'active' : '');
-      renderStore();
-    }
-
-    f
+      document.get
