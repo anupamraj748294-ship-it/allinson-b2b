@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #04130c; display: flex; justify-content: center; }
-    .app-shell { width: 100%; max-width: 440px; background: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 75px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    .app-shell { width: 100%; max-width: 440px; background: #f1f5f9; min-height: 100vh; position: relative; padding-bottom: 75px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
     
     .header { background: #062c1e; color: #fff; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; }
     .brand-wrap { display: flex; align-items: center; gap: 10px; }
@@ -16,55 +16,46 @@
     .brand-text p { font-size: 8px; font-weight: 700; color: #6ee7b7; letter-spacing: 0.5px; }
     
     .badge-btn { background: #d4af37; color: #062c1e; border: none; padding: 7px 14px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; }
-
     .sub-bar { background: #0a3b29; color: #fef08a; padding: 6px 14px; font-size: 9.5px; font-weight: 600; display: flex; justify-content: space-between; }
 
-    .filter-sec { padding: 10px 12px 6px; position: sticky; top: 0; background: #f8fafc; z-index: 10; border-bottom: 1px solid #e2e8f0; }
+    .filter-sec { padding: 10px 10px 6px; position: sticky; top: 0; background: #f1f5f9; z-index: 10; }
     .search-input { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #fff; }
     .cat-nav { display: flex; gap: 6px; margin-top: 8px; }
     .tab-btn { flex: 1; padding: 7px 0; border: none; background: #fff; border-radius: 6px; font-size: 11px; font-weight: 700; color: #334155; border: 1px solid #cbd5e1; cursor: pointer; }
     .tab-btn.active { background: #062c1e; color: #fdf3c7; border-color: #062c1e; }
 
-    .catalog { display: flex; flex-direction: column; gap: 8px; padding: 8px 12px 14px; }
-    .card { background: #fff; border-radius: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    /* Amazon/Flipkart 2-Column Grid */
+    .catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 6px 10px 14px; }
+    .card { background: #fff; border-radius: 8px; padding: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     
-    .card-main { display: flex; gap: 10px; align-items: center; }
-    .card-photo-box { width: 70px; height: 70px; background: #ffffff; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-    .card-photo-box img { max-height: 65px; max-width: 90%; object-fit: contain; }
-    
-    .card-badge-box { width: 70px; height: 70px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4px; flex-shrink: 0; }
+    .card-top { width: 100%; height: 95px; background: #f8fafc; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 6px; border: 1px solid #f1f5f9; text-align: center; }
+    .card-top img { max-height: 90px; max-width: 90%; object-fit: contain; }
     .badge-ayur { background: #dcfce7; color: #166534; }
     .badge-homeo { background: #e0f2fe; color: #0369a1; }
-    .badge-brand-title { font-size: 9px; font-weight: 900; line-height: 1.1; text-transform: uppercase; }
-    .badge-cat-subtitle { font-size: 7.5px; margin-top: 3px; font-weight: 700; }
 
-    .card-details { flex: 1; min-width: 0; }
-    .p-title { font-size: 12.5px; font-weight: 800; color: #0f172a; line-height: 1.3; }
-    .p-pack { font-size: 9.5px; color: #64748b; margin-top: 2px; }
-    
-    .card-pricing-bar { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 5px 8px; border-radius: 6px; margin-top: 4px; }
-    .p-rate { font-size: 13.5px; font-weight: 900; color: #062c1e; }
-    .p-mrp { font-size: 9.5px; color: #94a3b8; text-decoration: line-through; margin-left: 4px; }
-    .p-margin { font-size: 9.5px; font-weight: 800; color: #15803d; }
+    .card-body { flex: 1; display: flex; flex-direction: column; }
+    .brand-tag { font-size: 8px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+    .prod-title { font-size: 11px; font-weight: 800; color: #0f172a; line-height: 1.25; margin-top: 2px; height: 28px; overflow: hidden; }
+    .prod-pack { font-size: 9px; color: #64748b; margin-top: 2px; }
 
-    .card-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #f1f5f9; padding-top: 6px; }
-    .moq-pill { font-size: 9.5px; font-weight: 800; color: #854d0e; }
-    .qty-picker { display: flex; align-items: center; gap: 4px; }
-    .qty-input-box { width: 45px; text-align: center; padding: 4px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 800; outline: none; }
-    .add-btn { background: #062c1e; color: #fdf3c7; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .price-wrap { margin-top: 6px; background: #f8fafc; padding: 4px 6px; border-radius: 4px; }
+    .rate-text { font-size: 13px; font-weight: 900; color: #062c1e; }
+    .mrp-text { font-size: 9px; color: #94a3b8; text-decoration: line-through; margin-left: 3px; }
+    .margin-tag { font-size: 9px; font-weight: 800; color: #15803d; margin-top: 1px; }
 
-    .cart-qty-ctrl { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-    .step-btn { width: 26px; height: 26px; background: #062c1e; color: #fff; border: none; border-radius: 4px; font-size: 14px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .cart-qty-val { width: 50px; text-align: center; padding: 3px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; font-weight: 800; }
+    .card-footer { margin-top: 8px; }
+    .moq-tag { font-size: 9px; font-weight: 800; color: #854d0e; margin-bottom: 4px; text-align: center; }
+    .qty-act-row { display: flex; gap: 4px; }
+    .grid-qty-input { width: 38px; text-align: center; padding: 5px 0; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 800; outline: none; }
+    .grid-add-btn { flex: 1; background: #062c1e; color: #fdf3c7; border: none; padding: 6px 0; border-radius: 4px; font-size: 10px; font-weight: 800; cursor: pointer; }
 
-    .demand-card { margin: 8px 12px 14px; background: #fff; border: 1.5px dashed #062c1e; border-radius: 10px; padding: 12px; }
-    .demand-title { font-size: 11px; font-weight: 800; color: #062c1e; }
-    .demand-card input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin-top: 6px; outline: none; }
-    .demand-submit { width: 100%; background: #d4af37; color: #062c1e; border: none; padding: 9px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; margin-top: 8px; }
-
+    /* Cart Details */
     .cart-wrap { padding: 12px; }
     .cart-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
-    .del-btn { background: #fee2e2; color: #b91c1c; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 10px; cursor: pointer; margin-top: 6px; }
+    .cart-qty-ctrl { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
+    .step-btn { width: 24px; height: 24px; background: #062c1e; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 900; cursor: pointer; }
+    .cart-qty-val { width: 45px; text-align: center; padding: 2px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 800; }
+    .del-btn { background: #fee2e2; color: #b91c1c; border: none; padding: 4px 6px; border-radius: 4px; font-weight: bold; font-size: 9.5px; cursor: pointer; }
     .bill-summary { background: #e6f4ea; padding: 10px; border-radius: 8px; margin: 12px 0; font-size: 11px; color: #166534; font-weight: 700; }
     .form-group label { font-size: 10px; font-weight: 800; color: #062c1e; display: block; margin-top: 8px; }
     .form-group input, .form-group select { width: 100%; padding: 9px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; margin-top: 4px; outline: none; background: #fff; }
@@ -94,14 +85,14 @@
     </div>
     
     <div class="sub-bar">
-      <span>📍 Patna Central Hub (Bihar Wide Delivery)</span>
-      <span style="color:#6ee7b7;">✓ Verified Depot Rates</span>
+      <span>📍 Patna Central Hub (Bihar Delivery)</span>
+      <span style="color:#6ee7b7;">✓ Genuine Depot Rates</span>
     </div>
 
-    <!-- Catalog Screen -->
+    <!-- 1. Catalog Screen (Amazon / Flipkart 2-Box Format) -->
     <div id="catalogScreen">
       <div class="filter-sec">
-        <input type="text" id="srch" class="search-input" placeholder="Dawa ya company khojein (Arnica, Belladonna, Dabur, Liv 52)..." onkeyup="runFilter()">
+        <input type="text" id="srch" class="search-input" placeholder="Dawa ya company khojein (Arnica, Belladonna, Dabur)..." onkeyup="runFilter()">
         <div class="cat-nav">
           <button class="tab-btn active" id="tabAll" onclick="setCategory('All')">Sabhi Dawa</button>
           <button class="tab-btn" id="tabAyur" onclick="setCategory('Ayurvedic')">Ayurvedic</button>
@@ -110,18 +101,9 @@
       </div>
 
       <div class="catalog" id="prodGrid"></div>
-
-      <div class="demand-card">
-        <div class="demand-title">📦 Jo Dawa Nahi Mili, Yahan Likhein:</div>
-        <p style="font-size:9.5px;color:#64748b;margin-top:2px;">Allinson team Patna depot se khoj kar aapko rate batayegi.</p>
-        <input type="text" id="demMed" placeholder="Dawa ka naam aur company...">
-        <input type="tel" id="demPhone" placeholder="Aapka 10 Digit Mobile No...">
-        <button class="demand-submit" onclick="sendDemand()">Depot Ko Demand Bhejein</button>
-        <div id="demSuccess" style="font-size:9.5px;color:#15803d;font-weight:800;margin-top:4px;"></div>
-      </div>
     </div>
 
-    <!-- Cart Screen -->
+    <!-- 2. Cart Screen -->
     <div id="cartScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
         <h2 style="font-size:14px;color:#062c1e;">Wholesale Order Cart</h2>
@@ -130,14 +112,14 @@
       <div id="cartList"></div>
       <div id="cartCalc" style="display:none;">
         <div class="bill-summary">
-          <div>Kul Bachat (Retailer Margin): ₹<span id="marginSave">0</span></div>
+          <div>Kul Bachat (Margin): ₹<span id="marginSave">0</span></div>
           <div style="font-size:13px;font-weight:900;color:#062c1e;margin-top:4px;">Total Payable: ₹<span id="totPay">0</span></div>
         </div>
         <button class="primary-btn" onclick="goScreen('checkout')">Proceed To Shop Details →</button>
       </div>
     </div>
 
-    <!-- Checkout Screen -->
+    <!-- 3. Checkout Screen -->
     <div id="checkoutScreen" style="display:none;" class="cart-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
         <h2 style="font-size:14px;color:#062c1e;">Dukan & Delivery Details</h2>
@@ -172,7 +154,7 @@
       </div>
     </div>
 
-    <!-- Orders Screen -->
+    <!-- 4. Orders Screen -->
     <div id="ordersScreen" style="display:none;" class="cart-wrap">
       <h2 style="font-size:14px;color:#062c1e;margin-bottom:8px;">Aapke Placed Orders</h2>
       <div id="placedList"></div>
@@ -187,23 +169,21 @@
   </div>
 
   <script>
-    // Exhaustive Master Database Generator for Ayurvedic & Homeopathic Medicines
     function buildMasterMedicines() {
       var arr = [];
       var id = 1000;
 
-      // 1. Homeopathy Dilutions (SBL / Schwabe)
       var homeoRemedies = [
-        "Arnica Montana", "Belladonna", "Nux Vomica", "Rhus Toxicodendron", "Bryonia Alba",
-        "Thuja Occidentalis", "Lycopodium Clavatum", "Pulsatilla Nigricans", "Cantharis",
-        "Aconitum Napellus", "Arsenicum Album", "Gelsemium Sempervirens", "Carbo Vegetabilis",
-        "Sulphur", "Calcarea Carbonica", "Chamomilla", "Ignatia Amara", "Hepar Sulphuris",
-        "Silicea", "Hypericum Perforatum", "Ledum Palustre", "Ruta Graveolens", "Colocynthis",
-        "Drosera Rotundifolia", "Dulcamara", "Spongia Tosta", "Kali Bichromicum", "Natrum Muriaticum",
-        "Staphysagria", "Phosphorus", "Sepia", "Lachesis Mutus", "China Officinalis", "Apis Mellifica",
-        "Plumbum Metallicum", "Graphites", "Petroleum", "Cimicifuga Racemosa", "Baptisia Tinctoria", "Berberis Aquifolium"
+        "Arnica Montana", "Belladonna", "Nux Vomica", "Rhus Tox", "Bryonia Alba",
+        "Thuja Occidentalis", "Lycopodium", "Pulsatilla", "Cantharis",
+        "Aconite Nap", "Arsenic Alb", "Gelsemium", "Carbo Veg", "Sulphur",
+        "Calc Carb", "Chamomilla", "Ignatia", "Hepar Sulph", "Silicea",
+        "Hypericum", "Ledum Pal", "Ruta Grav", "Colocynthis", "Drosera",
+        "Dulcamara", "Spongia", "Kali Bich", "Natrum Mur", "Staphysagria",
+        "Phosphorus", "Sepia", "Lachesis", "China Off", "Apis Mellifica",
+        "Graphites", "Petroleum", "Baptisia", "Berberis Aqui"
       ];
-      var potencies = ["30 CH", "200 CH", "1M (1000 CH)"];
+      var potencies = ["30 CH", "200 CH", "1M"];
 
       homeoRemedies.forEach(function(rem) {
         potencies.forEach(function(pot) {
@@ -211,63 +191,41 @@
           var m = (pot === "30 CH") ? 105 : (pot === "200 CH") ? 115 : 155;
           arr.push({
             id: ++id,
-            name: "SBL " + rem + " Dilution " + pot,
+            name: "SBL " + rem + " " + pot,
             brand: "SBL",
             cat: "Homeopathy",
             wholesale: w,
             mrp: m,
             moq: 6,
-            pack: "30ml Liquid Dilution",
+            pack: "30ml Dilution",
             img: ""
           });
         });
       });
 
-      // 2. Homeopathy Mother Tinctures (Q)
       var motherTinctures = [
-        "Berberis Vulgaris Q", "Arnica Montana Q", "Crataegus Oxyacantha Q", "Syzygium Jambolanum Q",
-        "Ashwagandha Q (Withania Somnifera)", "Damiana Q", "Echinacea Angustifolia Q", "Passiflora Incarnata Q",
-        "Rauwolfia Serpentina Q", "Thlaspi Bursa Pastoris Q", "Ocimum Sanctum Q", "Azadirachta Indica Q",
-        "Calendula Officinalis Q", "Plantago Major Q", "Tribulus Terrestris Q"
+        "Berberis Vulgaris Q", "Arnica Montana Q", "Crataegus Oxy Q", "Syzygium Jam Q",
+        "Ashwagandha Q", "Damiana Q", "Echinacea Q", "Passiflora Q", "Calendula Off Q"
       ];
       motherTinctures.forEach(function(mt) {
         arr.push({
           id: ++id,
-          name: "SBL " + mt + " Mother Tincture",
+          name: "SBL " + mt,
           brand: "SBL",
           cat: "Homeopathy",
           wholesale: 135,
           mrp: 180,
           moq: 6,
-          pack: "30ml Liquid Drops",
+          pack: "30ml Q Drops",
           img: ""
         });
       });
 
-      // 3. Dr. Reckeweg German R-Drops Series (R1 to R89)
       var rDrops = [
-        { no: "R1", name: "Inflammation & Fever Drops" },
-        { no: "R2", name: "Heart & Gold Drops" },
-        { no: "R3", name: "Heart Insufficiency Drops" },
-        { no: "R4", name: "Diarrhoea & Enteritis Drops" },
-        { no: "R5", name: "Stomach Gastric Drops" },
-        { no: "R6", name: "Influenza Grippe Drops" },
-        { no: "R7", name: "Liver & Gallbladder Drops" },
-        { no: "R9", name: "Jutussin Cough Drops" },
-        { no: "R10", name: "Menopause Climacteric Drops" },
-        { no: "R11", name: "Rheumatism & Lumbago Drops" },
-        { no: "R13", name: "Haemorrhoids Piles Drops" },
-        { no: "R14", name: "Nerve Sleep Drops" },
-        { no: "R16", name: "Migraine Headache Drops" },
-        { no: "R18", name: "Kidney & Bladder Drops" },
-        { no: "R20", name: "Female Hormonal Drops" },
-        { no: "R25", name: "Prostate Drops" },
-        { no: "R30", name: "Universal Ointment" },
-        { no: "R41", name: "Fortivirone Sexual Weakness" },
-        { no: "R42", name: "Varicose Veins Drops" },
-        { no: "R53", name: "Acne Pimples Drops" },
-        { no: "R73", name: "Joint Osteoarthritis Drops" },
-        { no: "R89", name: "Lipocol Hair Regrowth Drops" }
+        { no: "R1", name: "Inflammation" }, { no: "R2", name: "Heart Drops" },
+        { no: "R5", name: "Stomach Drops" }, { no: "R9", name: "Cough Drops" },
+        { no: "R11", name: "Rheumatism" }, { no: "R41", name: "Fortivirone" },
+        { no: "R42", name: "Varicose Vein" }, { no: "R89", name: "Hair Care" }
       ];
       rDrops.forEach(function(r) {
         arr.push({
@@ -278,108 +236,54 @@
           wholesale: (r.no === "R41" || r.no === "R89") ? 275 : 240,
           mrp: (r.no === "R41" || r.no === "R89") ? 340 : 295,
           moq: 4,
-          pack: "22ml German Drops",
+          pack: "22ml German Pack",
           img: ""
         });
       });
 
-      // 4. Special Homeo Patents (Schwabe & SBL)
-      arr.push(
-        { id: ++id, name: "Schwabe Cineraria Maritima German Eye Drops", brand: "Schwabe", cat: "Homeopathy", wholesale: 140, mrp: 185, moq: 10, pack: "10ml Drops", img: "" },
-        { id: ++id, name: "Schwabe Damiaplant Liquid Tonic", brand: "Schwabe", cat: "Homeopathy", wholesale: 330, mrp: 410, moq: 4, pack: "30ml Drops", img: "" },
-        { id: ++id, name: "Schwabe Essentia Aurea Heart Tonic", brand: "Schwabe", cat: "Homeopathy", wholesale: 220, mrp: 280, moq: 6, pack: "30ml Drops", img: "" },
-        { id: ++id, name: "Schwabe Alpha-DP Digestive Problem", brand: "Schwabe", cat: "Homeopathy", wholesale: 110, mrp: 145, moq: 8, pack: "40 Tablets", img: "" },
-        { id: ++id, name: "Schwabe Topi Arnica Cream", brand: "Schwabe", cat: "Homeopathy", wholesale: 65, mrp: 85, moq: 12, pack: "25g Tube", img: "" },
-        { id: ++id, name: "SBL Cineraria Maritima Euphrasia Eye Drops", brand: "SBL", cat: "Homeopathy", wholesale: 85, mrp: 115, moq: 12, pack: "10ml Drops", img: "" },
-        { id: ++id, name: "SBL Liv-T Paediatric Liver Tonic", brand: "SBL", cat: "Homeopathy", wholesale: 95, mrp: 125, moq: 10, pack: "115ml Bottle", img: "" },
-        { id: ++id, name: "SBL Alfalfa Tonic with Ginseng", brand: "SBL", cat: "Homeopathy", wholesale: 175, mrp: 235, moq: 6, pack: "500ml Bottle", img: "" }
-      );
-
-      // 5. Ayurvedic Asav & Arishta (Baidyanath / Dabur)
       var asavArishta = [
         "Ashwagandharishta", "Drakshasava", "Ashokarishta", "Dashmoolarishta", "Arjunarishta",
-        "Amritarishta", "Khadirarishta", "Lohasava", "Kumaryasava", "Punarnavarishta",
-        "Abhayarishta", "Saraswatarishta", "Balarishta", "Chandanasava", "Kutajarishta",
-        "Kanakasava", "Ushirasava", "Lodhrasava", "Vidangarishta", "Mahadrakshta"
+        "Amritarishta", "Khadirarishta", "Lohasava", "Kumaryasava", "Punarnavarishta"
       ];
       asavArishta.forEach(function(aa) {
         arr.push({
           id: ++id,
-          name: "Baidyanath " + aa + " Pure Tonic",
+          name: "Baidyanath " + aa,
           brand: "Baidyanath",
           cat: "Ayurvedic",
           wholesale: 165,
           mrp: 215,
           moq: 6,
-          pack: "450ml Tonic Bottle",
+          pack: "450ml Liquid",
           img: ""
         });
         arr.push({
           id: ++id,
-          name: "Dabur " + aa + " Classical Tonic",
+          name: "Dabur " + aa,
           brand: "Dabur",
           cat: "Ayurvedic",
           wholesale: 140,
           mrp: 180,
           moq: 6,
-          pack: "450ml Tonic Bottle",
+          pack: "450ml Liquid",
           img: ""
         });
       });
 
-      // 6. Classical Vati, Guggulu & Rasayan
-      var classicalVati = [
-        "Chandraprabha Vati", "Yograj Guggulu", "Kaishore Guggulu", "Mahayograj Guggulu",
-        "Kanchnar Guggulu", "Triphala Guggulu", "Gokshuradi Guggulu", "Arogyavardhini Vati",
-        "Brahmi Vati", "Shankh Vati", "Sanjivani Vati", "Khadiradi Vati", "Saptamrit Lauh",
-        "Dhatupaushtik Churna", "Sitopaladi Churna", "Avipattikar Churna", "Hingwashtak Churna",
-        "Triphala Churna", "Talishadi Churna", "Pushyanug Churna"
-      ];
-      classicalVati.forEach(function(v) {
-        arr.push({
-          id: ++id,
-          name: "Baidyanath " + v + " Standard Pack",
-          brand: "Baidyanath",
-          cat: "Ayurvedic",
-          wholesale: 110,
-          mrp: 145,
-          moq: 10,
-          pack: "80 Tablets / 100g Jar",
-          img: ""
-        });
-      });
-
-      // 7. Dabur, Patanjali, Himalaya, Zandu FMCG & OTC Bestsellers
       var topFMCG = [
-        { name: "Dabur Chyawanprash Awaleha 1 Kg", brand: "Dabur", rate: 340, mrp: 425, moq: 4, pack: "1 Kg Red Jar" },
-        { name: "Dabur Chyawanprash Awaleha 500g", brand: "Dabur", rate: 185, mrp: 230, moq: 6, pack: "500g Jar" },
-        { name: "Dabur Honey Pure 1 Kg", brand: "Dabur", rate: 320, mrp: 410, moq: 6, pack: "1 Kg Bottle" },
-        { name: "Dabur Honey 500g Squeezy", brand: "Dabur", rate: 175, mrp: 220, moq: 8, pack: "500g Squeezy" },
-        { name: "Dabur Honitus Herbal Cough Syrup", brand: "Dabur", rate: 85, mrp: 115, moq: 12, pack: "100ml Bottle" },
-        { name: "Dabur Pudin Hara Active 30ml", brand: "Dabur", rate: 25, mrp: 35, moq: 20, pack: "30ml Drops" },
-        { name: "Dabur Pudin Hara Pearls (Strip of 10)", brand: "Dabur", rate: 24, mrp: 30, moq: 20, pack: "10 Pearls Strip" },
-        { name: "Dabur Lal Tail Baby Massage Oil", brand: "Dabur", rate: 165, mrp: 210, moq: 6, pack: "200ml Bottle" },
-        { name: "Dabur Janma Ghunti Digestive", brand: "Dabur", rate: 55, mrp: 72, moq: 12, pack: "125ml Bottle" },
-        { name: "Dabur Shilajit Gold 20 Capsules", brand: "Dabur", rate: 215, mrp: 285, moq: 6, pack: "20 Capsules" },
-        { name: "Patanjali Dant Kanti Dental Cream", brand: "Patanjali", rate: 85, mrp: 110, moq: 12, pack: "200g Tube" },
-        { name: "Patanjali Kesh Kanti Hair Cleanser", brand: "Patanjali", rate: 100, mrp: 130, moq: 10, pack: "200ml Bottle" },
-        { name: "Patanjali Aloe Vera Gel Pure", brand: "Patanjali", rate: 75, mrp: 95, moq: 12, pack: "150ml Tube" },
-        { name: "Patanjali Coronil Kit Complete", brand: "Patanjali", rate: 390, mrp: 545, moq: 4, pack: "Kit Pack" },
-        { name: "Patanjali Drishti Eye Drops 10ml", brand: "Patanjali", rate: 18, mrp: 25, moq: 20, pack: "10ml Drops" },
-        { name: "Patanjali Divya Livogrit Tablets", brand: "Patanjali", rate: 185, mrp: 240, moq: 8, pack: "60 Tablets" },
-        { name: "Patanjali Divya Peedanil Gold", brand: "Patanjali", rate: 290, mrp: 380, moq: 6, pack: "60 Tablets" },
-        { name: "Himalaya Liv.52 DS 60 Tablets", brand: "Himalaya", rate: 145, mrp: 190, moq: 10, pack: "60 Tabs Bottle" },
-        { name: "Himalaya Liv.52 Syrup 200ml", brand: "Himalaya", rate: 120, mrp: 160, moq: 10, pack: "200ml Bottle" },
-        { name: "Himalaya Cystone 60 Tablets", brand: "Himalaya", rate: 135, mrp: 175, moq: 10, pack: "60 Tablets" },
-        { name: "Himalaya Septilin 60 Tablets", brand: "Himalaya", rate: 130, mrp: 170, moq: 10, pack: "60 Tablets" },
-        { name: "Himalaya Gasex 100 Tablets", brand: "Himalaya", rate: 105, mrp: 140, moq: 12, pack: "100 Tablets" },
-        { name: "Himalaya Pilex Ointment Tube", brand: "Himalaya", rate: 75, mrp: 95, moq: 12, pack: "30g Tube" },
-        { name: "Himalaya Tentex Forte Tablets", brand: "Himalaya", rate: 115, mrp: 150, moq: 10, pack: "10 Tabs Strip" },
-        { name: "Zandu Pancharishta Digestive 450ml", brand: "Zandu", rate: 115, mrp: 155, moq: 8, pack: "450ml Bottle" },
-        { name: "Zandu Balm White Pain Relief", brand: "Zandu", rate: 38, mrp: 50, moq: 24, pack: "25ml Jar" },
-        { name: "Zandu Nityam Vati Constipation", brand: "Zandu", rate: 70, mrp: 95, moq: 12, pack: "30 Tablets" },
-        { name: "Hamdard Safi Blood Purifier 500ml", brand: "Hamdard", rate: 160, mrp: 210, moq: 6, pack: "500ml Bottle" },
-        { name: "Hamdard Roghan Badam Shirin 50ml", brand: "Hamdard", rate: 175, mrp: 220, moq: 6, pack: "50ml Bottle" }
+        { name: "Dabur Chyawanprash 1 Kg", brand: "Dabur", rate: 340, mrp: 425, moq: 4, pack: "1 Kg Red Jar", img: "" },
+        { name: "Dabur Chyawanprash 500g", brand: "Dabur", rate: 185, mrp: 230, moq: 6, pack: "500g Jar", img: "" },
+        { name: "Dabur Honey 1 Kg", brand: "Dabur", rate: 320, mrp: 410, moq: 6, pack: "1 Kg Bottle", img: "" },
+        { name: "Dabur Honitus Syrup", brand: "Dabur", rate: 85, mrp: 115, moq: 12, pack: "100ml Bottle", img: "" },
+        { name: "Dabur Pudin Hara Active", brand: "Dabur", rate: 25, mrp: 35, moq: 20, pack: "30ml Drops", img: "" },
+        { name: "Patanjali Dant Kanti 200g", brand: "Patanjali", rate: 85, mrp: 110, moq: 12, pack: "200g Tube", img: "" },
+        { name: "Patanjali Kesh Kanti", brand: "Patanjali", rate: 100, mrp: 130, moq: 10, pack: "200ml Bottle", img: "" },
+        { name: "Patanjali Aloe Vera Gel", brand: "Patanjali", rate: 75, mrp: 95, moq: 12, pack: "150ml Tube", img: "" },
+        { name: "Himalaya Liv.52 DS Tablets", brand: "Himalaya", rate: 145, mrp: 190, moq: 10, pack: "60 Tabs Bottle", img: "" },
+        { name: "Himalaya Cystone Tablets", brand: "Himalaya", rate: 135, mrp: 175, moq: 10, pack: "60 Tablets", img: "" },
+        { name: "Zandu Pancharishta 450ml", brand: "Zandu", rate: 115, mrp: 155, moq: 8, pack: "450ml Bottle", img: "" },
+        { name: "Zandu Balm 25ml", brand: "Zandu", rate: 38, mrp: 50, moq: 24, pack: "25ml Jar", img: "" },
+        { name: "Schwabe Cineraria Drops", brand: "Schwabe", rate: 140, mrp: 185, moq: 10, pack: "10ml Drops", img: "" }
       ];
       topFMCG.forEach(function(f) {
         arr.push({
@@ -391,7 +295,7 @@
           mrp: f.mrp,
           moq: f.moq,
           pack: f.pack,
-          img: ""
+          img: f.img
         });
       });
 
@@ -399,14 +303,11 @@
     }
 
     var MASTER_MEDICINES = buildMasterMedicines();
-
-    // Load custom medicines added via Admin Portal
     var adminCustom = JSON.parse(localStorage.getItem('aln_final_db') || '[]');
     var ALL_PRODUCTS = adminCustom.concat(MASTER_MEDICINES);
 
     var myCart = [];
     var placedOrders = [];
-    var retailerDemands = [];
     var curCategory = 'All';
 
     function notify(text) {
@@ -428,46 +329,47 @@
       });
 
       if (list.length === 0) {
-        grid.innerHTML = '<div style="background:#fff;padding:25px;text-align:center;border-radius:8px;font-size:11px;color:#64748b;">Dawa nahi mili. Niche form me Patna depot ko demand bhejein!</div>';
+        grid.innerHTML = '<div style="grid-column: span 2; background:#fff;padding:25px;text-align:center;border-radius:8px;font-size:11px;color:#64748b;">Dawa nahi mili. Search badal kar dekhein.</div>';
         return;
       }
 
       list.forEach(function(item){
         var margin = Math.round(((item.mrp - item.wholesale) / item.mrp) * 100);
         
-        var leftVisual = '';
+        var topImg = '';
         if (item.img && item.img.trim() !== '') {
-          leftVisual = '<div class="card-photo-box"><img src="' + item.img + '" alt="dawa"></div>';
+          topImg = '<div class="card-top"><img src="' + item.img + '" alt="pack"></div>';
         } else {
           var bgClass = item.cat === 'Ayurvedic' ? 'badge-ayur' : 'badge-homeo';
           var icon = item.cat === 'Ayurvedic' ? '🌿' : '💧';
-          leftVisual = '<div class="card-badge-box ' + bgClass + '">' +
-                         '<div style="font-size:13px;">' + icon + '</div>' +
-                         '<div class="badge-brand-title">' + item.brand + '</div>' +
-                         '<div class="badge-cat-subtitle">' + item.cat + '</div>' +
-                       '</div>';
+          topImg = '<div class="card-top ' + bgClass + '">' +
+                     '<div style="font-size:16px;">' + icon + '</div>' +
+                     '<div style="font-size:9.5px;font-weight:900;margin-top:2px;">' + item.brand + '</div>' +
+                     '<div style="font-size:7.5px;font-weight:700;">' + item.cat + '</div>' +
+                   '</div>';
         }
 
         grid.innerHTML += '<div class="card">' +
-          '<div class="card-main">' +
-            leftVisual +
-            '<div class="card-details">' +
-              '<div class="p-title">' + item.name + '</div>' +
-              '<div class="p-pack">Pack: ' + item.pack + ' • ' + item.brand + '</div>' +
-              '<div class="card-pricing-bar">' +
+          '<div>' +
+            topImg +
+            '<div class="card-body">' +
+              '<span class="brand-tag">' + item.brand + '</span>' +
+              '<div class="prod-title">' + item.name + '</div>' +
+              '<div class="prod-pack">' + item.pack + '</div>' +
+              '<div class="price-wrap">' +
                 '<div>' +
-                  '<span class="p-rate">₹' + item.wholesale + '</span>' +
-                  '<span class="p-mrp">MRP ₹' + item.mrp + '</span>' +
+                  '<span class="rate-text">₹' + item.wholesale + '</span>' +
+                  '<span class="mrp-text">₹' + item.mrp + '</span>' +
                 '</div>' +
-                '<span class="p-margin">' + margin + '% Retailer Margin</span>' +
+                '<div class="margin-tag">' + margin + '% Margin</div>' +
               '</div>' +
             '</div>' +
           '</div>' +
-          '<div class="card-action-bar">' +
-            '<span class="moq-pill">MOQ: ' + item.moq + ' Pcs</span>' +
-            '<div class="qty-picker">' +
-              '<input type="number" id="catQty_' + item.id + '" class="qty-input-box" value="' + item.moq + '" min="' + item.moq + '">' +
-              '<button class="add-btn" onclick="addToOrderDirect(' + item.id + ')">+ Add Cart</button>' +
+          '<div class="card-footer">' +
+            '<div class="moq-tag">MOQ: ' + item.moq + ' Pcs</div>' +
+            '<div class="qty-act-row">' +
+              '<input type="number" id="catQty_' + item.id + '" class="grid-qty-input" value="' + item.moq + '" min="' + item.moq + '">' +
+              '<button class="grid-add-btn" onclick="addToOrderDirect(' + item.id + ')">+ Add</button>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -482,170 +384,4 @@
       renderStore();
     }
 
-    function runFilter() { renderStore(); }
-
-    function addToOrderDirect(id) {
-      var p = ALL_PRODUCTS.find(function(x){ return x.id === id; });
-      var inputEl = document.getElementById('catQty_' + id);
-      var enteredQty = parseInt(inputEl.value) || p.moq;
-
-      if (enteredQty < p.moq) {
-        alert("Kam se kam order (MOQ) " + p.moq + " piece hai!");
-        inputEl.value = p.moq;
-        return;
-      }
-
-      var exist = myCart.find(function(x){ return x.id === id; });
-      if (exist) { exist.qty += enteredQty; } 
-      else { myCart.push({ id: p.id, name: p.name, wholesale: p.wholesale, mrp: p.mrp, moq: p.moq, qty: enteredQty }); }
-      
-      document.getElementById('cartBadge').innerText = myCart.length;
-      notify("✓ " + p.name + " (" + enteredQty + " pcs) Cart me add hua");
-    }
-
-    function goScreen(scn) {
-      document.getElementById('catalogScreen').style.display = (scn === 'catalog') ? 'block' : 'none';
-      document.getElementById('cartScreen').style.display = (scn === 'cart') ? 'block' : 'none';
-      document.getElementById('checkoutScreen').style.display = (scn === 'checkout') ? 'block' : 'none';
-      document.getElementById('ordersScreen').style.display = (scn === 'orders') ? 'block' : 'none';
-
-      document.getElementById('nbCat').className = 'nav-btn ' + (scn === 'catalog' ? 'active' : '');
-      document.getElementById('nbCart').className = 'nav-btn ' + (scn === 'cart' || scn === 'checkout' ? 'active' : '');
-      document.getElementById('nbOrd').className = 'nav-btn ' + (scn === 'orders' ? 'active' : '');
-
-      if (scn === 'cart') renderCartScreen();
-      if (scn === 'checkout') renderCheckoutScreen();
-      if (scn === 'orders') renderOrdersHistory();
-    }
-
-    function changeCartQty(idx, delta) {
-      var item = myCart[idx];
-      var newQty = item.qty + delta;
-      if (newQty < item.moq) {
-        if (confirm("MOQ " + item.moq + " pcs hai. Cart se hatana chahte hain?")) { delCartItem(idx); }
-        return;
-      }
-      item.qty = newQty;
-      renderCartScreen();
-    }
-
-    function setDirectCartQty(idx, val) {
-      var item = myCart[idx];
-      var parsed = parseInt(val) || item.moq;
-      if (parsed < item.moq) {
-        alert("Kam se kam " + item.moq + " piece zaroori hai");
-        parsed = item.moq;
-      }
-      item.qty = parsed;
-      renderCartScreen();
-    }
-
-    function renderCartScreen() {
-      var list = document.getElementById('cartList');
-      var calc = document.getElementById('cartCalc');
-      if (myCart.length === 0) {
-        list.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:25px;">Aapka cart abhi khali hai.</p>';
-        calc.style.display = 'none';
-        return;
-      }
-      calc.style.display = 'block';
-      var pay = 0, mrpT = 0;
-      list.innerHTML = '';
-      myCart.forEach(function(item, idx){
-        var itemTotal = (item.wholesale * item.qty);
-        pay += itemTotal;
-        mrpT += (item.mrp * item.qty);
-        list.innerHTML += '<div class="cart-box">' +
-          '<div style="flex:1;">' +
-            '<b>' + item.name + '</b>' +
-            '<div style="font-size:9.5px;color:#64748b;margin-top:2px;">Rate: ₹' + item.wholesale + ' /pc (MOQ: ' + item.moq + ')</div>' +
-            '<div class="cart-qty-ctrl">' +
-              '<button class="step-btn" onclick="changeCartQty(' + idx + ', -1)">-</button>' +
-              '<input type="number" class="cart-qty-val" value="' + item.qty + '" min="' + item.moq + '" onchange="setDirectCartQty(' + idx + ', this.value)">' +
-              '<button class="step-btn" onclick="changeCartQty(' + idx + ', 1)">+</button>' +
-              '<span style="font-size:10px;color:#64748b;font-weight:700;">pcs</span>' +
-            '</div>' +
-          '</div>' +
-          '<div style="text-align:right;">' +
-            '<div style="font-weight:900;font-size:13px;color:#062c1e;">₹' + itemTotal + '</div>' +
-            '<button class="del-btn" onclick="delCartItem(' + idx + ')">Hatao</button>' +
-          '</div>' +
-        '</div>';
-      });
-      document.getElementById('totPay').innerText = pay;
-      document.getElementById('marginSave').innerText = (mrpT - pay);
-    }
-
-    function delCartItem(idx) {
-      myCart.splice(idx, 1);
-      document.getElementById('cartBadge').innerText = myCart.length;
-      renderCartScreen();
-    }
-
-    function renderCheckoutScreen() {
-      var sum = 0;
-      myCart.forEach(function(i){ sum += (i.wholesale * i.qty); });
-      document.getElementById('chkTotal').innerText = sum;
-    }
-
-    function submitFinalOrder() {
-      var shop = document.getElementById('shName').value.trim();
-      var prop = document.getElementById('propName').value.trim();
-      var ph = document.getElementById('phNumber').value.trim();
-      var city = document.getElementById('dstCity').value;
-      var addr = document.getElementById('fullAddr').value.trim();
-      var bill = document.getElementById('chkTotal').innerText;
-
-      if (!shop || !ph) { alert("Dukan ka naam aur mobile number likhna zaroori hai!"); return; }
-
-      var idNum = "ALN-" + Math.floor(100000 + Math.random() * 900000);
-      var newOrder = { id: idNum, shop: shop, prop: prop, phone: ph, city: city, bill: bill, count: myCart.length, time: new Date().toLocaleTimeString() };
-      placedOrders.unshift(newOrder);
-
-      var allOrd = JSON.parse(localStorage.getItem('aln_orders_db') || '[]');
-      allOrd.unshift(newOrder);
-      localStorage.setItem('aln_orders_db', JSON.stringify(allOrd));
-
-      myCart = [];
-      document.getElementById('cartBadge').innerText = 0;
-      notify("✓ Order Patna Depot Bhej Diya Gaya!");
-      goScreen('orders');
-    }
-
-    function renderOrdersHistory() {
-      var box = document.getElementById('placedList');
-      if (placedOrders.length === 0) {
-        box.innerHTML = '<p style="font-size:11px;color:#64748b;text-align:center;padding:20px;">Abhi tak koi order place nahi hua hai.</p>';
-        return;
-      }
-      box.innerHTML = '';
-      placedOrders.forEach(function(o){
-        box.innerHTML += '<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:8px;font-size:11px;">' +
-          '<div style="display:flex;justify-content:space-between;"><b>Order #' + o.id + '</b><span style="color:#15803d;font-weight:bold;">Confirmed</span></div>' +
-          '<div style="color:#475569;margin-top:2px;">Store: ' + o.shop + ' (' + o.city + ', Bihar)</div>' +
-          '<div style="color:#062c1e;font-weight:900;margin-top:4px;">Total Bill: ₹' + o.bill + '</div>' +
-        '</div>';
-      });
-    }
-
-    function sendDemand() {
-      var m = document.getElementById('demMed').value.trim();
-      var p = document.getElementById('demPhone').value.trim();
-      if (!m || !p) { alert("Dawa aur mobile number bhariye!"); return; }
-      var d = { medicine: m, phone: p, time: new Date().toLocaleTimeString() };
-      
-      var allDem = JSON.parse(localStorage.getItem('aln_demands_db') || '[]');
-      allDem.unshift(d);
-      localStorage.setItem('aln_demands_db', JSON.stringify(allDem));
-
-      document.getElementById('demSuccess').innerText = "✓ Demand Patna Depot bhej di gayi hai!";
-      document.getElementById('demMed').value = '';
-      document.getElementById('demPhone').value = '';
-      notify("Demand Recieved!");
-    }
-
-    // Direct Boot
-    renderStore();
-  </script>
-</body>
-</html>
+    f
