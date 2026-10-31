@@ -1,448 +1,577 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ALLINSON - B2B Wholesale Portal</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE082'/%3E%3Cstop offset='100%25' stop-color='%23AA7C11'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='%23052619'/%3E%3Ccircle cx='256' cy='256' r='145' stroke='url(%23g)' stroke-width='16' fill='none'/%3E%3Cpath d='M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z' fill='url(%23g)'/%3E%3C/svg%3E">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #071e14;
-      --card-bg: #0d2c1f;
-      --border: #1a4a35;
-      --gold: #f4c430;
-      --gold-gradient: linear-gradient(135deg, #ffe082 0%, #d4af37 50%, #aa7c11 100%);
-      --text: #ffffff;
-      --text-muted: #94a3b8;
-      --green: #15803d;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
-
-    /* Top Bar with Brand Logo */
-    header {
-      background: rgba(7, 30, 20, 0.98);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .brand-box { display: flex; align-items: center; gap: 10px; }
-    .brand-svg-logo { width: 38px; height: 38px; }
-    .brand-name { font-size: 20px; font-weight: 800; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .b2b-pill { background: #14532d; color: #86efac; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid #22c55e; }
-    .cart-btn { background: var(--gold); color: #071e14; border: none; padding: 7px 12px; border-radius: 20px; font-weight: 700; font-size: 13px; cursor: pointer; }
-
-    /* Search & Category Pills */
-    .search-wrap { padding: 10px 16px 4px; }
-    .search-wrap input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 14px; outline: none; }
-    .category-scroll { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
-    .category-scroll::-webkit-scrollbar { display: none; }
-    .cat-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 12px; border-radius: 18px; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-    .cat-btn.active { background: var(--gold); color: #071e14; border-color: var(--gold); font-weight: 700; }
-
-    /* Demand Banner */
-    .demand-box {
-      margin: 6px 16px 10px;
-      background: linear-gradient(135deg, #103826, #092418);
-      border: 1px dashed var(--gold);
-      padding: 10px 12px;
-      border-radius: 12px;
-    }
-    .demand-box h4 { font-size: 13px; color: var(--gold); font-weight: 700; margin-bottom: 3px; }
-    .demand-box p { font-size: 11px; color: #cbd5e1; margin-bottom: 6px; }
-    .demand-row { display: flex; gap: 6px; }
-    .demand-row input { flex: 1; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: #071e14; color: #fff; font-size: 12px; outline: none; }
-    .demand-row button { background: var(--gold); color: #071e14; border: none; padding: 0 12px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; }
-
-    /* 2-Column Product Grid (Two Patti) */
-    .catalog-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 6px 16px;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-bottom: 6px; width: fit-content; }
-    .badge-homeo { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
-    .badge-ayur { background: #713f12; color: #fde047; border: 1px solid #ca8a04; }
-    .badge-german { background: #1e3a5f; color: #93c5fd; border: 1px solid #3b82f6; }
-
-    .med-name { font-size: 13px; font-weight: 600; color: #ffffff; line-height: 1.3; min-height: 36px; margin-bottom: 4px; }
-    .mrp-line { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-    .mrp-line b { font-size: 13px; color: #ffffff; font-weight: 700; }
-    
-    .discount-pill {
-      background: rgba(22, 101, 52, 0.4);
-      color: #86efac;
-      border: 1px solid #22c55e;
-      padding: 3px 6px;
-      border-radius: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    /* Quantity Box (+ / -) */
-    .qty-control {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #071e14;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 2px;
-      margin-bottom: 8px;
-    }
-    .qty-btn {
-      width: 26px;
-      height: 26px;
-      background: #14452f;
-      border: none;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .qty-number { font-size: 12px; font-weight: 700; color: var(--gold); }
-    .qty-unit { font-size: 9px; color: var(--text-muted); margin-left: 2px; }
-
-    .add-btn {
-      width: 100%;
-      background: var(--green);
-      color: #fff;
-      border: none;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* Fixed Bottom Bar */
-    .footer-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #051a11;
-      border-top: 1px solid var(--border);
-      padding: 8px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 99;
-    }
-    .footer-info { font-size: 11px; color: #cbd5e1; }
-    .footer-info b { color: var(--gold); font-size: 12px; display: block; }
-    .call-btn-wrap { display: flex; gap: 6px; }
-    .call-btn { background: var(--gold-gradient); color: #071e14; text-decoration: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-
-    /* Modal / Bottom Sheet */
-    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: flex-end; }
-    .modal-box { background: var(--card-bg); width: 100%; max-width: 500px; padding: 16px; border-radius: 18px 18px 0 0; border: 1px solid var(--border); max-height: 85vh; overflow-y: auto; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    .modal-header h3 { font-size: 16px; color: var(--gold); font-weight: 700; }
-    .close-btn { font-size: 18px; color: var(--text-muted); cursor: pointer; }
-
-    .form-item { margin-bottom: 10px; }
-    .form-item label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
-    .form-item input, .form-item textarea { width: 100%; background: #071e14; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: #fff; font-size: 12px; outline: none; }
-    .pay-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0 14px; }
-    .pay-card { background: #071e14; border: 1px solid var(--border); color: #fff; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; }
-    .pay-card.selected { border-color: var(--gold); background: #103826; color: var(--gold); }
-    .checkout-submit { width: 100%; background: #25d366; color: #fff; border: none; padding: 11px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f5132">
+<title>ALLINSON - B2B Wholesale Portal</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE082'/%3E%3Cstop offset='100%25' stop-color='%23AA7C11'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='%23052619'/%3E%3Ccircle cx='256' cy='256' r='145' stroke='url(%23g)' stroke-width='16' fill='none'/%3E%3Cpath d='M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0f5132;--g2:#157347;--g3:#e8f3ec;--gold:#c9a227;--gold2:#f4c430;--bg:#f3f7f4;--card:#fff;--tx:#14231b;--mu:#64756b;--bd:#dfe9e2;--red:#dc3545;--wa:#25d366}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#d5e0d9;color:var(--tx)}
+button{cursor:pointer;border:none;font-weight:700}
+input,textarea,select{font-size:14px;outline:none}
+#app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:84px;box-shadow:0 0 30px rgba(0,0,0,.12)}
+.pad{padding:0 16px}
+.top{position:sticky;top:0;z-index:50;background:#fff;display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--bd)}
+.top h2{flex:1;font-size:16px;font-weight:800}
+.ib{background:var(--g3);color:var(--g);width:36px;height:36px;border-radius:10px;font-size:17px;position:relative;flex-shrink:0}
+.cbadge{position:absolute;top:-6px;right:-6px;background:var(--gold2);color:#1a1a1a;font-size:10px;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.brand{display:flex;align-items:center;gap:9px;flex:1}
+.brand b{font-size:19px;font-weight:800;color:var(--g);letter-spacing:.5px}
+.brand small{display:block;font-size:9px;color:var(--mu);font-weight:600;margin-top:-2px}
+.pill{background:var(--g3);color:var(--g);font-size:9px;padding:2px 6px;border-radius:5px;border:1px solid #b9dcc6;font-weight:800}
+.sbox{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:12px;padding:0 12px;margin:12px 0}
+.sbox input{flex:1;border:none;padding:12px 0;background:transparent;color:var(--tx)}
+.banner{margin:4px 16px 14px;border-radius:16px;padding:18px;background:linear-gradient(135deg,#0f5132,#1c8a4f);color:#fff;position:relative;overflow:hidden}
+.banner h3{font-size:18px;line-height:1.35;font-weight:800}
+.banner p{font-size:12px;opacity:.9;margin:6px 0 12px}
+.banner button{background:var(--gold2);color:#1a1a1a;padding:8px 16px;border-radius:8px;font-size:12px}
+.banner .bl{position:absolute;right:-14px;bottom:-18px;opacity:.18}
+.sec{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 8px}
+.sec h3{font-size:16px;font-weight:800}
+.sec a{font-size:12px;color:var(--g2);font-weight:700;cursor:pointer}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px 12px}
+.cat{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:10px 4px;text-align:center;cursor:pointer}
+.cat i{font-style:normal;font-size:24px;display:block;margin-bottom:4px}
+.cat span{font-size:10.5px;font-weight:700;color:var(--tx);line-height:1.2;display:block}
+.hscroll{display:flex;gap:10px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.deal{min-width:150px;max-width:150px;background:#fff;border:1px solid var(--bd);border-radius:14px;overflow:hidden;cursor:pointer}
+.deal .pimg{width:100%;height:84px;border-radius:0}
+.deal .db{padding:8px 10px 10px}
+.deal .dn{font-size:12px;font-weight:700;line-height:1.3;min-height:31px}
+.deal .dp{font-size:14px;font-weight:800;color:var(--g2);margin-top:4px}
+.deal .dp s{font-size:10px;color:var(--mu);font-weight:600;margin-left:3px}
+.pimg{width:86px;height:86px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-Homeopathic{background:linear-gradient(135deg,#d9f2e5,#b4e4cb)}
+.c-Ayurvedic{background:linear-gradient(135deg,#fbefc6,#f1d98a)}
+.c-German{background:linear-gradient(135deg,#d9e7fb,#b5cff5)}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-bottom:4px}
+.b-Homeopathic{background:#d9f2e5;color:#0b6b43}.b-Ayurvedic{background:#fbefc6;color:#7a5a00}.b-German{background:#d9e7fb;color:#1d4e9a}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:#fff;border:1px solid var(--bd);color:var(--mu);padding:7px 14px;border-radius:20px;font-size:12px;white-space:nowrap}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0}
+.row select{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:7px 10px;color:var(--tx);font-weight:600;font-size:12px}
+.row span{font-size:12px;color:var(--mu)}
+.prow{display:flex;gap:12px;background:#fff;border:1px solid var(--bd);border-radius:14px;padding:10px;margin-bottom:10px;cursor:pointer;align-items:center}
+.pinfo{flex:1;min-width:0}
+.pn{font-size:13.5px;font-weight:700;line-height:1.3}
+.pm{font-size:11px;color:var(--mu);margin:2px 0}
+.pp{font-size:12px;color:var(--mu);display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px}
+.pp b{font-size:16px;color:var(--g2);font-weight:800}
+.pp s{margin-left:0}
+.pp i{font-style:normal;background:var(--g3);color:var(--g);font-size:10px;font-weight:800;padding:2px 6px;border-radius:5px;white-space:nowrap}
+.abtn{background:var(--g);color:#fff;padding:9px 14px;border-radius:9px;font-size:12px;align-self:flex-end}
+.demand{margin:6px 16px 14px;background:#fff;border:1.5px dashed var(--gold);border-radius:14px;padding:14px}
+.demand h4{font-size:14px;font-weight:800;color:var(--g)}
+.demand p{font-size:11.5px;color:var(--mu);margin:3px 0 10px}
+.demand .dr{display:flex;gap:8px}
+.demand input{flex:1;padding:10px 12px;border:1px solid var(--bd);border-radius:9px;background:var(--bg)}
+.demand button{background:var(--gold2);color:#1a1a1a;padding:0 14px;border-radius:9px;font-size:12px}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 16px 14px;background:#fff;border:1px solid var(--bd);border-radius:14px;padding:12px 4px}
+.trust div{text-align:center;font-size:10px;font-weight:700;color:var(--mu);line-height:1.25}
+.trust i{font-style:normal;font-size:20px;display:block;margin-bottom:3px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--bd);display:grid;grid-template-columns:repeat(4,1fr);z-index:90;padding:6px 6px 8px}
+.nav button{background:none;color:var(--mu);font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;border-radius:10px}
+.nav button i{font-style:normal;font-size:20px}
+.nav button.on{color:var(--g);background:var(--g3)}
+.callbar{margin:0 16px 14px;background:var(--g);color:#fff;border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.callbar b{font-size:12px;display:block}.callbar small{font-size:10.5px;opacity:.8}
+.callbar a{background:var(--gold2);color:#1a1a1a;text-decoration:none;font-size:11px;font-weight:800;padding:7px 9px;border-radius:8px;white-space:nowrap}
+.callbar div.cb{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:14px;margin:0 16px 12px}
+.card h4{font-size:14px;font-weight:800;margin-bottom:8px}
+.btn{width:100%;padding:13px;border-radius:12px;font-size:14px;background:var(--g);color:#fff}
+.btn.out{background:#fff;color:var(--g);border:1.5px solid var(--g)}
+.btn.wa{background:var(--wa)}
+.btn.sm{padding:9px;font-size:12px;border-radius:9px}
+.fi{margin-bottom:11px}
+.fi label{display:block;font-size:11.5px;font-weight:700;color:var(--mu);margin-bottom:4px}
+.fi input,.fi textarea{width:100%;background:#fff;border:1px solid var(--bd);border-radius:10px;padding:11px 12px;color:var(--tx)}
+.fi input:focus,.fi textarea:focus{border-color:var(--g2)}
+.auth{padding:34px 22px 30px;text-align:center}
+.auth h1{font-size:30px;font-weight:800;color:var(--g);letter-spacing:1px;margin-top:8px}
+.auth .tg{font-size:12px;color:var(--mu);font-weight:600;margin:2px 0 6px}
+.auth .tag2{display:inline-block;background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin:6px 0 20px}
+.auth .fi{text-align:left}
+.auth h3{font-size:18px;font-weight:800;margin-bottom:3px}
+.auth p.sub{font-size:12px;color:var(--mu);margin-bottom:16px}
+.lnk{background:none;color:var(--g2);font-size:12.5px;padding:10px;font-weight:700}
+.splash{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(180deg,#fff,#e4f1e9)}
+.splash h1{font-size:34px;font-weight:800;color:var(--g);letter-spacing:1.5px}
+.ld{width:120px;height:4px;background:#cfe3d6;border-radius:3px;margin-top:22px;overflow:hidden}
+.ld div{height:100%;width:40%;background:var(--g);border-radius:3px;animation:ld 1.1s infinite ease-in-out}
+@keyframes ld{0%{margin-left:-40%}100%{margin-left:100%}}
+.hero{display:flex;justify-content:center;padding:20px 0 6px}
+.hero .pimg{width:150px;height:150px;border-radius:24px}
+.qty{display:flex;align-items:center;border:1.5px solid var(--bd);border-radius:10px;background:#fff}
+.qty button{width:34px;height:34px;background:none;font-size:18px;color:var(--g)}
+.qty span{min-width:34px;text-align:center;font-weight:800;font-size:14px}
+.line{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;color:var(--mu)}
+.line b{color:var(--tx)}
+.line.t{border-top:1px solid var(--bd);margin-top:6px;padding-top:10px;font-size:16px}
+.line.t b{color:var(--g);font-size:18px}
+.line.sv b{color:var(--g2)}
+.crow{display:flex;gap:10px;background:#fff;border:1px solid var(--bd);border-radius:14px;padding:10px;margin:0 16px 10px;align-items:center}
+.crow .pimg{width:62px;height:62px}
+.crow .pimg svg{width:40px;height:40px}
+.del{background:none;color:var(--red);font-size:17px;padding:4px}
+.note{margin:0 16px 12px;background:#eaf6ee;border:1px solid #bfe0cb;color:#0f5132;font-size:11.5px;font-weight:600;border-radius:11px;padding:10px 12px;line-height:1.45}
+.steps{display:flex;justify-content:center;align-items:center;gap:6px;padding:14px 16px 8px}
+.stp{display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:700;color:var(--mu);gap:3px}
+.stp i{font-style:normal;width:28px;height:28px;border-radius:50%;background:#e1e8e3;color:var(--mu);display:flex;align-items:center;justify-content:center;font-size:13px}
+.stp.on{color:var(--g)}.stp.on i{background:var(--g);color:#fff}
+.stl{width:44px;height:2px;background:#d3ded7;margin-bottom:16px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:9px;background:#fff;cursor:pointer}
+.opt.on{border-color:var(--g);background:#f0f8f3}
+.opt .rd{width:18px;height:18px;border-radius:50%;border:2px solid #b7c7bd;flex-shrink:0;margin-top:1px}
+.opt.on .rd{border-color:var(--g);background:radial-gradient(var(--g) 45%,#fff 50%)}
+.opt b{font-size:13px;display:block}.opt small{font-size:11.5px;color:var(--mu);line-height:1.4}
+.ocard{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:12px;margin:0 16px 10px}
+.ocard .oh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ocard .oh b{font-size:13px}
+.st{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:6px}
+.st.Processing{background:#fff3cd;color:#8a6d00}.st.Delivered{background:#d4f1de;color:#0b6b43}
+.ocard small{color:var(--mu);font-size:11.5px;display:block}
+.empty{text-align:center;padding:50px 20px;color:var(--mu);font-size:13px}
+.empty i{font-style:normal;font-size:44px;display:block;margin-bottom:8px}
+.ucard{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#0f5132,#1c8a4f);color:#fff;border-radius:16px;padding:18px;margin:14px 16px}
+.av{width:54px;height:54px;border-radius:50%;background:var(--gold2);color:#1a1a1a;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ucard b{font-size:16px;display:block}.ucard small{opacity:.85;font-size:12px}
+.addr{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.45;padding:9px 0;border-bottom:1px solid var(--bd)}
+.addr:last-child{border:none}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:#1d2b23;color:#fff;font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:24px;opacity:0;pointer-events:none;transition:.25s;z-index:999;max-width:88%;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.ok{text-align:center;padding:40px 24px}
+.ok .tick{width:78px;height:78px;border-radius:50%;background:var(--g);color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.ok h2{font-size:20px;font-weight:800;color:var(--g)}
+.ok p{font-size:12.5px;color:var(--mu);margin:8px 0 18px;line-height:1.5}
+.gap{display:flex;flex-direction:column;gap:9px}
+</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="100%" stop-color="#AA7C11"/></linearGradient></defs></svg>
+<div id="app"></div>
+<div id="toast"></div>
 
-  <!-- Top App Bar with Gold Logo -->
-  <header>
-    <div class="brand-box">
-      <svg class="brand-svg-logo" viewBox="0 0 512 512">
-        <defs>
-          <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FFE082"/>
-            <stop offset="100%" stop-color="#AA7C11"/>
-          </linearGradient>
-        </defs>
-        <rect width="512" height="512" rx="110" fill="#052619"/>
-        <circle cx="256" cy="256" r="145" stroke="url(#gGold)" stroke-width="18" fill="none"/>
-        <path d="M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z" fill="url(#gGold)"/>
-        <path d="M220 280 Q256 240 310 270 Q265 315 220 280 Z" fill="#22c55e"/>
-      </svg>
-      <div>
-        <div class="brand-name">ALLINSON</div>
-      </div>
-      <div class="b2b-pill">B2B</div>
-    </div>
-    <button class="cart-btn" onclick="openCart()">🛒 कार्ट (<span id="cartCount">0</span>)</button>
-  </header>
+<script>
+/* =====================================================
+   सेटिंग्स — नंबर, कैटेगरी, दवाइयाँ यहीं से बदलें
+   ===================================================== */
+const CONFIG = { WA: '917482948349', CALLS: ['7482948349', '6207222800'] };
 
-  <!-- Search -->
-  <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="दवा सर्च करें..." onkeyup="filterItems()">
-  </div>
+// min = कम से कम छूट %, जिससे अनुमानित रेट बनता है। फाइनल बिल WhatsApp पर कन्फर्म होता है।
+const CATS = {
+  Homeopathic: { label: 'होम्योपैथिक', icon: '💧', min: 50, max: 75 },
+  Ayurvedic:   { label: 'आयुर्वेदिक',  icon: '🌿', min: 25, max: 75 },
+  German:      { label: 'जर्मन',       icon: '🛡️', min: 30, max: 40 }
+};
 
-  <!-- Categories with Custom Badges -->
-  <div class="category-scroll">
-    <button class="cat-btn active" onclick="setFilter('all', this)">⭐ सभी दवाइयाँ</button>
-    <button class="cat-btn" onclick="setFilter('Homeopathic', this)">💧 होम्योपैथिक</button>
-    <button class="cat-btn" onclick="setFilter('Ayurvedic', this)">🌿 आयुर्वेदिक</button>
-    <button class="cat-btn" onclick="setFilter('German', this)">🛡️ जर्मन</button>
-  </div>
+// हर दवा में चाहें तो disc: 55 जोड़कर उसकी अलग छूट रख सकते हैं
+const PRODUCTS = [
+  { id: 1,  name: "Arnica Montana 30 / 200",       cat: "Homeopathic", mrp: 120, minQty: 6 },
+  { id: 2,  name: "Berberis Aquifolium Q",          cat: "Homeopathic", mrp: 180, minQty: 6 },
+  { id: 3,  name: "Dr. Reckeweg R1 to R89",         cat: "German",      mrp: 290, minQty: 5 },
+  { id: 4,  name: "Schwabe Cineraria Eye Drop",     cat: "German",      mrp: 175, minQty: 5 },
+  { id: 5,  name: "Ashwagandha Churna 100g",        cat: "Ayurvedic",   mrp: 150, minQty: 6 },
+  { id: 6,  name: "Chyawanprash Special 1kg",       cat: "Ayurvedic",   mrp: 450, minQty: 5 },
+  { id: 7,  name: "Adel 48 (Itires Drop)",          cat: "German",      mrp: 310, minQty: 5 },
+  { id: 8,  name: "Liv-52 Syrup / Tablets",         cat: "Ayurvedic",   mrp: 160, minQty: 6 },
+  { id: 9,  name: "Thuja Occidentalis 200",         cat: "Homeopathic", mrp: 135, minQty: 6 },
+  { id: 10, name: "Triphala Churna 500g",           cat: "Ayurvedic",   mrp: 210, minQty: 6 }
+];
+// दवा का आइकन: bottle (शीशी), drop (ड्रॉपर), jar (डिब्बा/जार)। नई दवा में form: 'drop' लिखकर बदल सकते हैं
+const FORMS = { 1: 'bottle', 2: 'bottle', 3: 'drop', 4: 'drop', 5: 'jar', 6: 'jar', 7: 'drop', 8: 'bottle', 9: 'bottle', 10: 'jar' };
+PRODUCTS.forEach(p => { p.form = p.form || FORMS[p.id] || 'bottle'; });
 
-  <!-- Medicine Demand Banner -->
-  <div class="demand-box">
-    <h4>📦 दवा नहीं मिल रही? यहाँ डिमांड करें</h4>
-    <p>दवा का नाम लिखें, हम थोक रेट पर उपलब्ध कराएँगे:</p>
-    <div class="demand-row">
-      <input type="text" id="demandInput" placeholder="दवा व कंपनी का नाम...">
-      <button onclick="submitDemand()">डिमांड भेजें</button>
-    </div>
-  </div>
+/* ===================== हेल्पर ===================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rs = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const prod = id => PRODUCTS.find(p => p.id === id);
+const discOf = p => p.disc || CATS[p.cat].min;
+const rate = p => Math.round(p.mrp * (1 - discOf(p) / 100));
+const val = id => { const e = document.getElementById(id); return e ? e.value.trim() : ''; };
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+let toastT;
+function toast(m) {
+  const t = $('#toast'); t.textContent = m; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+async function hashPw(p) {
+  try {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('allinson|' + p));
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+  } catch (e) { return btoa(unescape(encodeURIComponent('allinson|' + p))); }
+}
+function logo(sz) {
+  return `<svg width="${sz}" height="${sz}" viewBox="0 0 512 512"><rect width="512" height="512" rx="110" fill="#052619"/><circle cx="256" cy="256" r="145" stroke="url(#gGold)" stroke-width="18" fill="none"/><path d="M256 150 L325 330 L288 330 L256 242 L224 330 L187 330 Z" fill="url(#gGold)"/><path d="M220 280 Q256 240 310 270 Q265 315 220 280 Z" fill="#22c55e"/></svg>`;
+}
+function medIcon(p, sz) {
+  const col = { Homeopathic: '#0b8a5a', Ayurvedic: '#b8860b', German: '#2563eb' }[p.cat] || '#0f5132';
+  const mark = p.cat === 'Ayurvedic'
+    ? `<path d="M24 43c0-10 7-16 17-16 0 10-7 17-17 16z" fill="${col}"/><path d="M25 42l10-10" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`
+    : `<path d="M32 30v14M25 37h14" stroke="${col}" stroke-width="3.6" stroke-linecap="round"/>`;
+  const label = `<rect x="21" y="27" width="22" height="21" rx="3.5" fill="#fff" opacity=".95"/>`;
+  let g;
+  if (p.form === 'drop') g = `<ellipse cx="32" cy="8" rx="7" ry="6" fill="#374151"/><rect x="25" y="12" width="14" height="5" rx="1.5" fill="#9ca3af"/><rect x="17" y="17" width="30" height="42" rx="8" fill="${col}"/>${label}${mark}`;
+  else if (p.form === 'jar') g = `<rect x="13" y="8" width="38" height="10" rx="3.5" fill="#374151"/><rect x="9" y="18" width="46" height="40" rx="10" fill="${col}"/>${label.replace('x="21"', 'x="20"').replace('width="22"', 'width="24"')}${mark}`;
+  else g = `<rect x="22" y="4" width="20" height="9" rx="3" fill="#374151"/><rect x="26" y="13" width="12" height="6" fill="#9ca3af"/><rect x="16" y="19" width="32" height="40" rx="9" fill="${col}"/>${label}${mark}`;
+  return `<svg width="${sz}" height="${sz}" viewBox="0 0 64 64">${g}</svg>`;
+}
+const users = () => LS.get('aln_users', {});
 
-  <!-- 2-Patti Grid View -->
-  <div class="catalog-grid" id="catalogGrid"></div>
+/* ===================== स्टेट ===================== */
+const S = {
+  user: null, cart: [], view: 'splash', stack: [],
+  list: { cat: 'all', q: '', sort: 'def' },
+  pid: null, qty: 0, oid: null, ordFilter: 'all', authMode: 'login',
+  co: { step: 1, addr: 0, pay: 'COD', note: '', adding: false }, lastOrder: null
+};
+const cartKey = () => 'aln_cart_' + S.user.mobile;
+const ordKey = () => 'aln_orders_' + S.user.mobile;
+const orders = () => LS.get(ordKey(), []);
 
-  <!-- Bottom Call Assistance -->
-  <div class="footer-bar">
-    <div class="footer-info">
-      <b>कॉल करके भी ऑर्डर मंगा सकते हैं</b>
-      रेट व ऑर्डर सहायता
-    </div>
-    <div class="call-btn-wrap">
-      <a href="tel:7482948349" class="call-btn">📞 7482948349</a>
-      <a href="tel:6207222800" class="call-btn">📞 6207222800</a>
-    </div>
-  </div>
+function go(v) { S.stack.push(S.view); S.view = v; render(); }
+function back() { S.view = S.stack.pop() || 'home'; render(); }
+function tab(v) { S.stack = []; S.view = v; if (v === 'cats') { S.list.cat = 'all'; S.list.q = ''; } render(); }
+function saveCart() { LS.set(cartKey(), S.cart); updBadges(); }
+function updBadges() {
+  const n = S.cart.length;
+  document.querySelectorAll('.cbadge').forEach(b => { b.textContent = n; b.style.display = n ? 'flex' : 'none'; });
+}
+function totals(items) {
+  let mrp = 0, sub = 0, count = 0;
+  items.forEach(i => { const p = prod(i.id); mrp += p.mrp * i.qty; sub += rate(p) * i.qty; count += i.qty; });
+  return { mrp, sub, save: mrp - sub, count };
+}
 
-  <!-- Cart & Checkout Modal -->
-  <div class="modal-backdrop" id="cartModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>🛒 आपकी कार्ट एवं चेकआउट</h3>
-        <span class="close-btn" onclick="closeCart()">✕</span>
-      </div>
+/* ===================== कार्ट ===================== */
+function addCart(id, qty) {
+  const p = prod(id); qty = Math.max(qty || p.minQty, p.minQty);
+  const e = S.cart.find(c => c.id === id);
+  if (e) e.qty += qty; else S.cart.push({ id, qty });
+  saveCart(); toast(`${p.name} (${qty} पीस) कार्ट में जुड़ गया`);
+}
+function cartQty(id, d) {
+  const it = S.cart.find(c => c.id === id), p = prod(id), n = it.qty + d;
+  if (n < p.minQty) {
+    if (confirm(`न्यूनतम ऑर्डर ${p.minQty} पीस का है। इसे कार्ट से हटाएँ?`)) S.cart = S.cart.filter(c => c.id !== id);
+  } else it.qty = n;
+  saveCart(); render();
+}
+function cartDel(id) { S.cart = S.cart.filter(c => c.id !== id); saveCart(); render(); }
+function clearCart() { if (S.cart.length && confirm('पूरी कार्ट खाली करें?')) { S.cart = []; saveCart(); render(); } }
+function buyNow() { addCart(S.pid, S.qty); S.stack = ['home']; S.view = 'cart'; render(); }
 
-      <div id="cartList" style="margin-bottom: 12px; max-height: 160px; overflow-y: auto;"></div>
+/* ===================== लॉगिन / रजिस्ट्रेशन ===================== */
+function startSession(m) {
+  LS.set('aln_session', m);
+  S.user = users()[m]; S.cart = LS.get('aln_cart_' + m, []);
+  S.stack = []; S.view = 'home'; render();
+}
+async function doLogin() {
+  const m = val('lm'), p = document.getElementById('lp').value;
+  if (!/^\d{10}$/.test(m)) return toast('सही 10 अंकों का मोबाइल नंबर डालें');
+  const u = users()[m];
+  if (!u || u.h !== await hashPw(p)) return toast('मोबाइल नंबर या पासवर्ड गलत है');
+  startSession(m);
+}
+async function doRegister() {
+  const name = val('rn'), shop = val('rs'), m = val('rm'), pin = val('rp'), addr = val('ra');
+  const p1 = document.getElementById('rp1').value, p2 = document.getElementById('rp2').value;
+  if (!name || !shop) return toast('अपना और दुकान का नाम भरें');
+  if (!/^\d{10}$/.test(m)) return toast('सही 10 अंकों का मोबाइल नंबर डालें');
+  if (!addr || !/^\d{6}$/.test(pin)) return toast('पूरा पता और 6 अंकों का पिनकोड भरें');
+  if (p1.length < 6) return toast('पासवर्ड कम से कम 6 अक्षर का रखें');
+  if (p1 !== p2) return toast('दोनों पासवर्ड एक जैसे नहीं हैं');
+  const all = users();
+  if (all[m]) return toast('यह मोबाइल नंबर पहले से रजिस्टर है, लॉगिन करें');
+  all[m] = { name, shop, mobile: m, h: await hashPw(p1), addresses: [{ line: addr, pin }], created: Date.now() };
+  LS.set('aln_users', all); startSession(m); toast('रजिस्ट्रेशन सफल, स्वागत है!');
+}
+async function doReset() {
+  const m = val('fm'), shop = val('fs'), p = document.getElementById('fp').value;
+  const all = users(), u = all[m];
+  if (!u || u.shop.toLowerCase() !== shop.toLowerCase()) return toast('मोबाइल नंबर या दुकान का नाम मेल नहीं खाता');
+  if (p.length < 6) return toast('नया पासवर्ड कम से कम 6 अक्षर का रखें');
+  u.h = await hashPw(p); LS.set('aln_users', all);
+  S.authMode = 'login'; render(); toast('पासवर्ड बदल गया, अब लॉगिन करें');
+}
+function authMode(m) { S.authMode = m; render(); }
+function logout() {
+  if (!confirm('लॉगआउट करें?')) return;
+  LS.del('aln_session'); S.user = null; S.cart = []; S.stack = []; S.authMode = 'login'; S.view = 'auth'; render();
+}
+function togglePw(id) { const e = document.getElementById(id); e.type = e.type === 'password' ? 'text' : 'password'; }
 
-      <div id="checkoutForm">
-        <div class="form-item">
-          <label>दुकान / ग्राहक का नाम *</label>
-          <input type="text" id="custName" placeholder="अपना या दुकान का नाम लिखें">
-        </div>
-        <div class="form-item">
-          <label>मोबाइल नंबर *</label>
-          <input type="tel" id="custPhone" placeholder="संपर्क नंबर">
-        </div>
-        <div class="form-item">
-          <label>पूरा पता व पिनकोड *</label>
-          <textarea id="custAddress" rows="2" placeholder="दुकान/घर का पता, शहर, पिनकोड"></textarea>
-        </div>
+/* ===================== WhatsApp ===================== */
+function wa(msg) {
+  const w = window.open(`https://wa.me/${CONFIG.WA}?text=${encodeURIComponent(msg)}`, '_blank');
+  if (!w) location.href = `https://wa.me/${CONFIG.WA}?text=${encodeURIComponent(msg)}`;
+}
+function orderMsg(o) {
+  const u = S.user;
+  let m = `*नया होलसेल दवा ऑर्डर - ALLINSON*\n*ऑर्डर नं:* ${o.id}\n--------------------------\n`;
+  m += `*दुकान:* ${u.shop}\n*नाम:* ${u.name}\n*मोबाइल:* ${u.mobile}\n`;
+  m += `*डिलीवरी पता:* ${o.addr.line}, ${o.addr.pin}\n*पेमेंट मोड:* ${o.pay}\n`;
+  if (o.note) m += `*निर्देश:* ${o.note}\n`;
+  m += `\n*दवाइयों की सूची:*\n`;
+  o.items.forEach((it, i) => { m += `${i + 1}. ${it.name} - ${it.qty} पीस (MRP ₹${it.mrp}, अनुमानित रेट ₹${it.rate}) = ₹${it.rate * it.qty}\n`; });
+  m += `\n*अनुमानित कुल:* ${rs(o.sub)} (MRP ${rs(o.sub + o.save)})\n`;
+  m += `\nकृपया फाइनल डिस्काउंट बिल और डिलीवरी समय साझा करें।`;
+  return m;
+}
+function submitDemand(id) {
+  const v = val(id || 'dem');
+  if (!v) return toast('दवा का नाम लिखें');
+  wa(`नमस्ते ALLINSON, मुझे यह दवा थोक में चाहिए जो लिस्ट में नहीं है:\n\nदवा का नाम: ${v}\n\nकृपया इसका होलसेल रेट और उपलब्धता बताएं।`);
+}
 
-        <label style="font-size: 11px; color: var(--text-muted); font-weight: 600;">पेमेंट मोड चुनें *</label>
-        <div class="pay-selector">
-          <div class="pay-card selected" id="optCOD" onclick="setPayment('Cash on Delivery (COD)')">💵 Cash on Delivery</div>
-          <div class="pay-card" id="optOnline" onclick="setPayment('Online UPI / Bank Transfer')">💳 Online / UPI</div>
-        </div>
+/* ===================== चेकआउट ===================== */
+function startCheckout() {
+  if (!S.cart.length) return toast('कार्ट खाली है');
+  S.co = { step: 1, addr: 0, pay: 'COD', note: '', adding: false }; go('checkout');
+}
+function coStep(n) {
+  if (n === 2 && S.co.adding) return toast('पहले नया पता सेव करें या रद्द करें');
+  const nt = document.getElementById('cnote'); if (nt) S.co.note = nt.value.trim();
+  S.co.step = n; render();
+}
+function coAddr(i) { S.co.addr = i; render(); }
+function coPay(p) { S.co.pay = p; render(); }
+function saveAddr(from) {
+  const line = val('na'), pin = val('np');
+  if (!line || !/^\d{6}$/.test(pin)) return toast('पूरा पता और 6 अंकों का पिनकोड भरें');
+  const all = users(); all[S.user.mobile].addresses.push({ line, pin });
+  LS.set('aln_users', all); S.user = all[S.user.mobile];
+  if (from === 'co') { S.co.addr = S.user.addresses.length - 1; S.co.adding = false; }
+  else S.addAddr = false;
+  render(); toast('पता सेव हो गया');
+}
+function delAddr(i) {
+  if (S.user.addresses.length <= 1) return toast('कम से कम एक पता रहना ज़रूरी है');
+  if (!confirm('यह पता हटाएँ?')) return;
+  const all = users(); all[S.user.mobile].addresses.splice(i, 1);
+  LS.set('aln_users', all); S.user = all[S.user.mobile]; S.co.addr = 0; render();
+}
+function placeOrder() {
+  const addr = S.user.addresses[S.co.addr]; if (!addr) return toast('डिलीवरी पता चुनें');
+  const items = S.cart.map(c => { const p = prod(c.id); return { id: p.id, name: p.name, qty: c.qty, rate: rate(p), mrp: p.mrp }; });
+  const t = totals(S.cart), list = orders(), d = new Date();
+  const id = 'ALN' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') + '-' + String(list.length + 1).padStart(3, '0');
+  const o = { id, date: d.toISOString(), items, sub: t.sub, save: t.save, addr, pay: S.co.pay === 'COD' ? 'Cash on Delivery (COD)' : 'Online UPI / Bank Transfer', note: S.co.note, status: 'Processing' };
+  list.unshift(o); LS.set(ordKey(), list);
+  S.cart = []; saveCart(); S.lastOrder = o; S.stack = []; S.view = 'done'; render(); wa(orderMsg(o));
+}
+function markDelivered(id) {
+  const list = orders(), o = list.find(x => x.id === id);
+  if (o && confirm('यह ऑर्डर डिलीवर हो गया है?')) { o.status = 'Delivered'; LS.set(ordKey(), list); render(); }
+}
+function reorder(id) {
+  const o = orders().find(x => x.id === id); if (!o) return;
+  o.items.forEach(it => { if (prod(it.id)) addCart(it.id, it.qty); });
+  S.stack = ['home']; S.view = 'cart'; render();
+}
 
-        <button class="checkout-submit" onclick="submitWhatsAppOrder()">WhatsApp पर ऑर्डर भेजें</button>
-      </div>
-    </div>
-  </div>
+/* ===================== नेविगेशन ===================== */
+function openProd(id) { S.pid = id; S.qty = prod(id).minQty; go('product'); }
+function openCat(c) { S.list = { cat: c, q: '', sort: 'def' }; S.stack = ['home']; S.view = 'list'; render(); }
+function searchGo(q) { S.list = { cat: 'all', q: q, sort: 'def' }; S.stack = ['home']; S.view = 'list'; render(); }
+function openOrder(id) { S.oid = id; go('order'); }
+function setCat(c) { S.list.cat = c; render(); }
+function pQty(d) { const p = prod(S.pid); S.qty = Math.max(p.minQty, S.qty + d); if (S.qty === p.minQty && d < 0) toast(`न्यूनतम ऑर्डर ${p.minQty} पीस`); render(); }
 
-  <script>
-    // दवाइयों की लिस्ट (न्यूनतम 6 पीस डिफॉल्ट)
-    let medicines = [
-      { id: 1, name: "Arnica Montana 30 / 200", category: "Homeopathic", mrp: 120, minQty: 6, qty: 6 },
-      { id: 2, name: "Berberis Aquifolium Q", category: "Homeopathic", mrp: 180, minQty: 6, qty: 6 },
-      { id: 3, name: "Dr. Reckeweg R1 to R89", category: "German", mrp: 290, minQty: 5, qty: 5 },
-      { id: 4, name: "Schwabe Cineraria Eye Drop", category: "German", mrp: 175, minQty: 5, qty: 5 },
-      { id: 5, name: "Ashwagandha Churna 100g", category: "Ayurvedic", mrp: 150, minQty: 6, qty: 6 },
-      { id: 6, name: "Chyawanprash Special 1kg", category: "Ayurvedic", mrp: 450, minQty: 5, qty: 5 },
-      { id: 7, name: "Adel 48 (Itires Drop)", category: "German", mrp: 310, minQty: 5, qty: 5 },
-      { id: 8, name: "Liv-52 Syrup / Tablets", category: "Ayurvedic", mrp: 160, minQty: 6, qty: 6 },
-      { id: 9, name: "Thuja Occidentalis 200", category: "Homeopathic", mrp: 135, minQty: 6, qty: 6 },
-      { id: 10, name: "Triphala Churna 500g", category: "Ayurvedic", mrp: 210, minQty: 6, qty: 6 }
-    ];
+/* ===================== व्यू ===================== */
+const cartBtn = () => `<button class="ib" onclick="go('cart')">🛒<span class="cbadge"></span></button>`;
+const topBar = t => `<div class="top"><button class="ib" onclick="back()">←</button><h2>${t}</h2>${cartBtn()}</div>`;
+const nav = a => `<div class="nav">${[['home', '🏠', 'होम'], ['cats', '🗂️', 'कैटेगरी'], ['orders', '📦', 'ऑर्डर'], ['account', '👤', 'अकाउंट']].map(([k, i, l]) => `<button class="${a === k ? 'on' : ''}" onclick="tab('${k}')"><i>${i}</i>${l}</button>`).join('')}</div>`;
+const callBar = () => `<div class="callbar"><div><b>कॉल करके भी ऑर्डर करें</b><small>रेट व ऑर्डर सहायता</small></div><div class="cb">${CONFIG.CALLS.map(n => `<a href="tel:${n}">📞 ${n}</a>`).join('')}</div></div>`;
 
-    let cart = [];
-    let activeCategory = 'all';
-    let paymentMode = 'Cash on Delivery (COD)';
+function vSplash() { return `<div class="splash">${logo(110)}<h1>ALLINSON</h1><div class="pill">B2B WHOLESALE</div><p style="font-size:12px;color:var(--mu);font-weight:600;margin-top:8px">होम्योपैथिक • आयुर्वेदिक • जर्मन दवाइयाँ</p><div class="ld"><div></div></div></div>`; }
 
-    function getDiscount(cat) {
-      if (cat === "Homeopathic") return "50% से 75% छूट";
-      if (cat === "Ayurvedic") return "25% से 75% छूट";
-      if (cat === "German") return "30% से 40% छूट";
-      return "होलसेल छूट";
-    }
+function vAuth() {
+  const head = `<div style="display:flex;justify-content:center">${logo(78)}</div><h1>ALLINSON</h1><div class="tg">B2B Wholesale Portal</div><div class="tag2">दवा दुकानदारों के लिए थोक पोर्टल</div>`;
+  const pw = (id, ph) => `<div style="position:relative"><input id="${id}" type="password" placeholder="${ph}" style="padding-right:42px"><button type="button" onclick="togglePw('${id}')" style="position:absolute;right:6px;top:5px;background:none;font-size:17px;padding:5px">👁️</button></div>`;
+  if (S.authMode === 'register') return `<div class="auth">${head}<h3>नया रजिस्ट्रेशन</h3><p class="sub">दुकानदार की जानकारी भरें</p>
+    <div class="fi"><label>आपका नाम *</label><input id="rn" placeholder="पूरा नाम"></div>
+    <div class="fi"><label>दुकान का नाम *</label><input id="rs" placeholder="मेडिकल / दुकान का नाम"></div>
+    <div class="fi"><label>मोबाइल नंबर *</label><input id="rm" type="tel" maxlength="10" placeholder="10 अंकों का नंबर"></div>
+    <div class="fi"><label>दुकान का पता *</label><textarea id="ra" rows="2" placeholder="पता, शहर"></textarea></div>
+    <div class="fi"><label>पिनकोड *</label><input id="rp" type="tel" maxlength="6" placeholder="6 अंकों का पिनकोड"></div>
+    <div class="fi"><label>पासवर्ड बनाएँ *</label>${pw('rp1', 'कम से कम 6 अक्षर')}</div>
+    <div class="fi"><label>पासवर्ड दोबारा *</label>${pw('rp2', 'वही पासवर्ड फिर से')}</div>
+    <button class="btn" onclick="doRegister()">रजिस्टर करें</button><button class="lnk" onclick="authMode('login')">पहले से अकाउंट है? लॉगिन करें</button></div>`;
+  if (S.authMode === 'forgot') return `<div class="auth">${head}<h3>पासवर्ड रीसेट</h3><p class="sub">रजिस्टर्ड मोबाइल और दुकान का नाम डालें</p>
+    <div class="fi"><label>मोबाइल नंबर</label><input id="fm" type="tel" maxlength="10"></div>
+    <div class="fi"><label>दुकान का नाम (जैसा रजिस्टर किया था)</label><input id="fs"></div>
+    <div class="fi"><label>नया पासवर्ड</label>${pw('fp', 'कम से कम 6 अक्षर')}</div>
+    <button class="btn" onclick="doReset()">पासवर्ड बदलें</button><button class="lnk" onclick="authMode('login')">← लॉगिन पर वापस</button></div>`;
+  return `<div class="auth">${head}<h3>दुकानदार लॉगिन</h3><p class="sub">सिर्फ रजिस्टर्ड मेडिकल व हर्बल दुकानदारों के लिए</p>
+    <div class="fi"><label>मोबाइल नंबर</label><input id="lm" type="tel" maxlength="10" placeholder="मोबाइल नंबर"></div>
+    <div class="fi"><label>पासवर्ड</label>${pw('lp', 'पासवर्ड')}</div>
+    <button class="btn" onclick="doLogin()">लॉगिन</button>
+    <button class="lnk" onclick="authMode('forgot')">पासवर्ड भूल गए?</button>
+    <button class="btn out" onclick="authMode('register')">नया दुकानदार रजिस्ट्रेशन</button></div>`;
+}
 
-    function getCatBadge(cat) {
-      if (cat === "Homeopathic") return `<span class="card-badge badge-homeo">💧 Homeo</span>`;
-      if (cat === "Ayurvedic") return `<span class="card-badge badge-ayur">🌿 Ayur</span>`;
-      if (cat === "German") return `<span class="card-badge badge-german">🛡️ German</span>`;
-      return `<span class="card-badge badge-homeo">💧 Homeo</span>`;
-    }
+function dealCard(p) {
+  return `<div class="deal" onclick="openProd(${p.id})"><div class="pimg c-${p.cat}">${medIcon(p,50)}</div><div class="db"><span class="badge b-${p.cat}">${CATS[p.cat].icon} ${CATS[p.cat].label}</span><div class="dn">${esc(p.name)}</div><div class="dp">${rs(rate(p))}<s>${rs(p.mrp)}</s></div></div></div>`;
+}
+function vHome() {
+  const deals = [...PRODUCTS].sort((a, b) => discOf(b) - discOf(a)).slice(0, 6);
+  return `<div class="top"><div class="brand">${logo(36)}<div><b>ALLINSON</b><small>Healthy Business | Healthier Tomorrow</small></div></div><span class="pill">B2B</span>${cartBtn()}</div>
+  <div class="pad"><p style="font-size:12px;color:var(--mu);margin-top:12px">नमस्ते,</p><p style="font-size:16px;font-weight:800;color:var(--g)">${esc(S.user.shop)}</p>
+  <div class="sbox"><span>🔍</span><input id="hs" placeholder="दवा या कैटेगरी से सर्च करें..." onkeydown="if(event.key==='Enter')searchGo(this.value)"><button onclick="searchGo(val('hs'))" style="background:var(--g);color:#fff;padding:7px 12px;border-radius:8px;font-size:12px">खोजें</button></div></div>
+  <div class="banner"><h3>थोक रेट पर दवाइयाँ,<br>ज़्यादा बचत, ज़्यादा मुनाफ़ा</h3><p>25% से 75% तक छूट • न्यूनतम 5-6 पीस</p><button onclick="openCat('all')">अभी ऑर्डर करें →</button><div class="bl">${logo(120)}</div></div>
+  <div class="sec"><h3>कैटेगरी</h3><a onclick="openCat('all')">सभी देखें →</a></div>
+  <div class="cats">${Object.keys(CATS).map(k => `<div class="cat" onclick="openCat('${k}')"><i>${CATS[k].icon}</i><span>${CATS[k].label}</span></div>`).join('')}<div class="cat" onclick="openCat('all')"><i>⭐</i><span>सभी दवाइयाँ</span></div></div>
+  <div class="sec"><h3>टॉप डील्स</h3><a onclick="openCat('all')">सभी देखें →</a></div>
+  <div class="hscroll">${deals.map(dealCard).join('')}</div>
+  <div class="demand"><h4>📦 दवा नहीं मिल रही? यहाँ डिमांड करें</h4><p>दवा और कंपनी का नाम लिखें, हम थोक रेट पर उपलब्ध कराएँगे:</p><div class="dr"><input id="dem" placeholder="दवा व कंपनी का नाम..."><button onclick="submitDemand('dem')">डिमांड भेजें</button></div></div>
+  <div class="trust"><div><i>💰</i>थोक रेट</div><div><i>💬</i>WhatsApp ऑर्डर</div><div><i>💵</i>COD उपलब्ध</div><div><i>📞</i>कॉल सपोर्ट</div></div>
+  ${callBar()}${nav('home')}`;
+}
 
-    function renderCatalog() {
-      const grid = document.getElementById('catalogGrid');
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      grid.innerHTML = '';
+function filtered() {
+  const L = S.list, q = L.q.toLowerCase();
+  let a = PRODUCTS.filter(p => (L.cat === 'all' || p.cat === L.cat) && (p.name + ' ' + p.cat + ' ' + CATS[p.cat].label).toLowerCase().includes(q));
+  if (L.sort === 'pl') a.sort((x, y) => rate(x) - rate(y));
+  else if (L.sort === 'ph') a.sort((x, y) => rate(y) - rate(x));
+  else if (L.sort === 'dh') a.sort((x, y) => discOf(y) - discOf(x));
+  else if (L.sort === 'az') a.sort((x, y) => x.name.localeCompare(y.name));
+  return a;
+}
+function prow(p) {
+  return `<div class="prow" onclick="openProd(${p.id})"><div class="pimg c-${p.cat}">${medIcon(p,54)}</div><div class="pinfo"><span class="badge b-${p.cat}">${CATS[p.cat].icon} ${CATS[p.cat].label}</span><div class="pn">${esc(p.name)}</div><div class="pm">न्यूनतम ${p.minQty} पीस</div><div class="pp"><span><b>${rs(rate(p))}</b>/पीस</span><s>MRP ${rs(p.mrp)}</s><i>${discOf(p)}%+ छूट</i></div></div><button class="abtn" onclick="event.stopPropagation();addCart(${p.id})">+ जोड़ें</button></div>`;
+}
+function listItems() {
+  const a = filtered(), box = document.getElementById('litems'); if (!box) return;
+  document.getElementById('lc').textContent = a.length + ' दवाइयाँ';
+  box.innerHTML = a.length ? a.map(prow).join('') : `<div class="empty"><i>🔎</i>कोई दवा नहीं मिली।<br>नीचे डिमांड भेजें:<div class="demand" style="margin:14px 0 0"><div class="dr"><input id="dem2" value="${esc(S.list.q)}" placeholder="दवा व कंपनी का नाम..."><button onclick="submitDemand('dem2')">भेजें</button></div></div></div>`;
+}
+function vList() {
+  const L = S.list, title = L.cat === 'all' ? 'सभी दवाइयाँ' : CATS[L.cat].label + ' दवाइयाँ';
+  return `${topBar(title)}<div class="pad"><div class="sbox"><span>🔍</span><input id="lq" value="${esc(L.q)}" placeholder="दवा या कैटेगरी से सर्च करें..." oninput="S.list.q=this.value;listItems()"></div></div>
+  <div class="chips"><button class="chip ${L.cat === 'all' ? 'on' : ''}" onclick="setCat('all')">सभी</button>${Object.keys(CATS).map(k => `<button class="chip ${L.cat === k ? 'on' : ''}" onclick="setCat('${k}')">${CATS[k].icon} ${CATS[k].label}</button>`).join('')}</div>
+  <div class="pad"><div class="row"><select onchange="S.list.sort=this.value;listItems()">${[['def', 'सॉर्ट: डिफ़ॉल्ट'], ['pl', 'रेट: कम से ज़्यादा'], ['ph', 'रेट: ज़्यादा से कम'], ['dh', 'सबसे ज़्यादा छूट'], ['az', 'नाम: A-Z']].map(([v, l]) => `<option value="${v}" ${L.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select><span id="lc"></span></div><div id="litems"></div></div>${nav('cats')}`;
+}
 
-      const items = medicines.filter(m => {
-        const catMatch = activeCategory === 'all' || m.category === activeCategory;
-        const searchMatch = m.name.toLowerCase().includes(q);
-        return catMatch && searchMatch;
-      });
+function vProduct() {
+  const p = prod(S.pid), r = rate(p);
+  return `${topBar('दवा की जानकारी')}<div class="hero"><div class="pimg c-${p.cat}">${medIcon(p,104)}</div></div>
+  <div class="card" style="margin-top:12px"><span class="badge b-${p.cat}">${CATS[p.cat].icon} ${CATS[p.cat].label}</span><h3 style="font-size:18px;font-weight:800;line-height:1.3">${esc(p.name)}</h3>
+  <div style="margin:12px 0 4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:26px;font-weight:800;color:var(--g2)">${rs(r)}</span><span style="color:var(--mu)">/पीस</span><s style="color:var(--mu);font-size:13px">MRP ${rs(p.mrp)}</s><span class="pill" style="font-size:11px">${discOf(p)}%+ छूट</span></div>
+  <p style="font-size:12px;color:var(--mu);line-height:1.5">होलसेल रेट (रजिस्टर्ड दुकानदारों के लिए) • न्यूनतम ऑर्डर ${p.minQty} पीस<br>इस कैटेगरी में ${CATS[p.cat].min}% से ${CATS[p.cat].max}% तक छूट मिलती है, फाइनल रेट WhatsApp पर कन्फर्म होगा।</p></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div class="qty"><button onclick="pQty(-1)">−</button><span>${S.qty}</span><button onclick="pQty(1)">+</button></div><div style="text-align:right"><small style="color:var(--mu);font-size:11px">कुल (अनुमानित)</small><div style="font-size:20px;font-weight:800;color:var(--g)">${rs(r * S.qty)}</div></div></div></div>
+  <div class="pad gap"><button class="btn" onclick="addCart(${p.id},S.qty)">🛒 कार्ट में जोड़ें</button><button class="btn out" onclick="buyNow()">अभी खरीदें</button></div>`;
+}
 
-      if (items.length === 0) {
-        grid.innerHTML = '<div style="grid-column: span 2; text-align:center; padding: 25px; color:#94a3b8; font-size:12px;">कोई दवा नहीं मिली। ऊपर डिमांड भेजें।</div>';
-        return;
-      }
+function vCart() {
+  if (!S.cart.length) return `${topBar('मेरी कार्ट')}<div class="empty"><i>🛒</i>आपकी कार्ट खाली है।<br><br><button class="btn" style="max-width:220px" onclick="openCat('all')">दवाइयाँ देखें</button></div>${nav('home')}`;
+  const t = totals(S.cart);
+  const rows = S.cart.map(c => { const p = prod(c.id); return `<div class="crow"><div class="pimg c-${p.cat}">${medIcon(p,40)}</div><div class="pinfo"><div class="pn">${esc(p.name)}</div><div class="pm">${rs(rate(p))}/पीस • MRP ${rs(p.mrp)}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px"><div class="qty"><button onclick="cartQty(${p.id},-1)">−</button><span>${c.qty}</span><button onclick="cartQty(${p.id},1)">+</button></div><b style="color:var(--g)">${rs(rate(p) * c.qty)}</b></div></div><button class="del" onclick="cartDel(${p.id})">🗑️</button></div>`; }).join('');
+  return `<div class="top"><button class="ib" onclick="back()">←</button><h2>मेरी कार्ट</h2><button onclick="clearCart()" style="background:none;color:var(--red);font-size:12px">कार्ट खाली करें</button></div><div style="height:12px"></div>${rows}
+  <div class="note">💡 रेट अनुमानित हैं (कैटेगरी की न्यूनतम छूट के हिसाब से)। फाइनल बिल और डिस्काउंट WhatsApp पर कन्फर्म होगा।</div>
+  <div class="card"><div class="line"><span>कुल पीस</span><b>${t.count}</b></div><div class="line"><span>MRP कुल</span><b>${rs(t.mrp)}</b></div><div class="line sv"><span>आपकी बचत</span><b>− ${rs(t.save)}</b></div><div class="line"><span>डिलीवरी चार्ज</span><b>फाइनल बिल में</b></div><div class="line t"><span>अनुमानित कुल</span><b>${rs(t.sub)}</b></div></div>
+  <div class="pad"><button class="btn" onclick="startCheckout()">चेकआउट पर जाएँ →</button></div>`;
+}
 
-      items.forEach(med => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div>
-            ${getCatBadge(med.category)}
-            <div class="med-name">${med.name}</div>
-            <div class="mrp-line">MRP: <b>₹${med.mrp}</b></div>
-            <div class="discount-pill">🏷️ ${getDiscount(med.category)}</div>
-          </div>
-          <div>
-            <div class="qty-control">
-              <button class="qty-btn" onclick="updateQty(${med.id}, -1)">−</button>
-              <div><span class="qty-number" id="qty-${med.id}">${med.qty}</span><span class="qty-unit"> पीस</span></div>
-              <button class="qty-btn" onclick="updateQty(${med.id}, 1)">+</button>
-            </div>
-            <button class="add-btn" onclick="addToCart(${med.id})">🛒 कार्ट में जोड़ें</button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
+function vCheckout() {
+  const c = S.co, ad = S.user.addresses, t = totals(S.cart);
+  const steps = `<div class="steps">${['पता', 'पेमेंट', 'कन्फर्म'].map((l, i) => `<div class="stp ${c.step >= i + 1 ? 'on' : ''}"><i>${i + 1}</i>${l}</div>${i < 2 ? '<div class="stl"></div>' : ''}`).join('')}</div>`;
+  let body = '';
+  if (c.step === 1) {
+    body = `<div class="card"><h4>डिलीवरी पता चुनें</h4>${ad.map((a, i) => `<div class="opt ${c.addr === i ? 'on' : ''}" onclick="coAddr(${i})"><div class="rd"></div><div><b>${esc(S.user.shop)}</b><small>${esc(a.line)}<br>पिनकोड: ${esc(a.pin)}</small></div></div>`).join('')}
+      ${c.adding ? `<div class="fi"><label>नया पता</label><textarea id="na" rows="2" placeholder="दुकान/घर का पता, शहर"></textarea></div><div class="fi"><label>पिनकोड</label><input id="np" type="tel" maxlength="6"></div><div style="display:flex;gap:8px"><button class="btn sm" onclick="saveAddr('co')">सेव करें</button><button class="btn sm out" onclick="S.co.adding=false;render()">रद्द करें</button></div>` : `<button class="lnk" onclick="S.co.adding=true;render()">+ नया पता जोड़ें</button>`}</div>
+      <div class="card"><h4>डिलीवरी निर्देश (वैकल्पिक)</h4><div class="fi" style="margin:0"><textarea id="cnote" rows="2" placeholder="जैसे: फोन नंबर, लैंडमार्क, डिलीवरी का समय...">${esc(c.note)}</textarea></div></div>
+      <div class="pad"><button class="btn" onclick="coStep(2)">आगे बढ़ें: पेमेंट →</button></div>`;
+  } else if (c.step === 2) {
+    body = `<div class="card"><h4>पेमेंट मोड चुनें</h4>
+      <div class="opt ${c.pay === 'COD' ? 'on' : ''}" onclick="coPay('COD')"><div class="rd"></div><div><b>💵 Cash on Delivery (COD)</b><small>माल मिलने पर भुगतान करें</small></div></div>
+      <div class="opt ${c.pay === 'UPI' ? 'on' : ''}" onclick="coPay('UPI')"><div class="rd"></div><div><b>💳 Online / UPI / Bank Transfer</b><small>ऑर्डर कन्फर्म होने पर पेमेंट डिटेल WhatsApp पर मिलेगी</small></div></div></div>
+      <div class="pad gap"><button class="btn" onclick="coStep(3)">आगे बढ़ें: कन्फर्म →</button><button class="btn out" onclick="coStep(1)">← पीछे</button></div>`;
+  } else {
+    const a = ad[c.addr];
+    body = `<div class="card"><h4>ऑर्डर की जानकारी</h4>${S.cart.map(i => { const p = prod(i.id); return `<div class="line"><span>${esc(p.name)} × ${i.qty}</span><b>${rs(rate(p) * i.qty)}</b></div>`; }).join('')}<div class="line t"><span>अनुमानित कुल</span><b>${rs(t.sub)}</b></div><div class="line sv"><span>आपकी बचत</span><b>${rs(t.save)}</b></div></div>
+      <div class="card"><h4>पता</h4><div style="font-size:12.5px;line-height:1.5">${esc(S.user.shop)} • ${esc(S.user.mobile)}<br>${esc(a.line)}, ${esc(a.pin)}</div>${c.note ? `<div style="font-size:12px;color:var(--mu);margin-top:6px">निर्देश: ${esc(c.note)}</div>` : ''}</div>
+      <div class="card"><h4>पेमेंट</h4><div style="font-size:13px;font-weight:600">${c.pay === 'COD' ? '💵 Cash on Delivery (COD)' : '💳 Online / UPI / Bank Transfer'}</div></div>
+      <div class="note">ऑर्डर आपकी हिस्ट्री में सेव होगा और WhatsApp पर हमें भेजा जाएगा। फाइनल बिल व डिलीवरी समय हम वहीं बताएँगे।</div>
+      <div class="pad gap"><button class="btn wa" onclick="placeOrder()">WhatsApp पर ऑर्डर भेजें</button><button class="btn out" onclick="coStep(2)">← पीछे</button></div>`;
+  }
+  return `${topBar('चेकआउट')}${steps}${body}`;
+}
 
-    function updateQty(id, change) {
-      const med = medicines.find(m => m.id === id);
-      const newQty = med.qty + change;
-      if (newQty >= med.minQty) {
-        med.qty = newQty;
-        document.getElementById(`qty-${id}`).innerText = med.qty;
-      } else {
-        alert(`न्यूनतम थोक ऑर्डर ${med.minQty} पीस का है!`);
-      }
-    }
+function vDone() {
+  const o = S.lastOrder;
+  return `<div class="ok"><div class="tick">✓</div><h2>ऑर्डर तैयार है!</h2><p>ऑर्डर नं <b>${esc(o.id)}</b><br>WhatsApp खुल गया होगा, वहाँ "Send" दबाकर ऑर्डर भेज दें।<br>अगर WhatsApp नहीं खुला तो नीचे का बटन दबाएँ।</p>
+  <div class="gap"><button class="btn wa" onclick="wa(orderMsg(S.lastOrder))">WhatsApp फिर से खोलें</button><button class="btn" onclick="tab('orders')">मेरे ऑर्डर देखें</button><button class="btn out" onclick="tab('home')">होम पर जाएँ</button></div></div>`;
+}
 
-    function addToCart(id) {
-      const med = medicines.find(m => m.id === id);
-      const existing = cart.find(c => c.id === id);
-      if (existing) {
-        existing.qty += med.qty;
-      } else {
-        cart.push({ ...med });
-      }
-      document.getElementById('cartCount').innerText = cart.length;
-      alert(`${med.name} (${med.qty} पीस) कार्ट में जोड़ दिया गया!`);
-    }
+const stLbl = s => s === 'Delivered' ? 'डिलीवर्ड' : 'प्रोसेसिंग';
+const fmtD = iso => new Date(iso).toLocaleDateString('hi-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+function vOrders() {
+  const f = S.ordFilter, all = orders(), a = all.filter(o => f === 'all' || o.status === f);
+  const tabs = [['all', 'सभी'], ['Processing', 'प्रोसेसिंग'], ['Delivered', 'डिलीवर्ड']];
+  return `<div class="top"><h2>मेरे ऑर्डर</h2>${cartBtn()}</div><div class="chips" style="padding-top:12px">${tabs.map(([k, l]) => `<button class="chip ${f === k ? 'on' : ''}" onclick="S.ordFilter='${k}';render()">${l}</button>`).join('')}</div><div style="height:6px"></div>
+  ${a.length ? a.map(o => `<div class="ocard"><div class="oh"><b>#${esc(o.id)}</b><span class="st ${o.status}">${stLbl(o.status)}</span></div><small>${fmtD(o.date)}</small><div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0"><span style="font-size:12.5px">${o.items.length} दवाइयाँ</span><b style="color:var(--g)">${rs(o.sub)}</b></div><button class="btn sm" onclick="openOrder('${o.id}')">विवरण देखें</button></div>`).join('') : `<div class="empty"><i>📦</i>${all.length ? 'इस श्रेणी में कोई ऑर्डर नहीं।' : 'अभी तक कोई ऑर्डर नहीं।'}</div>`}${nav('orders')}`;
+}
+function vOrder() {
+  const o = orders().find(x => x.id === S.oid); if (!o) return `${topBar('ऑर्डर')}<div class="empty">ऑर्डर नहीं मिला</div>`;
+  return `${topBar('ऑर्डर #' + esc(o.id))}<div style="height:12px"></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><small style="color:var(--mu)">${fmtD(o.date)}</small><span class="st ${o.status}">${stLbl(o.status)}</span></div>
+  ${o.items.map(i => `<div class="line"><span>${esc(i.name)} × ${i.qty}</span><b>${rs(i.rate * i.qty)}</b></div>`).join('')}<div class="line sv"><span>बचत</span><b>${rs(o.save)}</b></div><div class="line t"><span>अनुमानित कुल</span><b>${rs(o.sub)}</b></div></div>
+  <div class="card"><h4>पता व पेमेंट</h4><div style="font-size:12.5px;line-height:1.6">${esc(o.addr.line)}, ${esc(o.addr.pin)}<br>${esc(o.pay)}${o.note ? '<br>निर्देश: ' + esc(o.note) : ''}</div></div>
+  <div class="pad gap"><button class="btn wa" onclick="wa(orderMsg(orders().find(x=>x.id==='${o.id}')))">WhatsApp पर दोबारा भेजें</button><button class="btn" onclick="reorder('${o.id}')">🔁 फिर से यही ऑर्डर करें</button>${o.status !== 'Delivered' ? `<button class="btn out" onclick="markDelivered('${o.id}')">✔ डिलीवर्ड मार्क करें</button>` : ''}</div>`;
+}
 
-    function openCart() {
-      const list = document.getElementById('cartList');
-      if (cart.length === 0) {
-        list.innerHTML = "<p style='color:#94a3b8; font-size:12px; padding:10px 0;'>आपकी कार्ट खाली है।</p>";
-      } else {
-        list.innerHTML = cart.map((it, idx) => `
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #1a4a35; font-size:12px;">
-            <div>
-              <b>${it.name}</b><br>
-              <span style="color:#94a3b8; font-size:11px;">मात्रा: ${it.qty} पीस | MRP: ₹${it.mrp}</span>
-            </div>
-            <span style="color:#ef4444; font-weight:700; cursor:pointer;" onclick="removeItem(${idx})">हटाएं</span>
-          </div>
-        `).join('');
-      }
-      document.getElementById('cartModal').style.display = 'flex';
-    }
+function vAccount() {
+  const u = S.user;
+  return `<div class="top"><h2>मेरा अकाउंट</h2>${cartBtn()}</div>
+  <div class="ucard"><div class="av">${esc(u.name.charAt(0).toUpperCase())}</div><div><b>${esc(u.shop)}</b><small>${esc(u.name)} • ${esc(u.mobile)}</small></div></div>
+  <div class="card"><h4>मेरे पते</h4>${u.addresses.map((a, i) => `<div class="addr"><div>${esc(a.line)}<br><small style="color:var(--mu)">पिनकोड: ${esc(a.pin)}</small></div><button class="del" onclick="delAddr(${i})">🗑️</button></div>`).join('')}
+  ${S.addAddr ? `<div class="fi" style="margin-top:10px"><label>नया पता</label><textarea id="na" rows="2"></textarea></div><div class="fi"><label>पिनकोड</label><input id="np" type="tel" maxlength="6"></div><div style="display:flex;gap:8px"><button class="btn sm" onclick="saveAddr('ac')">सेव करें</button><button class="btn sm out" onclick="S.addAddr=false;render()">रद्द करें</button></div>` : `<button class="lnk" onclick="S.addAddr=true;render()">+ नया पता जोड़ें</button>`}</div>
+  <div class="card"><h4>सहायता</h4><div class="gap">${CONFIG.CALLS.map(n => `<a href="tel:${n}" style="text-decoration:none"><button class="btn out sm" style="pointer-events:none">📞 ${n}</button></a>`).join('')}<button class="btn wa sm" onclick="wa('नमस्ते ALLINSON, मुझे सहायता चाहिए।')">💬 WhatsApp पर बात करें</button></div></div>
+  <div class="pad"><button class="btn out" style="color:var(--red);border-color:var(--red)" onclick="logout()">लॉगआउट</button></div>${nav('account')}`;
+}
 
-    function removeItem(idx) {
-      cart.splice(idx, 1);
-      document.getElementById('cartCount').innerText = cart.length;
-      openCart();
-    }
+/* ===================== रेंडर ===================== */
+function render() {
+  const v = S.view; let h;
+  if (!S.user && v !== 'splash') { S.view = 'auth'; h = vAuth(); }
+  else if (v === 'splash') h = vSplash();
+  else if (v === 'auth') h = vAuth();
+  else if (v === 'home') h = vHome();
+  else if (v === 'list' || v === 'cats') { S.view = 'list'; h = vList(); }
+  else if (v === 'product') h = vProduct();
+  else if (v === 'cart') h = vCart();
+  else if (v === 'checkout') h = vCheckout();
+  else if (v === 'done') h = vDone();
+  else if (v === 'orders') h = vOrders();
+  else if (v === 'order') h = vOrder();
+  else if (v === 'account') h = vAccount();
+  else h = vHome();
+  $('#app').innerHTML = h;
+  if (S.view === 'list') listItems();
+  if (S.view === 'splash') $('#app').style.paddingBottom = '0'; else $('#app').style.paddingBottom = '';
+  updBadges(); window.scrollTo(0, 0);
+}
 
-    function closeCart() {
-      document.getElementById('cartModal').style.display = 'none';
-    }
-
-    function setPayment(mode) {
-      paymentMode = mode;
-      document.getElementById('optCOD').classList.toggle('selected', mode === 'Cash on Delivery (COD)');
-      document.getElementById('optOnline').classList.toggle('selected', mode === 'Online UPI / Bank Transfer');
-    }
-
-    function submitWhatsAppOrder() {
-      if (cart.length === 0) return alert("ऑर्डर करने के लिए कार्ट में दवा जोड़ें!");
-      const name = document.getElementById('custName').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
-      const address = document.getElementById('custAddress').value.trim();
-
-      if (!name || !phone || !address) {
-        return alert("कृपया नाम, मोबाइल नंबर और पूरा डिलीवरी पता भरें!");
-      }
-
-      let orderMsg = `*नया होलसेल दवा ऑर्डर - ALLINSON*\n`;
-      orderMsg += `--------------------------\n`;
-      orderMsg += `*ग्राहक/दुकान:* ${name}\n`;
-      orderMsg += `*मोबाइल:* ${phone}\n`;
-      orderMsg += `*डिलीवरी पता:* ${address}\n`;
-      orderMsg += `*पेमेंट मोड:* ${paymentMode}\n\n`;
-      orderMsg += `*दवाइयों की सूची:*\n`;
-
-      cart.forEach((item, i) => {
-        orderMsg += `${i + 1}. ${item.name} - ${item.qty} पीस (MRP: ₹${item.mrp}) [${getDiscount(item.category)}]\n`;
-      });
-
-      orderMsg += `\nकृपया फाइनल डिस्काउंट बिल और डिलीवरी समय साझा करें।`;
-
-      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(orderMsg)}`);
-    }
-
-    function submitDemand() {
-      const val = document.getElementById('demandInput').value.trim();
-      if (!val) return alert("कृपया दवा का नाम लिखें!");
-      const msg = `नमस्ते ALLINSON, मुझे यह दवा थोक में चाहिए जो लिस्ट में नहीं है:\n\nदवा का नाम: ${val}\n\nकृपया इसका होलसेल रेट और उपलब्धता बताएं।`;
-      window.open(`https://wa.me/917482948349?text=${encodeURIComponent(msg)}`);
-    }
-
-    function filterItems() { renderCatalog(); }
-
-    function setFilter(cat, btn) {
-      activeCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderCatalog();
-    }
-
-    renderCatalog();
-  </script>
+(function boot() {
+  const m = LS.get('aln_session', null), u = m && users()[m];
+  if (u) { S.user = u; S.cart = LS.get('aln_cart_' + m, []); }
+  render();
+  setTimeout(() => { S.view = S.user ? 'home' : 'auth'; render(); }, 1200);
+})();
+</script>
 </body>
 </html>
